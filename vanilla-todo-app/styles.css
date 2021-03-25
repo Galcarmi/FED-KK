@@ -34,6 +34,7 @@ html,body{
     display:flex;
     align-items:center;
     justify-content: center;
+    position: relative;
 }
 
 .input-container{
@@ -49,4 +50,20 @@ html,body{
 
 .add-todo-btn{
     margin-right:5px;
+}
+
+.todo-item-actions{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    position:absolute;
+    right:0;
+}
+
+.action-done-svg{
+    margin: 0px 3px; 
+}
+
+.action-delete-svg{
+    margin: 0px 3px; 
 }

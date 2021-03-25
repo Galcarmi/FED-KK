@@ -1,9 +1,13 @@
 const elementClasses = {
     todoList:'.todo-list',
+    addTODOBtn: '.add-todo-btn',
+    todoTxtInput:'.todo-text-input',
 }
 
 const elementSelectors = {
-    todoList : ()=>{return document.querySelector(elementClasses.todoList)},
+    todoList : ()=>document.querySelector(elementClasses.todoList),
+    addTodoBtn : ()=> document.querySelector(elementClasses.addTODOBtn),
+    todoTxtInput : ()=> document.querySelector(elementClasses.todoTxtInput),
 }
 
 class TODOManager{
@@ -25,11 +29,15 @@ class TODOManager{
     }
 
     _handleAddTodoClick(){
-        
+        const content = elementSelectors.todoTxtInput().value;
+        if(!content) return;
+
+        this.addTodo(content);
+        elementSelectors.todoTxtInput().value = '';
     }
 
     _initEventListeners(){
-
+        elementSelectors.addTodoBtn().addEventListener('click', ()=>{this._handleAddTodoClick()});
     }
 
     addTodo(content){
@@ -42,6 +50,4 @@ class TODOManager{
 
 const todoManager = new TODOManager();
 
-console.log('test');
-todoManager.addTodo('blablabla');
-todoManager.addTodo('bsdfdsffsda');
+todoManager.addTodo('test');
