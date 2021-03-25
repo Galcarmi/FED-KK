@@ -22,10 +22,17 @@ const eTODOActionBtnMode = {
     ADD:'ADD',
 }
 
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+}
+
 class TODOManager{
     constructor(){
         this.todos = [];
-        this.state = { TODOBtnMode: eTODOActionBtnMode.ADD, id:null};
+        this.state = { TODOBtnMode: eTODOActionBtnMode.ADD, id:0};
         this._initEventListeners();
     }
 
@@ -49,7 +56,9 @@ class TODOManager{
     _handleActionTodoClick(){
         if(this.state.TODOBtnMode === eTODOActionBtnMode.ADD){
             const content = elementSelectors.todoTxtInput().value;
-            if(!content) return;
+            if(!content) {
+                return;
+            }
 
             this.addTodo(content);
             this._resetTODOInputValue();
@@ -59,7 +68,8 @@ class TODOManager{
             if(currentEditContent){
                 const todoItem = elementSelectors.getTODOItemById(this.state.id);
                 todoItem.querySelector(elementClasses.todoItemContent).innerHTML = currentEditContent;
-                this.todos[+this.state.id].content = currentEditContent;
+                const editedIndex = this.todos.findIndex(todo=>todo.id === this.state.id);
+                this.todos[editedIndex].content = currentEditContent;
             }
 
             this._changeTODOBtnMode(eTODOActionBtnMode.ADD);
@@ -75,7 +85,7 @@ class TODOManager{
 
         document.addEventListener('click', () =>{
             if(this.state.TODOBtnMode === eTODOActionBtnMode.EDIT){
-                this._changeTODOBtnMode(eTODOActionBtnMode.ADD)
+                this._changeTODOBtnMode(eTODOActionBtnMode.ADD);
                 this._resetTODOInputValue();
             }
         });
@@ -101,13 +111,14 @@ class TODOManager{
     _addEventListenersForTODOItem({id}){
         const todoItem = elementSelectors.getTODOItemById(id);
         todoItem.querySelector(elementClasses.actionDeleteSVG).addEventListener('click',()=>{
-            this.todos.splice(+id,1);
+            const deletedIndex = this.todos.findIndex(todo=>todo.id === id);
+            this.todos.splice(deletedIndex,1);
             elementSelectors.todoList().removeChild(todoItem);
             this._updateEmptyState();
         });
 
         todoItem.querySelector(elementClasses.actionDoneSVG).addEventListener('click',()=>{
-            todoItem.querySelector(elementClasses.todoItemContent).classList.toggle('crossed-content')
+            todoItem.querySelector(elementClasses.todoItemContent).classList.toggle('crossed-content');
         });
 
         todoItem.querySelector(elementClasses.actionEditSVG).addEventListener('click',(e)=>{
@@ -131,14 +142,15 @@ class TODOManager{
     }
 
     addTodo(content){
-        const id = this.todos.length;
+        const id = uuidv4();
         const todo = {content, id};
         this.todos.push(todo);
         this._renderTodo(todo);
         this._addEventListenersForTODOItem(todo);
         this._updateEmptyState();
     }
-
 }
 
 const todoManager = new TODOManager();
+
+window.todoManager = todoManager.todos;
