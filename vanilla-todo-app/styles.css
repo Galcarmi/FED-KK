@@ -1,6 +1,7 @@
 html,body{
     margin:0;
     padding:0;
+    background-color:rgba(240,244,247,1);
 }
 
 .app-container{
@@ -12,10 +13,14 @@ html,body{
 }
 
 .todo-container{
-    height:40%;
+    height:60%;
     width:40%;
     border:solid 2px black;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
 }
 
 .todo-item{
@@ -29,4 +34,19 @@ html,body{
     display:flex;
     align-items:center;
     justify-content: center;
+}
+
+.input-container{
+    margin-bottom: 5px;
+    margin-left: 5px;
+    display:flex;
+}
+
+.todo-text-input{
+    flex:1;
+    margin-right:5px;
+}
+
+.add-todo-btn{
+    margin-right:5px;
 }
