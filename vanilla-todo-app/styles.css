@@ -2,6 +2,7 @@ html,body{
     margin:0;
     padding:0;
     background-color:rgba(240,244,247,1);
+    font-family: Sans-Serif;;
 }
 
 .app-container{
@@ -21,17 +22,17 @@ html,body{
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-
+    position: relative;
 }
 
 .todo-item{
-    margin:5px auto;
+    margin:8px auto;
     text-align:center;
-    height:30px;
+    min-height:35px;
     margin-right: 3px;
     margin-left: 3px;
     border-radius: 25px;
-    border: solid 3px black;
+    border: solid 2px black;
     display:flex;
     align-items:center;
     justify-content: center;
@@ -40,6 +41,8 @@ html,body{
 
 .todo-item-content{
     font-size:1.2em;
+    width: 55%;
+    overflow-wrap: break-word;
 }
 
 .todo-list{
@@ -47,9 +50,11 @@ html,body{
 }
 
 .input-container{
-    margin-bottom: 5px;
-    margin-left: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
     display:flex;
+    border-top: solid 3px rgba(82,153,229,1);
+    padding-top:5px;
 }
 
 .todo-text-input{
@@ -146,4 +151,17 @@ html,body{
 
 .crossed-content{
     text-decoration: line-through;
+}
+
+.todo-empty-state{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    font-size: 1.4em;
+    opacity:0;
+}
+
+.visible{
+    opacity: 1;
 }
