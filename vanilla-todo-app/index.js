@@ -15,9 +15,15 @@ const elementSelectors = {
     getTODOItemById : (id) => document.querySelector(`[id='${id}']`)
 }
 
+const eTODOActionBtnMode = {
+    EDIT:'EDIT',
+    ADD:'ADD',
+}
+
 class TODOManager{
     constructor(){
         this.todos = [];
+        this.state = { TODOBtnMode: eTODOActionBtnMode.ADD, id:null};
         this._initEventListeners();
     }
 
@@ -39,27 +45,74 @@ class TODOManager{
     }
 
     _handleAddTodoClick(){
-        const content = elementSelectors.todoTxtInput().value;
-        if(!content) return;
+        if(this.state.TODOBtnMode === eTODOActionBtnMode.ADD){
+            const content = elementSelectors.todoTxtInput().value;
+            if(!content) return;
 
-        this.addTodo(content);
-        elementSelectors.todoTxtInput().value = '';
+            this.addTodo(content);
+            this._resetTODOInputValue();
+        }
+        else{
+            const currentEditContent = elementSelectors.todoTxtInput().value;
+            if(currentEditContent){
+                const todoItem = elementSelectors.getTODOItemById(this.state.id);
+                todoItem.querySelector(elementClasses.todoItemContent).innerHTML = currentEditContent;
+            }
+
+            this._changeTODOBtnMode(eTODOActionBtnMode.ADD);
+            this._resetTODOInputValue();
+        }
     }
 
     _initEventListeners(){
-        elementSelectors.addTodoBtn().addEventListener('click', ()=>{this._handleAddTodoClick()});
+        elementSelectors.addTodoBtn().addEventListener('click', (e)=>{
+            this._handleAddTodoClick(); 
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', () =>{
+            if(this.state.TODOBtnMode === eTODOActionBtnMode.EDIT){
+                this._changeTODOBtnMode(eTODOActionBtnMode.ADD)
+                this._resetTODOInputValue();
+            }
+        });
+
+        elementSelectors.todoTxtInput().addEventListener('click',(e)=>{e.stopPropagation()})
+    }
+
+    _resetTODOInputValue(){
+        elementSelectors.todoTxtInput().value = '';
+    }
+
+    _changeTODOBtnMode(mode){
+        if(mode === eTODOActionBtnMode.EDIT){
+            this.state.TODOBtnMode = eTODOActionBtnMode.EDIT;
+            elementSelectors.addTodoBtn().innerHTML = 'Edit';
+        }
+        else if (mode === eTODOActionBtnMode.ADD){
+            this.state.TODOBtnMode = eTODOActionBtnMode.ADD;
+            elementSelectors.addTodoBtn().innerHTML = 'Add';
+        }
     }
 
     _addEventListenersForTODOItem({id}){
         const todoItem = elementSelectors.getTODOItemById(id);
         todoItem.querySelector(elementClasses.actionDeleteSVG).addEventListener('click',()=>{
-            console.log('delete');
+            elementSelectors.todoList().removeChild(todoItem);
         });
+
         todoItem.querySelector(elementClasses.actionDoneSVG).addEventListener('click',()=>{
-            console.log('done', todoItem.querySelector(elementClasses.todoItemContent))
             todoItem.querySelector(elementClasses.todoItemContent).classList.toggle('crossed-content')
-        })
-        todoItem.querySelector(elementClasses.actionEditSVG).addEventListener('click',()=>{console.log('edit')})
+        });
+
+        todoItem.querySelector(elementClasses.actionEditSVG).addEventListener('click',(e)=>{
+            this.state.id = id;
+            this._changeTODOBtnMode(eTODOActionBtnMode.EDIT);
+            const currentContent = todoItem.querySelector(elementClasses.todoItemContent).innerHTML;
+            elementSelectors.todoTxtInput().value = currentContent;
+            elementSelectors.todoTxtInput().focus();
+            e.stopPropagation();
+        });
     }
 
     addTodo(content){
