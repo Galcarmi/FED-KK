@@ -1,0 +1,32 @@
+html,body{
+    margin:0;
+    padding:0;
+}
+
+.app-container{
+    display:flex;
+    height:100vh;
+    width:100vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-container{
+    height:40%;
+    width:40%;
+    border:solid 2px black;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.todo-item{
+    margin:5px auto;
+    text-align:center;
+    height:30px;
+    margin-right: 3px;
+    margin-left: 3px;
+    border-radius: 25px;
+    border: solid 1px black;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
