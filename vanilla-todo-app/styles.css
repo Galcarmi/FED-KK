@@ -58,12 +58,30 @@ html,body{
     align-items: center;
     position:absolute;
     right:0;
+    opacity: 0;
+    transition : all 0.5s ease;
+}
+
+.todo-item:hover .todo-item-actions{
+    opacity: 1;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    position:absolute;
+    right:0;
 }
 
 .action-done-svg{
     margin: 0px 3px; 
+    cursor:pointer;
 }
 
 .action-delete-svg{
     margin: 0px 3px; 
+    cursor:pointer;
+}
+
+.action-edit-svg{
+    margin: 0px 3px; 
+    cursor:pointer;
 }
