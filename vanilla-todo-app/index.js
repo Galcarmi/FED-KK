@@ -53,7 +53,7 @@ class TODOManager{
         todoHTMLList.insertAdjacentHTML('beforeend', this._getTODOTemplate({content, id}))
     }
 
-    _handleActionTodoClick(){
+    _handleActionAddTodo(){
         if(this.state.TODOBtnMode === eTODOActionBtnMode.ADD){
             const content = elementSelectors.todoTxtInput().value;
             if(!content) {
@@ -79,8 +79,15 @@ class TODOManager{
 
     _initEventListeners(){
         elementSelectors.actionTODOBtn().addEventListener('click', (e)=>{
-            this._handleActionTodoClick(); 
+            this._handleActionAddTodo(); 
             e.stopPropagation();
+            elementSelectors.todoTxtInput().focus();
+        });
+
+        elementSelectors.todoTxtInput().addEventListener('keypress', (e)=>{
+            if (e.key === 'Enter') {
+                this._handleActionAddTodo(); 
+              }
         });
 
         document.addEventListener('click', () =>{
