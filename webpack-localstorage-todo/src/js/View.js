@@ -1,76 +1,88 @@
-import { elementSelectors, eShowHide } from './constants';
+import { elementSelectors, eShowHide } from "./constants";
 
-export class View{
-    constructor({handleAddActionTodo, handleTODODoneActionClick, handleTODODeleteActionClick}){
-        this.handleAddActionTodo = handleAddActionTodo;
-        this.handleTODODoneActionClick = handleTODODoneActionClick;
-        this.handleTODODeleteActionClick = handleTODODeleteActionClick;
-        this._initEventListeners();
+export class View {
+  constructor({
+    handleAddActionTodo,
+    handleTODODoneActionClick,
+    handleTODODeleteActionClick,
+    handleTODOEditActionClick,
+    handleTODOEditAction,
+  }) {
+    this.handleAddActionTodo = handleAddActionTodo;
+    this.handleTODODoneActionClick = handleTODODoneActionClick;
+    this.handleTODODeleteActionClick = handleTODODeleteActionClick;
+    this.handleTODOEditActionClick = handleTODOEditActionClick;
+    this.handleTODOEditAction = handleTODOEditAction;
+    this._initEventListeners();
+  }
+
+  addTodo({ content, id }) {
+    const todoHTMLList = elementSelectors.todoList();
+    todoHTMLList.insertAdjacentHTML(
+      "beforeend",
+      this._getTODOTemplate({ content, id })
+    );
+    this._addEventListenersForTodoItem(id);
+  }
+
+  deleteTodoById(id) {
+    const todoList = elementSelectors.todoList();
+    const todoItem = elementSelectors.getTODOItemById(id);
+    todoList.removeChild(todoItem);
+  }
+
+  reRenderTodoContentById({ content, id }) {
+    const contentElement = elementSelectors.getTodoContentElementById(id);
+    contentElement.innerHTML = content;
+  }
+
+  showOrHideEmptyState(showHideConstant) {
+    switch (showHideConstant) {
+      case eShowHide.HIDE: {
+        elementSelectors.todoEmptyState().classList.remove("visible");
+        break;
+      }
+      case eShowHide.SHOW: {
+        elementSelectors.todoEmptyState().classList.add("visible");
+        break;
+      }
     }
+  }
 
-    addTodo({content, id}){
-        const todoHTMLList = elementSelectors.todoList();
-        todoHTMLList.insertAdjacentHTML('beforeend', this._getTODOTemplate({content, id}))
-        this._addEventListenersForTodoItem(id);
-    }
+  toggleDoneTodoById(id) {
+    const contentElement = elementSelectors.getTodoContentElementById(id);
+    contentElement.classList.toggle("crossed-content");
+  }
 
-    deleteTodoById(id){
-        const todoList = elementSelectors.todoList();
-        const todoItem = elementSelectors.getTODOItemById(id);
-        todoList.removeChild(todoItem);
-    }
+  focusOnTextInput() {
+    elementSelectors.todoTxtInput().focus();
+  }
 
-    reRenderTodoContentById({content, id}){
-        const contentElement = elementSelectors.getTodoContentElementById(id);
-        contentElement.innerHTML = content;
-    }
+  getTextInputContent() {
+    return elementSelectors.todoTxtInput().value;
+  }
 
-    showOrHideEmptyState(showHideConstant){
-        switch(showHideConstant){
-            case eShowHide.HIDE:{
-                elementSelectors.todoEmptyState().classList.remove('visible');
-                break;
-            }
-            case eShowHide.SHOW:{
-                elementSelectors.todoEmptyState().classList.add('visible');
-                break;
-            }
-        }
-    }
+  eraseTextInputContent() {
+    elementSelectors.todoTxtInput().value = "";
+  }
 
-    toggleDoneTodoById(id){
-        const contentElement = elementSelectors.getTodoContentElementById(id);
-        contentElement.classList.toggle('crossed-content');
-    }
+  _initEventListeners() {
+    elementSelectors.actionTODOBtn().addEventListener("click", (e) => {
+      this.handleAddActionTodo();
+      e.stopPropagation();
+    });
 
-    focusOnTextInput(){
-        elementSelectors.todoTxtInput().focus();
-    }
+    elementSelectors.todoTxtInput().addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        this.handleAddActionTodo();
+      }
+    });
+  }
 
-    getTextInputContent(){
-        return elementSelectors.todoTxtInput().value;
-    }
-
-    eraseTextInputContent(){
-        elementSelectors.todoTxtInput().value = '';
-    }
-
-    _initEventListeners(){
-        elementSelectors.actionTODOBtn().addEventListener('click', (e)=>{
-            this.handleAddActionTodo();
-            e.stopPropagation();
-        });
-
-        elementSelectors.todoTxtInput().addEventListener('keypress', (e)=>{
-            if (e.key === 'Enter') {
-                this.handleAddActionTodo();
-            }
-        });
-    }
-
-    _getTODOTemplate({content, id}){
-        return `
+  _getTODOTemplate({ content, id }) {
+    return `
         <div class="todo-app__list__item" id="${id}">
+            <input type="text" class="todo-app__list__item__edit-input">
             <div class="todo-app__list__item__content">${content}</div>
             <div class="todo-app__list__item__actions">
               <svg
@@ -107,18 +119,55 @@ export class View{
                 />
               </svg>
             </div>
-          </div>`
-    }
+          </div>`;
+  }
 
-    _addEventListenersForTodoItem(id){
-        const doneSVG = elementSelectors.getDoneSVGElementOfTODOById(id);
-        doneSVG.addEventListener('click',()=>{
-            this.handleTODODoneActionClick(id);
-        })
+  _addEventListenersForTodoItem(id) {
+    const doneSVG = elementSelectors.getDoneSVGElementOfTODOById(id);
+    const deleteSVG = elementSelectors.getDeleteSVGElementOfTODOById(id);
+    const editSVG = elementSelectors.getEditSVGElementOfTODOById(id);
+    const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
 
-        const deleteSVG = elementSelectors.getDeleteSVGElementOfTODOById(id);
-        deleteSVG.addEventListener('click', ()=>{
-            this.handleTODODeleteActionClick(id);
-        })
-    }
+    doneSVG.addEventListener("click", () => {
+      this.handleTODODoneActionClick(id);
+    });
+
+    deleteSVG.addEventListener("click", () => {
+      this.handleTODODeleteActionClick(id);
+    });
+
+    editSVG.addEventListener("click", () => {
+      this.handleTODOEditActionClick(id);
+    });
+
+    inputElement.addEventListener("focusout", () => {
+      const editedContent = inputElement.value;
+      this.handleTODOEditAction({ id, content: editedContent });
+    });
+
+    inputElement.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        const editedContent = inputElement.value;
+        this.handleTODOEditAction({ id, content: editedContent });
+      }
+    });
+  }
+
+  showTODOEditInputById({ id, content }) {
+    const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
+    inputElement.value = content;
+    inputElement.classList.add("display-block");
+    inputElement.focus();
+
+    const contentElement = elementSelectors.getTodoContentElementById(id);
+    contentElement.classList.add("display-none");
+  }
+
+  hideTODOEditInputById(id) {
+    const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
+    inputElement.classList.remove("display-block");
+
+    const contentElement = elementSelectors.getTodoContentElementById(id);
+    contentElement.classList.remove("display-none");
+  }
 }
