@@ -3,8 +3,11 @@ export class Model{
         this.todos = [];
     }
 
-    addTodo(todo){
+    addTodo(content){
+        const generateId = this._generateUUIDV4();
+        const todo = {id:generateId, content};
         this.todos.push(todo);
+        return todo;
     }
 
     deleteTodoById(id){
@@ -15,5 +18,12 @@ export class Model{
     editTodoContentById({id, content}){
         const editedIndex = this.todos.findIndex(todo=>todo.id === id);
         this.todos[editedIndex].content = content;
+    }
+
+    _generateUUIDV4(){
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
     }
 }
