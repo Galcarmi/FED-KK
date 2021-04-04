@@ -79,4 +79,29 @@ export class View{
         contentElement.classList.add('crossed-content');
     }
 
+    initEventListeners({handleAddActionTodo}){
+        elementSelectors.actionTODOBtn().addEventListener('click', (e)=>{
+            handleAddActionTodo();
+            e.stopPropagation();
+        });
+
+        elementSelectors.todoTxtInput().addEventListener('keypress', (e)=>{
+            if (e.key === 'Enter') {
+                handleAddActionTodo();
+            }
+        });
+    }
+
+    focusOnTextInput(){
+        elementSelectors.todoTxtInput().focus();
+    }
+
+    getTextInputContent(){
+        return elementSelectors.todoTxtInput().value;
+    }
+
+    eraseTextInputContent(){
+        elementSelectors.todoTxtInput().value = '';
+    }
+
 }
