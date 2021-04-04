@@ -43,12 +43,15 @@ export const elementSelectors = {
   },
 };
 
-export const eTODOActionBtnMode = {
-  EDIT: "EDIT",
-  ADD: "ADD",
-};
-
 export const eShowHide = {
   SHOW: "SHOW",
   HIDE: "HIDE",
 };
+
+export const eEvents = {
+    handleAddActionTodo:'handleAddActionTodo',
+    handleTODODoneActionClick:'handleTODODoneActionClick',
+    handleTODODeleteActionClick:'handleTODODeleteActionClick',
+    handleTODOEditActionClick:'handleTODOEditActionClick',
+    handleTODOEditAction:'handleTODOEditAction'
+}

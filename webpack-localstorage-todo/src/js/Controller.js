@@ -1,28 +1,13 @@
 import { View } from "./View";
 import { Model } from "./Model";
+import { eventManager } from './EventManager';
 
 export class Controller {
   //todo pass model,view from index.js
   constructor(model, view) {
     this.model = new Model();
-    this.view = new View({
-      handleAddActionTodo: (content) => {
-        this.handleAddActionTodo(content);
-      },
-      handleTODODoneActionClick: (id) => {
-        this.handleTODODoneActionClick(id);
-      },
-      handleTODODeleteActionClick: (id) => {
-        this.handleTODODeleteActionClick(id);
-      },
-      handleTODOEditActionClick: (id) => {
-        this.handleTODOEditActionClick(id);
-      },
-      handleTODOEditAction: ({ id, content }) => {
-        this.handleTODOEditAction({ id, content });
-      },
-    });
-
+    this.view = new View();
+    eventManager.setController(this);
     this.initTodosIfLocalStorageExists();
   }
 

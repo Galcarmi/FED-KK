@@ -1,18 +1,8 @@
-import { elementSelectors, eShowHide } from "./constants";
+import { eEvents, elementSelectors, eShowHide } from "./constants";
+import { eventManager } from './EventManager';
 
 export class View {
-  constructor({
-    handleAddActionTodo,
-    handleTODODoneActionClick,
-    handleTODODeleteActionClick,
-    handleTODOEditActionClick,
-    handleTODOEditAction,
-  }) {
-    this.handleAddActionTodo = handleAddActionTodo;
-    this.handleTODODoneActionClick = handleTODODoneActionClick;
-    this.handleTODODeleteActionClick = handleTODODeleteActionClick;
-    this.handleTODOEditActionClick = handleTODOEditActionClick;
-    this.handleTODOEditAction = handleTODOEditAction;
+  constructor() {
     this._initEventListeners();
   }
 
@@ -81,13 +71,13 @@ export class View {
 
   _initEventListeners() {
     elementSelectors.actionTODOBtn().addEventListener("click", (e) => {
-      this.handleAddActionTodo();
+        eventManager.fireEvent(eEvents.handleAddActionTodo);
       e.stopPropagation();
     });
 
     elementSelectors.todoTxtInput().addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
-        this.handleAddActionTodo();
+        eventManager.fireEvent(eEvents.handleAddActionTodo);
       }
     });
   }
@@ -142,26 +132,32 @@ export class View {
     const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
 
     doneSVG.addEventListener("click", () => {
-      this.handleTODODoneActionClick(id);
+        eventManager.fireEvent(eEvents.handleTODODoneActionClick, id);
     });
 
     deleteSVG.addEventListener("click", () => {
-      this.handleTODODeleteActionClick(id);
+        eventManager.fireEvent(eEvents.handleTODODeleteActionClick, id);
     });
 
     editSVG.addEventListener("click", () => {
-      this.handleTODOEditActionClick(id);
+        eventManager.fireEvent(eEvents.handleTODOEditActionClick, id);
     });
 
     inputElement.addEventListener("focusout", () => {
       const editedContent = inputElement.value;
-      this.handleTODOEditAction({ id, content: editedContent });
+      eventManager.fireEvent(eEvents.handleTODOEditAction, {
+        id,
+        content: editedContent,
+      });
     });
 
     inputElement.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         const editedContent = inputElement.value;
-        this.handleTODOEditAction({ id, content: editedContent });
+        eventManager.fireEvent(eEvents.handleTODOEditAction, {
+          id,
+          content: editedContent,
+        });
       }
     });
   }

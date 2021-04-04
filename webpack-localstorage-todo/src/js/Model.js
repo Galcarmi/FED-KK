@@ -21,7 +21,6 @@ export class Model {
   }
 
   getTodoItemById(id) {
-    console.log(id, this.todos);
     return this.todos.find((todo) => todo.id === id);
   }
 
