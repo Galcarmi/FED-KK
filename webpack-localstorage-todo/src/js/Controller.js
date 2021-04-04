@@ -18,4 +18,8 @@ export class Controller{
         this.view.eraseTextInputContent();
         this.view.focusOnTextInput();
     }
+
+    handleTODODoneDeleteAction(){
+        
+    }
 }
