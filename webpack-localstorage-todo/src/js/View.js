@@ -69,6 +69,24 @@ export class View {
     }
   }
 
+  showTODOEditInputById({ id, content }) {
+    const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
+    inputElement.value = content;
+    inputElement.classList.add("display-block");
+    inputElement.focus();
+
+    const contentElement = elementSelectors.getTodoContentElementById(id);
+    contentElement.classList.add("display-none");
+  }
+
+  hideTODOEditInputById(id) {
+    const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
+    inputElement.classList.remove("display-block");
+
+    const contentElement = elementSelectors.getTodoContentElementById(id);
+    contentElement.classList.remove("display-none");
+  }
+
   _initEventListeners() {
     elementSelectors.actionTODOBtn().addEventListener("click", (e) => {
         eventManager.fireEvent(eEvents.handleAddActionTodo);
@@ -160,23 +178,5 @@ export class View {
         });
       }
     });
-  }
-
-  showTODOEditInputById({ id, content }) {
-    const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
-    inputElement.value = content;
-    inputElement.classList.add("display-block");
-    inputElement.focus();
-
-    const contentElement = elementSelectors.getTodoContentElementById(id);
-    contentElement.classList.add("display-none");
-  }
-
-  hideTODOEditInputById(id) {
-    const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
-    inputElement.classList.remove("display-block");
-
-    const contentElement = elementSelectors.getTodoContentElementById(id);
-    contentElement.classList.remove("display-none");
   }
 }
