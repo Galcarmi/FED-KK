@@ -9,9 +9,12 @@ export class Controller {
       handleAddActionTodo: (content) => {
         this.handleAddActionTodo(content);
       },
-      handleDoneActionClickTODO: (id) =>{
-          this.handleTODODoneAction(id);
-      }
+      handleTODODoneActionClick: (id) =>{
+          this.handleTODODoneActionClick(id);
+      },
+      handleTODODeleteActionClick: (id) =>{
+        this.handleTODODeleteActionClick(id);
+    }
     });
   }
 
@@ -25,5 +28,10 @@ export class Controller {
 
   handleTODODoneAction(id) {
       this.view.toggleDoneTodoById(id);
+  }
+
+  handleTODODeleteActionClick(id){
+      this.model.deleteTodoById(id);
+      this.view.deleteTodoById(id);
   }
 }

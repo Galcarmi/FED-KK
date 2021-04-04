@@ -1,9 +1,10 @@
 import { elementSelectors, eShowHide } from './constants';
 
 export class View{
-    constructor({handleAddActionTodo, handleDoneActionClickTODO}){
+    constructor({handleAddActionTodo, handleTODODoneActionClick, handleTODODeleteActionClick}){
         this.handleAddActionTodo = handleAddActionTodo;
-        this.handleDoneActionClickTODO = handleDoneActionClickTODO;
+        this.handleTODODoneActionClick = handleTODODoneActionClick;
+        this.handleTODODeleteActionClick = handleTODODeleteActionClick;
         this._initEventListeners();
     }
 
@@ -112,7 +113,12 @@ export class View{
     _addEventListenersForTodoItem(id){
         const doneSVG = elementSelectors.getDoneSVGElementOfTODOById(id);
         doneSVG.addEventListener('click',()=>{
-            this.handleDoneActionClickTODO(id);
+            this.handleTODODoneActionClick(id);
+        })
+
+        const deleteSVG = elementSelectors.getDeleteSVGElementOfTODOById(id);
+        deleteSVG.addEventListener('click', ()=>{
+            this.handleTODODeleteActionClick(id);
         })
     }
 }
