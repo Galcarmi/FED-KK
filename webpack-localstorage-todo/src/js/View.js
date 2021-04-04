@@ -26,7 +26,7 @@ export class View {
     contentElement.innerHTML = content;
   }
 
-  showOrHideEmptyState(showHideConstant) {
+  updateEmptyState(showHideConstant) {
     switch (showHideConstant) {
       case eShowHide.HIDE: {
         elementSelectors.todoEmptyState().classList.remove("visible");
