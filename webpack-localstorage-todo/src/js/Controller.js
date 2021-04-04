@@ -1,6 +1,5 @@
-import { View } from "./View";
-import { Model } from "./Model";
 import { eventManager } from './EventManager';
+import { eShowHide } from './constants';
 
 export class Controller {
   constructor(model, view) {
@@ -8,6 +7,7 @@ export class Controller {
     this.view = view;
     eventManager.setController(this);
     this.initTodosIfLocalStorageExists();
+    this.updateEmptyState();
   }
 
   handleAddActionTodo() {
@@ -21,6 +21,7 @@ export class Controller {
     this.view.eraseTextInputContent();
     this.view.focusOnTextInput();
     this.refreshLocalStorage();
+    this.updateEmptyState();
   }
 
   handleTODODoneActionClick(id) {
@@ -33,6 +34,7 @@ export class Controller {
     this.model.deleteTodoById(id);
     this.view.deleteTodoById(id);
     this.refreshLocalStorage();
+    this.updateEmptyState();
   }
 
   handleTODOEditActionClick(id) {
@@ -62,5 +64,15 @@ export class Controller {
 
       this.model.setTodos(todos);
     }
+  }
+
+  updateEmptyState(){
+      const todos = this.model.getTodos();
+      if(!todos.length){
+        this.view.updateEmptyState(eShowHide.SHOW);
+      }
+      else{
+        this.view.updateEmptyState(eShowHide.HIDE);
+      }
   }
 }

@@ -26,7 +26,7 @@ export class View {
     contentElement.innerHTML = content;
   }
 
-  showOrHideEmptyState(showHideConstant) {
+  updateEmptyState(showHideConstant) {
     switch (showHideConstant) {
       case eShowHide.HIDE: {
         elementSelectors.todoEmptyState().classList.remove("visible");
@@ -67,6 +67,24 @@ export class View {
         break;
       }
     }
+  }
+
+  showTODOEditInputById({ id, content }) {
+    const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
+    inputElement.value = content;
+    inputElement.classList.add("display-block");
+    inputElement.focus();
+
+    const contentElement = elementSelectors.getTodoContentElementById(id);
+    contentElement.classList.add("display-none");
+  }
+
+  hideTODOEditInputById(id) {
+    const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
+    inputElement.classList.remove("display-block");
+
+    const contentElement = elementSelectors.getTodoContentElementById(id);
+    contentElement.classList.remove("display-none");
   }
 
   _initEventListeners() {
@@ -160,23 +178,5 @@ export class View {
         });
       }
     });
-  }
-
-  showTODOEditInputById({ id, content }) {
-    const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
-    inputElement.value = content;
-    inputElement.classList.add("display-block");
-    inputElement.focus();
-
-    const contentElement = elementSelectors.getTodoContentElementById(id);
-    contentElement.classList.add("display-none");
-  }
-
-  hideTODOEditInputById(id) {
-    const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
-    inputElement.classList.remove("display-block");
-
-    const contentElement = elementSelectors.getTodoContentElementById(id);
-    contentElement.classList.remove("display-none");
   }
 }
