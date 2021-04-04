@@ -4,7 +4,7 @@ import { Model } from "./Model";
 import { Controller } from "./Controller";
 import {eShowHide} from './constants';
 
-const app = new Controller(new Model(), new View())
+const app = new Controller()
 app.view.addTodo({content:'asdasd', id:"2"})
 app.view.addTodo({content:'czv', id:"3"})
 app.view.addTodo({content:'asdasd', id:"4"})

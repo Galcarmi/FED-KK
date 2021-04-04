@@ -18,6 +18,18 @@ export const elementSelectors = {
     getTodoContentElementById : (id) =>{
         const todoItem = elementSelectors.getTODOItemById(id);
         return todoItem.querySelector(elementClasses.todoItemContent);
+    },
+    getDoneSVGElementOfTODOById : (id) =>{
+        const todoItem = elementSelectors.getTODOItemById(id);
+        return todoItem.querySelector(elementClasses.actionDoneSVG);
+    },
+    getDeleteSVGElementOfTODOById : (id) =>{
+        const todoItem = elementSelectors.getTODOItemById(id);
+        return todoItem.querySelector(elementClasses.actionDeleteSVG);
+    },
+    getEditSVGElementOfTODOById : (id) =>{
+        const todoItem = elementSelectors.getTODOItemById(id);
+        return todoItem.querySelector(elementClasses.actionEditSVG);
     }
 }
 

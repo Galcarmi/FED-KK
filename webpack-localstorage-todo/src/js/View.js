@@ -1,7 +1,71 @@
 import { elementSelectors, eShowHide } from './constants';
 
 export class View{
-    constructor(){}
+    constructor({handleAddActionTodo, handleDoneActionClickTODO}){
+        this.handleAddActionTodo = handleAddActionTodo;
+        this.handleDoneActionClickTODO = handleDoneActionClickTODO;
+        this._initEventListeners();
+    }
+
+    addTodo({content, id}){
+        const todoHTMLList = elementSelectors.todoList();
+        todoHTMLList.insertAdjacentHTML('beforeend', this._getTODOTemplate({content, id}))
+        this._addEventListenersForTodoItem(id);
+    }
+
+    deleteTodoById(id){
+        const todoList = elementSelectors.todoList();
+        const todoItem = elementSelectors.getTODOItemById(id);
+        todoList.removeChild(todoItem);
+    }
+
+    reRenderTodoContentById({content, id}){
+        const contentElement = elementSelectors.getTodoContentElementById(id);
+        contentElement.innerHTML = content;
+    }
+
+    showOrHideEmptyState(showHideConstant){
+        switch(showHideConstant){
+            case eShowHide.HIDE:{
+                elementSelectors.todoEmptyState().classList.remove('visible');
+                break;
+            }
+            case eShowHide.SHOW:{
+                elementSelectors.todoEmptyState().classList.add('visible');
+                break;
+            }
+        }
+    }
+
+    toggleDoneTodoById(id){
+        const contentElement = elementSelectors.getTodoContentElementById(id);
+        contentElement.classList.toggle('crossed-content');
+    }
+
+    focusOnTextInput(){
+        elementSelectors.todoTxtInput().focus();
+    }
+
+    getTextInputContent(){
+        return elementSelectors.todoTxtInput().value;
+    }
+
+    eraseTextInputContent(){
+        elementSelectors.todoTxtInput().value = '';
+    }
+
+    _initEventListeners(){
+        elementSelectors.actionTODOBtn().addEventListener('click', (e)=>{
+            this.handleAddActionTodo();
+            e.stopPropagation();
+        });
+
+        elementSelectors.todoTxtInput().addEventListener('keypress', (e)=>{
+            if (e.key === 'Enter') {
+                this.handleAddActionTodo();
+            }
+        });
+    }
 
     _getTODOTemplate({content, id}){
         return `
@@ -45,63 +109,10 @@ export class View{
           </div>`
     }
 
-    addTodo({content, id}){
-        const todoHTMLList = elementSelectors.todoList();
-        todoHTMLList.insertAdjacentHTML('beforeend', this._getTODOTemplate({content, id}))
+    _addEventListenersForTodoItem(id){
+        const doneSVG = elementSelectors.getDoneSVGElementOfTODOById(id);
+        doneSVG.addEventListener('click',()=>{
+            this.handleDoneActionClickTODO(id);
+        })
     }
-
-    deleteTodoById(id){
-        const todoList = elementSelectors.todoList();
-        const todoItem = elementSelectors.getTODOItemById(id);
-        todoList.removeChild(todoItem);
-    }
-
-    reRenderTodoContentById({content, id}){
-        const contentElement = elementSelectors.getTodoContentElementById(id);
-        contentElement.innerHTML = content;
-    }
-
-    showOrHideEmptyState(showHideConstant){
-        switch(showHideConstant){
-            case eShowHide.HIDE:{
-                elementSelectors.todoEmptyState().classList.remove('visible');
-                break;
-            }
-            case eShowHide.SHOW:{
-                elementSelectors.todoEmptyState().classList.add('visible');
-                break;
-            }
-        }
-    }
-
-    toggleDoneTodoById(id){
-        const contentElement = elementSelectors.getTodoContentElementById(id);
-        contentElement.classList.add('crossed-content');
-    }
-
-    initEventListeners({handleAddActionTodo}){
-        elementSelectors.actionTODOBtn().addEventListener('click', (e)=>{
-            handleAddActionTodo();
-            e.stopPropagation();
-        });
-
-        elementSelectors.todoTxtInput().addEventListener('keypress', (e)=>{
-            if (e.key === 'Enter') {
-                handleAddActionTodo();
-            }
-        });
-    }
-
-    focusOnTextInput(){
-        elementSelectors.todoTxtInput().focus();
-    }
-
-    getTextInputContent(){
-        return elementSelectors.todoTxtInput().value;
-    }
-
-    eraseTextInputContent(){
-        elementSelectors.todoTxtInput().value = '';
-    }
-
 }
