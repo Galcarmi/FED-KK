@@ -3,10 +3,9 @@ import { Model } from "./Model";
 import { eventManager } from './EventManager';
 
 export class Controller {
-  //todo pass model,view from index.js
   constructor(model, view) {
-    this.model = new Model();
-    this.view = new View();
+    this.model = model;
+    this.view = view;
     eventManager.setController(this);
     this.initTodosIfLocalStorageExists();
   }

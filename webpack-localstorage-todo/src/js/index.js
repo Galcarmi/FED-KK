@@ -1,4 +1,6 @@
 import "../styles/styles.css";
+import { View } from "./View";
+import { Model } from "./Model";
 import { Controller } from "./Controller";
 
-const app = new Controller();
+new Controller(new Model(), new View());
