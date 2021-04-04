@@ -1,9 +1,7 @@
-import {elementSelectors} from './constants';
+import { elementSelectors, eShowHide } from './constants';
 
 export class View{
-    constructor(){
-
-    }
+    constructor(){}
 
     _getTODOTemplate({content, id}){
         return `
@@ -51,4 +49,34 @@ export class View{
         const todoHTMLList = elementSelectors.todoList();
         todoHTMLList.insertAdjacentHTML('beforeend', this._getTODOTemplate({content, id}))
     }
+
+    deleteTodoById(id){
+        const todoList = elementSelectors.todoList();
+        const todoItem = elementSelectors.getTODOItemById(id);
+        todoList.removeChild(todoItem);
+    }
+
+    reRenderTodoContentById({content, id}){
+        const contentElement = elementSelectors.getTodoContentElementById(id);
+        contentElement.innerHTML = content;
+    }
+
+    showOrHideEmptyState(showHideConstant){
+        switch(showHideConstant){
+            case eShowHide.HIDE:{
+                elementSelectors.todoEmptyState().classList.remove('visible');
+                break;
+            }
+            case eShowHide.SHOW:{
+                elementSelectors.todoEmptyState().classList.add('visible');
+                break;
+            }
+        }
+    }
+
+    toggleDoneTodoById(id){
+        const contentElement = elementSelectors.getTodoContentElementById(id);
+        contentElement.classList.add('crossed-content');
+    }
+
 }

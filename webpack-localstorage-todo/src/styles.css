@@ -148,3 +148,20 @@ body {
   cursor: pointer;
   fill: rgb(177, 177, 41);
 }
+
+.todo-app__list__empty-state{
+  position: absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%);
+  font-size: 1.4em;
+  opacity:0;
+}
+
+.crossed-content{
+  text-decoration: line-through;
+}
+
+.visible{
+  opacity: 1;
+}

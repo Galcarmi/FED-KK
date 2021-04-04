@@ -6,7 +6,7 @@ export const elementClasses = {
     actionDeleteSVG: '.todo-app__list__item__actions__delete',
     actionEditSVG: '.todo-app__list__item__actions__edit',
     todoItemContent:'.todo-app__list__item__content',
-    todoEmptyState: '.todo-empty-state',
+    todoEmptyState: '.todo-app__list__empty-state',
 }
 
 export const elementSelectors = {
@@ -15,9 +15,18 @@ export const elementSelectors = {
     todoTxtInput : ()=> document.querySelector(elementClasses.todoTxtInput),
     getTODOItemById : (id) => document.querySelector(`[id='${id}']`),
     todoEmptyState : () => document.querySelector(elementClasses.todoEmptyState),
+    getTodoContentElementById : (id) =>{
+        const todoItem = elementSelectors.getTODOItemById(id);
+        return todoItem.querySelector(elementClasses.todoItemContent);
+    }
 }
 
 export const eTODOActionBtnMode = {
     EDIT:'EDIT',
     ADD:'ADD',
+}
+
+export const eShowHide = {
+    SHOW:'SHOW',
+    HIDE:'HIDE',
 }
