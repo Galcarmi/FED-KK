@@ -20,9 +20,17 @@ export class Model {
     this.todos[editedIndex].content = content;
   }
 
-  getTodoItemById(id){
-      console.log(id, this.todos)
-      return this.todos.find(todo => todo.id === id);
+  getTodoItemById(id) {
+    console.log(id, this.todos);
+    return this.todos.find((todo) => todo.id === id);
+  }
+
+  getTodos() {
+    return this.todos;
+  }
+
+  setTodos(todos) {
+    this.todos = [...todos];
   }
 
   _generateUUIDV4() {

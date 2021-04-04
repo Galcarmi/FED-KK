@@ -7,8 +7,8 @@ export const elementClasses = {
   actionEditSVG: ".todo-app__list__item__actions__edit",
   todoItemContent: ".todo-app__list__item__content",
   todoEmptyState: ".todo-app__list__empty-state",
-  todoEditInput:".todo-app__list__item__edit-input",
-  todoActionsContainer:".todo-app__list__item__actions",
+  todoEditInput: ".todo-app__list__item__edit-input",
+  todoActionsContainer: ".todo-app__list__item__actions",
 };
 
 export const elementSelectors = {

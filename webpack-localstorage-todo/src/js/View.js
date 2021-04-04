@@ -66,6 +66,19 @@ export class View {
     elementSelectors.todoTxtInput().value = "";
   }
 
+  updateEmptyStateVisibility(visible) {
+    switch (visible) {
+      case eShowHide.HIDE: {
+        elementSelectors.todoEmptyState().classList.remove("visible");
+        break;
+      }
+      case eShowHide.SHOW: {
+        elementSelectors.todoEmptyState().classList.add("visible");
+        break;
+      }
+    }
+  }
+
   _initEventListeners() {
     elementSelectors.actionTODOBtn().addEventListener("click", (e) => {
       this.handleAddActionTodo();
