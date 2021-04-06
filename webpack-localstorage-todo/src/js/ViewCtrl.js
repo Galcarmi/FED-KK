@@ -1,9 +1,10 @@
 import { elementSelectors, eShowHide } from "./constants";
-
+import { persistManager } from './PersistManager';
 export class ViewCtrl {
   constructor(model) {
     this.model = model;
     this._initEventListeners();
+    this.updateEmptyState();
   }
 
   addTodo({ content, id }) {
@@ -88,43 +89,50 @@ export class ViewCtrl {
   }
 
   handleAddActionTodo() {
-    const textInputContent = this.view.getTextInputContent();
+    const textInputContent = this.getTextInputContent();
     if (!textInputContent) {
       return;
     }
 
     const todo = this.model.addTodo(textInputContent);
-    this.view.addTodo(todo);
-    this.view.eraseTextInputContent();
-    this.view.focusOnTextInput();
-    this.refreshLocalStorage();
+    this.addTodo(todo);
+    this.eraseTextInputContent();
+    this.focusOnTextInput();
     this.updateEmptyState();
   }
 
   handleTODODoneActionClick(id) {
-    this.view.hideTODOEditInputById(id);
-    this.view.toggleDoneTodoById(id);
+    this.hideTODOEditInputById(id);
+    this.toggleDoneTodoById(id);
   }
 
   handleTODODeleteActionClick(id) {
-    this.view.hideTODOEditInputById(id);
+    this.hideTODOEditInputById(id);
     this.model.deleteTodoById(id);
-    this.view.deleteTodoById(id);
-    this.refreshLocalStorage();
+    this.deleteTodoById(id);
     this.updateEmptyState();
   }
 
   handleTODOEditActionClick(id) {
     const todo = this.model.getTodoItemById(id);
-    this.view.showTODOEditInputById(todo);
+    this.showTODOEditInputById(todo);
   }
 
   handleTODOEditAction({ id, content }) {
     this.model.editTodoContentById({ id, content });
-    this.view.hideTODOEditInputById(id);
-    this.view.reRenderTodoContentById({ id, content });
-    this.refreshLocalStorage();
+    this.hideTODOEditInputById(id);
+    this.reRenderTodoContentById({ id, content });
   }
+
+  updateEmptyState(){
+    const todos = this.model.getTodos();
+    if(!todos.length){
+      this.updateEmptyState(eShowHide.SHOW);
+    }
+    else{
+      this.updateEmptyState(eShowHide.HIDE);
+    }
+}
   
   _initEventListeners() {
     elementSelectors.actionTODOBtn().addEventListener("click", (e) => {

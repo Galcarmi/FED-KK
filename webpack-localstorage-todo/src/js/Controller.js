@@ -5,15 +5,9 @@ export class Controller {
     this.model = model;
     this.view = view;
     this.initTodosIfLocalStorageExists();
-    this.updateEmptyState();
+    
   }
 
-  
-
-  refreshLocalStorage() {
-    const todos = this.model.getTodos();
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }
 
   initTodosIfLocalStorageExists() {
     const todosJSON = localStorage.getItem("todos");
@@ -27,13 +21,5 @@ export class Controller {
     }
   }
 
-  updateEmptyState(){
-      const todos = this.model.getTodos();
-      if(!todos.length){
-        this.view.updateEmptyState(eShowHide.SHOW);
-      }
-      else{
-        this.view.updateEmptyState(eShowHide.HIDE);
-      }
-  }
+  
 }

@@ -1,7 +1,7 @@
-class PersistManager{
+export class PersistManager{
     constructor(){};
 
-    getSavedTodos(){
+    getPersistedTodos(){
         const todosJSON = localStorage.getItem("todos");
 
         return todosJSON ? JSON.parse(todosJSON) : [];
@@ -11,5 +11,3 @@ class PersistManager{
         localStorage.setItem("todos", JSON.stringify(todos));
     }
 }
-
-export const persistManager = new PersistManager();
