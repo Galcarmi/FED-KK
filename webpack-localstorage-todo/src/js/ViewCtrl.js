@@ -1,9 +1,10 @@
 import { elementSelectors, eShowHide } from "./constants";
-import { persistManager } from './PersistManager';
+import { persistManager } from "./PersistManager";
 export class ViewCtrl {
   constructor(model) {
     this.model = model;
     this._initEventListeners();
+    this.initPersistedTodos();
     this.updateEmptyState();
   }
 
@@ -88,7 +89,7 @@ export class ViewCtrl {
     contentElement.classList.remove("display-none");
   }
 
-  handleAddActionTodo() {
+  _handleAddActionTodo() {
     const textInputContent = this.getTextInputContent();
     if (!textInputContent) {
       return;
@@ -101,48 +102,51 @@ export class ViewCtrl {
     this.updateEmptyState();
   }
 
-  handleTODODoneActionClick(id) {
+  _handleTODODoneActionClick(id) {
     this.hideTODOEditInputById(id);
     this.toggleDoneTodoById(id);
   }
 
-  handleTODODeleteActionClick(id) {
+  _handleTODODeleteActionClick(id) {
     this.hideTODOEditInputById(id);
     this.model.deleteTodoById(id);
     this.deleteTodoById(id);
     this.updateEmptyState();
   }
 
-  handleTODOEditActionClick(id) {
+  _handleTODOEditActionClick(id) {
     const todo = this.model.getTodoItemById(id);
     this.showTODOEditInputById(todo);
   }
 
-  handleTODOEditAction({ id, content }) {
+  _handleTODOEditAction({ id, content }) {
     this.model.editTodoContentById({ id, content });
     this.hideTODOEditInputById(id);
     this.reRenderTodoContentById({ id, content });
   }
 
-  updateEmptyState(){
+  _updateEmptyState() {
     const todos = this.model.getTodos();
-    if(!todos.length){
+    if (!todos.length) {
       this.updateEmptyState(eShowHide.SHOW);
-    }
-    else{
+    } else {
       this.updateEmptyState(eShowHide.HIDE);
     }
-}
-  
+  }
+
+  _initPersistedTodos() {
+    this.model.getTodos().forEach(this.addTodo);
+  }
+
   _initEventListeners() {
     elementSelectors.actionTODOBtn().addEventListener("click", (e) => {
-       this.handleAddActionTodo();
+      this._handleAddActionTodo();
       e.stopPropagation();
     });
 
     elementSelectors.todoTxtInput().addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
-       this.handleAddActionTodo();
+        this._handleAddActionTodo();
       }
     });
   }
@@ -197,20 +201,20 @@ export class ViewCtrl {
     const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
 
     doneSVG.addEventListener("click", () => {
-        this.handleTODODoneActionClick(id);
+      this._handleTODODoneActionClick(id);
     });
 
     deleteSVG.addEventListener("click", () => {
-        this.handleTODODeleteActionClick(id);
+      this._handleTODODeleteActionClick(id);
     });
 
     editSVG.addEventListener("click", () => {
-        this.handleTODOEditActionClick(id);
+      this._handleTODOEditActionClick(id);
     });
 
     inputElement.addEventListener("focusout", () => {
       const editedContent = inputElement.value;
-      this.handleTODOEditAction({
+      this._handleTODOEditAction({
         id,
         content: editedContent,
       });
@@ -219,7 +223,7 @@ export class ViewCtrl {
     inputElement.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         const editedContent = inputElement.value;
-        this.handleTODOEditAction({
+        this._handleTODOEditAction({
           id,
           content: editedContent,
         });
