@@ -39,5 +39,4 @@ export class Model {
   setTodos(todos) {
     this.todos = [...todos];
   }
-
 }

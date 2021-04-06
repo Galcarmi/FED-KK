@@ -89,7 +89,7 @@ export class ViewCtrl {
     contentElement.classList.remove("display-none");
   }
 
-  _handleAddActionTodo() {
+  _onAddTodo() {
     const textInputContent = this._getTextInputContent();
     if (!textInputContent) {
       return;
@@ -102,24 +102,24 @@ export class ViewCtrl {
     this._updateEmptyState();
   }
 
-  _handleTodoDoneActionClick(id) {
+  _onDoneTodo(id) {
     this._hideTodoEditInputById(id);
     this._toggleDoneTodoById(id);
   }
 
-  _handleTodoDeleteActionClick(id) {
+  _onDeleteDoto(id) {
     this._hideTodoEditInputById(id);
     this.model.deleteTodoById(id);
     this._deleteTodoById(id);
     this._updateEmptyState();
   }
 
-  _handleTodoEditActionClick(id) {
+  _onEditTodoBtnClick(id) {
     const todo = this.model.getTodoItemById(id);
     this._showTodoEditInputById(todo);
   }
 
-  _handleTodoEditAction({ id, content }) {
+  _onEditTodo({ id, content }) {
     this.model.editTodoContentById({ id, content });
     this._hideTodoEditInputById(id);
     this._updateTodoContent({ id, content });
@@ -140,13 +140,13 @@ export class ViewCtrl {
 
   _initEventListeners() {
     elementSelectors.actionTodoBtn().addEventListener("click", (e) => {
-      this._handleAddActionTodo();
+      this._onAddTodo();
       e.stopPropagation();
     });
 
     elementSelectors.todoTxtInput().addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
-        this._handleAddActionTodo();
+        this._onAddTodo();
       }
     });
   }
@@ -201,20 +201,20 @@ export class ViewCtrl {
     const inputElement = elementSelectors.getEditInputElementOfTodoById(id);
 
     doneSVG.addEventListener("click", () => {
-      this._handleTodoDoneActionClick(id);
+      this._onDoneTodo(id);
     });
 
     deleteSVG.addEventListener("click", () => {
-      this._handleTodoDeleteActionClick(id);
+      this._onDeleteDoto(id);
     });
 
     editSVG.addEventListener("click", () => {
-      this._handleTodoEditActionClick(id);
+      this._onEditTodoBtnClick(id);
     });
 
     inputElement.addEventListener("focusout", () => {
       const editedContent = inputElement.value;
-      this._handleTodoEditAction({
+      this._onEditTodo({
         id,
         content: editedContent,
       });
@@ -223,7 +223,7 @@ export class ViewCtrl {
     inputElement.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         const editedContent = inputElement.value;
-        this._handleTodoEditAction({
+        this._onEditTodo({
           id,
           content: editedContent,
         });
