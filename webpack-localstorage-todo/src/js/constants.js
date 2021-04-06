@@ -47,11 +47,3 @@ export const eShowHide = {
   SHOW: "SHOW",
   HIDE: "HIDE",
 };
-
-export const eEvents = {
-    handleAddActionTodo:'handleAddActionTodo',
-    handleTODODoneActionClick:'handleTODODoneActionClick',
-    handleTODODeleteActionClick:'handleTODODeleteActionClick',
-    handleTODOEditActionClick:'handleTODOEditActionClick',
-    handleTODOEditAction:'handleTODOEditAction'
-}

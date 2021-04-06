@@ -1,4 +1,3 @@
-import { eventManager } from './EventManager';
 import { eShowHide } from './constants';
 
 export class Controller {
