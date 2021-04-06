@@ -1,8 +1,8 @@
 import { eEvents, elementSelectors, eShowHide } from "./constants";
-import { eventManager } from './EventManager';
 
-export class View {
-  constructor() {
+export class ViewCtrl {
+  constructor(model) {
+    this.model = model;
     this._initEventListeners();
   }
 
