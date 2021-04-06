@@ -7,12 +7,11 @@ export class ViewCtrl {
     this._updateEmptyState();
   }
 
-  _addTodo({ content, id }) {
-    console.log(content, id)
+  _addTodo({ content, id, isDone }) {
     const todoHTMLList = elementSelectors.todoList();
     todoHTMLList.insertAdjacentHTML(
       "beforeend",
-      this._getTodoTemplate({ content, id })
+      this._getTodoTemplate({ content, id, isDone })
     );
     this._addEventListenersForTodoItem(id);
   }
@@ -41,9 +40,11 @@ export class ViewCtrl {
     }
   }
 
-  _toggleDoneTodoById(id) {
+  _toggleDoneTodoById(id, isDone) {
     const contentElement = elementSelectors.getTodoContentElementById(id);
-    contentElement.classList.toggle("crossed-content");
+    isDone
+      ? contentElement.classList.add("crossed-content")
+      : contentElement.classList.remove("crossed-content");
   }
 
   _focusOnTextInput() {
@@ -104,7 +105,8 @@ export class ViewCtrl {
 
   _onDoneTodo(id) {
     this._hideTodoEditInputById(id);
-    this._toggleDoneTodoById(id);
+    const isDone = this.model.updateTodoDoneState(id);
+    this._toggleDoneTodoById(id, isDone);
   }
 
   _onDeleteDoto(id) {
@@ -151,11 +153,11 @@ export class ViewCtrl {
     });
   }
 
-  _getTodoTemplate({ content, id }) {
+  _getTodoTemplate({ content, id, isDone }) {
     return `
         <div class="todo-app__list__item" id="${id}">
             <input type="text" class="todo-app__list__item__edit-input">
-            <div class="todo-app__list__item__content">${content}</div>
+            <div class="todo-app__list__item__content ${isDone && 'crossed-content'}">${content}</div>
             <div class="todo-app__list__item__actions">
               <svg
                 class="todo-app__list__item__actions__done"

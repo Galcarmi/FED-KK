@@ -10,9 +10,10 @@ export class Model {
 
   addTodo(content) {
     const generateId = uuidv4();
-    const todo = { id: generateId, content };
+    const todo = { id: generateId, content, isDone: false };
     this.todos.push(todo);
     this.persistManager.persistTodos(this.todos);
+
     return todo;
   }
 
@@ -28,9 +29,15 @@ export class Model {
     this.persistManager.persistTodos(this.todos);
   }
 
-  getTodoItemById(id) {
-    return this.todos.find((todo) => todo.id === id);
+  updateTodoDoneState(id){
+    const editedIndex = this.todos.findIndex((todo) => todo.id === id);
+    const isDone = !this.todos[editedIndex].isDone;
+    this.todos[editedIndex].isDone = isDone;
+    this.persistManager.persistTodos(this.todos);
+
+    return isDone;
   }
+
 
   getTodos() {
     return this.todos;
