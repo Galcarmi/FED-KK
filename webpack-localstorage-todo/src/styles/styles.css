@@ -41,8 +41,8 @@ body {
   display: flex;
   border-top: solid 3px rgb(177, 184, 189);
   padding-top: 5px;
-  position: absolute;
-  width:100%;
+  position: fixed;
+  width:80%;
   bottom:0;
   z-index: 1000;
   background-color:white;
@@ -92,6 +92,10 @@ body {
   font-size: 1.2em;
   border: solid 3px rgb(22, 125, 255);
   cursor: pointer;
+}
+
+.todo-app__list{
+  padding-bottom: 37px;
 }
 
 .todo-app__list__item {
