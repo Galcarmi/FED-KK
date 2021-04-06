@@ -1,5 +1,5 @@
 import "../styles/styles.css";
-import { View } from "./View";
+import { View } from "./ViewCtrl";
 import { Model } from "./Model";
 import { Controller } from "./Controller";
 

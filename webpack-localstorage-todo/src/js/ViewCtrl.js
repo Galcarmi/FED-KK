@@ -1,4 +1,4 @@
-import { eEvents, elementSelectors, eShowHide } from "./constants";
+import { elementSelectors, eShowHide } from "./constants";
 
 export class ViewCtrl {
   constructor(model) {
@@ -87,15 +87,54 @@ export class ViewCtrl {
     contentElement.classList.remove("display-none");
   }
 
+  handleAddActionTodo() {
+    const textInputContent = this.view.getTextInputContent();
+    if (!textInputContent) {
+      return;
+    }
+
+    const todo = this.model.addTodo(textInputContent);
+    this.view.addTodo(todo);
+    this.view.eraseTextInputContent();
+    this.view.focusOnTextInput();
+    this.refreshLocalStorage();
+    this.updateEmptyState();
+  }
+
+  handleTODODoneActionClick(id) {
+    this.view.hideTODOEditInputById(id);
+    this.view.toggleDoneTodoById(id);
+  }
+
+  handleTODODeleteActionClick(id) {
+    this.view.hideTODOEditInputById(id);
+    this.model.deleteTodoById(id);
+    this.view.deleteTodoById(id);
+    this.refreshLocalStorage();
+    this.updateEmptyState();
+  }
+
+  handleTODOEditActionClick(id) {
+    const todo = this.model.getTodoItemById(id);
+    this.view.showTODOEditInputById(todo);
+  }
+
+  handleTODOEditAction({ id, content }) {
+    this.model.editTodoContentById({ id, content });
+    this.view.hideTODOEditInputById(id);
+    this.view.reRenderTodoContentById({ id, content });
+    this.refreshLocalStorage();
+  }
+  
   _initEventListeners() {
     elementSelectors.actionTODOBtn().addEventListener("click", (e) => {
-        eventManager.fireEvent(eEvents.handleAddActionTodo);
+       this.handleAddActionTodo();
       e.stopPropagation();
     });
 
     elementSelectors.todoTxtInput().addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
-        eventManager.fireEvent(eEvents.handleAddActionTodo);
+       this.handleAddActionTodo();
       }
     });
   }
@@ -150,20 +189,20 @@ export class ViewCtrl {
     const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
 
     doneSVG.addEventListener("click", () => {
-        eventManager.fireEvent(eEvents.handleTODODoneActionClick, id);
+        this.handleTODODoneActionClick(id);
     });
 
     deleteSVG.addEventListener("click", () => {
-        eventManager.fireEvent(eEvents.handleTODODeleteActionClick, id);
+        this.handleTODODeleteActionClick(id);
     });
 
     editSVG.addEventListener("click", () => {
-        eventManager.fireEvent(eEvents.handleTODOEditActionClick, id);
+        this.handleTODOEditActionClick(id);
     });
 
     inputElement.addEventListener("focusout", () => {
       const editedContent = inputElement.value;
-      eventManager.fireEvent(eEvents.handleTODOEditAction, {
+      this.handleTODOEditAction({
         id,
         content: editedContent,
       });
@@ -172,7 +211,7 @@ export class ViewCtrl {
     inputElement.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         const editedContent = inputElement.value;
-        eventManager.fireEvent(eEvents.handleTODOEditAction, {
+        this.handleTODOEditAction({
           id,
           content: editedContent,
         });
