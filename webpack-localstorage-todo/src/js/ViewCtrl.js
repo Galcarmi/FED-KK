@@ -1,14 +1,14 @@
 import { elementSelectors, eShowHide } from "./constants";
-import { persistManager } from "./PersistManager";
 export class ViewCtrl {
   constructor(model) {
     this.model = model;
     this._initEventListeners();
-    this.initPersistedTodos();
-    this.updateEmptyState();
+    this._initPersistedTodos();
+    this._updateEmptyState();
   }
 
-  addTodo({ content, id }) {
+  _addTodo({ content, id }) {
+    console.log(content, id)
     const todoHTMLList = elementSelectors.todoList();
     todoHTMLList.insertAdjacentHTML(
       "beforeend",
@@ -17,18 +17,18 @@ export class ViewCtrl {
     this._addEventListenersForTodoItem(id);
   }
 
-  deleteTodoById(id) {
+  _deleteTodoById(id) {
     const todoList = elementSelectors.todoList();
     const todoItem = elementSelectors.getTODOItemById(id);
     todoList.removeChild(todoItem);
   }
 
-  reRenderTodoContentById({ content, id }) {
+  _updateTodoContent({ content, id }) {
     const contentElement = elementSelectors.getTodoContentElementById(id);
     contentElement.innerHTML = content;
   }
 
-  updateEmptyState(showHideConstant) {
+  _updateEmptyState(showHideConstant) {
     switch (showHideConstant) {
       case eShowHide.HIDE: {
         elementSelectors.todoEmptyState().classList.remove("visible");
@@ -41,24 +41,24 @@ export class ViewCtrl {
     }
   }
 
-  toggleDoneTodoById(id) {
+  _toggleDoneTodoById(id) {
     const contentElement = elementSelectors.getTodoContentElementById(id);
     contentElement.classList.toggle("crossed-content");
   }
 
-  focusOnTextInput() {
+  _focusOnTextInput() {
     elementSelectors.todoTxtInput().focus();
   }
 
-  getTextInputContent() {
+  _getTextInputContent() {
     return elementSelectors.todoTxtInput().value;
   }
 
-  eraseTextInputContent() {
+  _eraseTextInputContent() {
     elementSelectors.todoTxtInput().value = "";
   }
 
-  updateEmptyStateVisibility(visible) {
+  _updateEmptyStateVisibility(visible) {
     switch (visible) {
       case eShowHide.HIDE: {
         elementSelectors.todoEmptyState().classList.remove("visible");
@@ -71,7 +71,7 @@ export class ViewCtrl {
     }
   }
 
-  showTODOEditInputById({ id, content }) {
+  _showTODOEditInputById({ id, content }) {
     const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
     inputElement.value = content;
     inputElement.classList.add("display-block");
@@ -81,7 +81,7 @@ export class ViewCtrl {
     contentElement.classList.add("display-none");
   }
 
-  hideTODOEditInputById(id) {
+  _hideTODOEditInputById(id) {
     const inputElement = elementSelectors.getEditInputElementOfTODOById(id);
     inputElement.classList.remove("display-block");
 
@@ -90,52 +90,52 @@ export class ViewCtrl {
   }
 
   _handleAddActionTodo() {
-    const textInputContent = this.getTextInputContent();
+    const textInputContent = this._getTextInputContent();
     if (!textInputContent) {
       return;
     }
 
     const todo = this.model.addTodo(textInputContent);
-    this.addTodo(todo);
-    this.eraseTextInputContent();
-    this.focusOnTextInput();
-    this.updateEmptyState();
+    this._addTodo(todo);
+    this._eraseTextInputContent();
+    this._focusOnTextInput();
+    this._updateEmptyState();
   }
 
   _handleTODODoneActionClick(id) {
-    this.hideTODOEditInputById(id);
-    this.toggleDoneTodoById(id);
+    this._hideTODOEditInputById(id);
+    this._toggleDoneTodoById(id);
   }
 
   _handleTODODeleteActionClick(id) {
-    this.hideTODOEditInputById(id);
+    this._hideTODOEditInputById(id);
     this.model.deleteTodoById(id);
-    this.deleteTodoById(id);
-    this.updateEmptyState();
+    this._deleteTodoById(id);
+    this._updateEmptyState();
   }
 
   _handleTODOEditActionClick(id) {
     const todo = this.model.getTodoItemById(id);
-    this.showTODOEditInputById(todo);
+    this._showTODOEditInputById(todo);
   }
 
   _handleTODOEditAction({ id, content }) {
     this.model.editTodoContentById({ id, content });
-    this.hideTODOEditInputById(id);
-    this.reRenderTodoContentById({ id, content });
+    this._hideTODOEditInputById(id);
+    this._updateTodoContent({ id, content });
   }
 
   _updateEmptyState() {
     const todos = this.model.getTodos();
     if (!todos.length) {
-      this.updateEmptyState(eShowHide.SHOW);
+      this._updateEmptyStateVisibility(eShowHide.SHOW);
     } else {
-      this.updateEmptyState(eShowHide.HIDE);
+      this._updateEmptyStateVisibility(eShowHide.HIDE);
     }
   }
 
   _initPersistedTodos() {
-    this.model.getTodos().forEach(this.addTodo);
+    this.model.getTodos().forEach(this._addTodo.bind(this));
   }
 
   _initEventListeners() {
