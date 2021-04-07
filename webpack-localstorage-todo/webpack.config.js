@@ -1,5 +1,7 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const developmentMode = process.argv[2] === 'serve';
+const devTool = developmentMode ? 'eval' : 'source-map';
 
 module.exports = {
     mode:'development',
@@ -13,6 +15,8 @@ module.exports = {
     devServer: {
         contentBase:path.join(__dirname, 'src')
     },
+    devtool: devTool
+    ,
     module:{
         rules:[
             {
