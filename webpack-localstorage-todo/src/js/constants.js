@@ -1,14 +1,14 @@
 export const elementClasses = {
-  todoList: ".todo-app__list",
-  actionTodoBtn: ".todo-app__input-container__add-btn",
-  todoTxtInput: ".todo-app__input-container__text-input",
-  actionDoneSVG: ".todo-app__list__item__actions__done",
-  actionDeleteSVG: ".todo-app__list__item__actions__delete",
-  actionEditSVG: ".todo-app__list__item__actions__edit",
-  todoItemContent: ".todo-app__list__item__content",
-  todoEmptyState: ".todo-app__list__empty-state",
-  todoEditInput: ".todo-app__list__item__edit-input",
-  todoActionsContainer: ".todo-app__list__item__actions",
+  todoList: '.todo-app__list',
+  actionTodoBtn: '.todo-app__input-container__add-btn',
+  todoTxtInput: '.todo-app__input-container__text-input',
+  actionDoneSVG: '.todo-app__list__item__actions__done',
+  actionDeleteSVG: '.todo-app__list__item__actions__delete',
+  actionEditSVG: '.todo-app__list__item__actions__edit',
+  todoItemContent: '.todo-app__list__item__content',
+  todoEmptyState: '.todo-app__list__empty-state',
+  todoEditInput: '.todo-app__list__item__edit-input',
+  todoActionsContainer: '.todo-app__list__item__actions',
 };
 
 export const elementSelectors = {
@@ -44,6 +44,6 @@ export const elementSelectors = {
 };
 
 export const eShowHide = {
-  SHOW: "SHOW",
-  HIDE: "HIDE",
+  SHOW: 'SHOW',
+  HIDE: 'HIDE',
 };
