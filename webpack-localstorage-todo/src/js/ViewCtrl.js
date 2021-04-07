@@ -1,4 +1,4 @@
-import { elementSelectors, eShowHide } from "./constants";
+import { elementSelectors, eShowHide } from './constants';
 export class ViewCtrl {
   constructor(model) {
     this.model = model;
@@ -10,7 +10,7 @@ export class ViewCtrl {
   _addTodo({ content, id, isDone }) {
     const todoHTMLList = elementSelectors.todoList();
     todoHTMLList.insertAdjacentHTML(
-      "beforeend",
+      'beforeend',
       this._getTodoTemplate({ content, id, isDone })
     );
     this._addEventListenersForTodoItem(id);
@@ -30,11 +30,11 @@ export class ViewCtrl {
   _updateEmptyState(showHideConstant) {
     switch (showHideConstant) {
       case eShowHide.HIDE: {
-        elementSelectors.todoEmptyState().classList.remove("visible");
+        elementSelectors.todoEmptyState().classList.remove('visible');
         break;
       }
       case eShowHide.SHOW: {
-        elementSelectors.todoEmptyState().classList.add("visible");
+        elementSelectors.todoEmptyState().classList.add('visible');
         break;
       }
     }
@@ -43,8 +43,8 @@ export class ViewCtrl {
   _toggleDoneTodoById(id, isDone) {
     const contentElement = elementSelectors.getTodoContentElementById(id);
     isDone
-      ? contentElement.classList.add("crossed-content")
-      : contentElement.classList.remove("crossed-content");
+      ? contentElement.classList.add('crossed-content')
+      : contentElement.classList.remove('crossed-content');
   }
 
   _focusOnTextInput() {
@@ -56,17 +56,17 @@ export class ViewCtrl {
   }
 
   _eraseTextInputContent() {
-    elementSelectors.todoTxtInput().value = "";
+    elementSelectors.todoTxtInput().value = '';
   }
 
   _updateEmptyStateVisibility(visible) {
     switch (visible) {
       case eShowHide.HIDE: {
-        elementSelectors.todoEmptyState().classList.remove("visible");
+        elementSelectors.todoEmptyState().classList.remove('visible');
         break;
       }
       case eShowHide.SHOW: {
-        elementSelectors.todoEmptyState().classList.add("visible");
+        elementSelectors.todoEmptyState().classList.add('visible');
         break;
       }
     }
@@ -75,19 +75,19 @@ export class ViewCtrl {
   _showTodoEditInputById({ id, content }) {
     const inputElement = elementSelectors.getEditInputElementOfTodoById(id);
     inputElement.value = content;
-    inputElement.classList.add("display-block");
+    inputElement.classList.add('display-block');
     inputElement.focus();
 
     const contentElement = elementSelectors.getTodoContentElementById(id);
-    contentElement.classList.add("display-none");
+    contentElement.classList.add('display-none');
   }
 
   _hideTodoEditInputById(id) {
     const inputElement = elementSelectors.getEditInputElementOfTodoById(id);
-    inputElement.classList.remove("display-block");
+    inputElement.classList.remove('display-block');
 
     const contentElement = elementSelectors.getTodoContentElementById(id);
-    contentElement.classList.remove("display-none");
+    contentElement.classList.remove('display-none');
   }
 
   _onAddTodo() {
@@ -141,13 +141,13 @@ export class ViewCtrl {
   }
 
   _initEventListeners() {
-    elementSelectors.actionTodoBtn().addEventListener("click", (e) => {
+    elementSelectors.actionTodoBtn().addEventListener('click', (e) => {
       this._onAddTodo();
       e.stopPropagation();
     });
 
-    elementSelectors.todoTxtInput().addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
+    elementSelectors.todoTxtInput().addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
         this._onAddTodo();
       }
     });
@@ -157,7 +157,9 @@ export class ViewCtrl {
     return `
         <div class="todo-app__list__item" id="${id}">
             <input type="text" class="todo-app__list__item__edit-input">
-            <div class="todo-app__list__item__content ${isDone && 'crossed-content'}">${content}</div>
+            <div class="todo-app__list__item__content ${
+              isDone && 'crossed-content'
+            }">${content}</div>
             <div class="todo-app__list__item__actions">
               <svg
                 class="todo-app__list__item__actions__done"
@@ -202,19 +204,19 @@ export class ViewCtrl {
     const editSVG = elementSelectors.getEditSVGElementOfTodoById(id);
     const inputElement = elementSelectors.getEditInputElementOfTodoById(id);
 
-    doneSVG.addEventListener("click", () => {
+    doneSVG.addEventListener('click', () => {
       this._onDoneTodo(id);
     });
 
-    deleteSVG.addEventListener("click", () => {
+    deleteSVG.addEventListener('click', () => {
       this._onDeleteDoto(id);
     });
 
-    editSVG.addEventListener("click", () => {
+    editSVG.addEventListener('click', () => {
       this._onEditTodoBtnClick(id);
     });
 
-    inputElement.addEventListener("focusout", () => {
+    inputElement.addEventListener('focusout', () => {
       const editedContent = inputElement.value;
       this._onEditTodo({
         id,
@@ -222,8 +224,8 @@ export class ViewCtrl {
       });
     });
 
-    inputElement.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
+    inputElement.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
         const editedContent = inputElement.value;
         this._onEditTodo({
           id,

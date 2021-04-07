@@ -29,7 +29,7 @@ export class Model {
     this.persistManager.persistTodos(this.todos);
   }
 
-  updateTodoDoneState(id){
+  updateTodoDoneState(id) {
     const editedIndex = this.todos.findIndex((todo) => todo.id === id);
     const isDone = !this.todos[editedIndex].isDone;
     this.todos[editedIndex].isDone = isDone;
@@ -37,7 +37,6 @@ export class Model {
 
     return isDone;
   }
-
 
   getTodos() {
     return this.todos;
