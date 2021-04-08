@@ -1,5 +1,5 @@
-import { todoAppClasses } from '../components/todo-app/todoApp';
-import { todoItemClasses } from '../components/todo-app/todoItem';
+import { classes as todoAppClasses } from '../components/todo-app/todoApp';
+import { classes as todoItemClasses } from '../components/todo-app/todoItem';
 
 export const elementSelectors = {
   todoList: () => document.querySelector(`.${todoAppClasses.todoApp__list}`),

@@ -77,8 +77,7 @@ const styles = {
   }
 };
   
-const { classes } = jss.createStyleSheet(styles).attach();
-export const todoAppClasses = classes;
+export const { classes } = jss.createStyleSheet(styles).attach();
 
 export const createTodoApp = (children) => {
   return `<div class="${classes.todoApp}">

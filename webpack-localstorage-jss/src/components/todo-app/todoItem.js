@@ -84,9 +84,7 @@ const styles = {
     }
   };
 
-const { classes } = jss.createStyleSheet(styles).attach();
-export const todoItemClasses = classes;
-
+export const { classes } = jss.createStyleSheet(styles).attach();
 
 export const createTodoItem = (props) => {
     return `
