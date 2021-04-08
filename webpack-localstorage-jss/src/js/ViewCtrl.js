@@ -1,7 +1,7 @@
 import { elementSelectors, eShowHide } from './DOMSelectors';
 import { createTodoIndexPage } from '../pages/todoIndexPage';
 import { createTodoItem } from '../components/todo-app/todoItem';
-import { contentUtilsClasses } from '../styles/utils/contentUtils';
+import { classes as contentUtilsClasses } from '../styles/utils/contentUtils';
 
 export class ViewCtrl {
   constructor(model) {
