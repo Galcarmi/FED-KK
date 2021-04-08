@@ -23,6 +23,6 @@ const styles = {
 const { classes } = jss.createStyleSheet(styles).attach();
 
 
-export const createContainer = (children) => {
-    return `<div class="${classes.container}">${children ? children : ''}</div>`
+export const createContainer = (props) => {
+    return `<div class="${classes.container}">${props.children ? props.children : ''}</div>`
 }
