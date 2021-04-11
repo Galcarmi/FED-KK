@@ -1,4 +1,4 @@
-export class TodoPersistManager{
+export class TodoDBManager{
     addTodo(todo){
         throw new Error('method not implemented');
     }

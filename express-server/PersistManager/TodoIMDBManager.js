@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import { TodoPersistManager } from './TodoPersistManager';
-import { IdNotFoundError } from '../exceptions/IdNotFoundError';
-import { MissingFieldsError } from '../exceptions/MissingFieldsError';
-export class TodoIMDBPersistManager extends TodoPersistManager {
+import { TodoDBManager } from './TodoDBManager';
+import { IdNotFoundError } from '../errors/IdNotFoundError';
+import { MissingFieldsError } from '../errors/MissingFieldsError';
+export class TodoIMDBManager extends TodoDBManager {
   constructor() {
     this.todos = [];
   }
