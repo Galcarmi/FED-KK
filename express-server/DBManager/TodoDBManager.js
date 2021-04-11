@@ -1,4 +1,5 @@
 export class TodoDBManager{
+    constructor(){}
     addTodo(todo){
         throw new Error('method not implemented');
     }

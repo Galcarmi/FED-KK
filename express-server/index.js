@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { TodoIMDBManager } from './PersistManager/TodoIMDBManager';
-import { handleServerError } from './errors/utils';
+import { TodoIMDBManager } from './DBManager/TodoIMDBManager.js';
+import { handleServerError } from './errors/utils.js';
 
 const todoIMDBManager = new TodoIMDBManager();
 const app = express();
