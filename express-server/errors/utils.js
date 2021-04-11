@@ -1,7 +1,8 @@
 import { ServerError } from './ServerError.js';
+import { logger } from '../logger/logger.js';
 
 export const handleServerError = (e, res)=>{
-    console.error(e);
+    logger.error(e);
     if(e instanceof ServerError){
         res.status(e.HTTPStatus).send(e.message);
     }

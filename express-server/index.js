@@ -3,6 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { TodoIMDBManager } from './DBManager/TodoIMDBManager.js';
 import { handleServerError } from './errors/utils.js';
+import { logger } from './logger/logger.js';
 
 const todoIMDBManager = new TodoIMDBManager();
 const app = express();
@@ -59,5 +60,5 @@ app.get('/todos', (req,res)=>{
 })
 
 app.listen(port, () => {
-  console.info(`listening on ${port}`);
+  logger.info(`listening on ${port}`);
 });
