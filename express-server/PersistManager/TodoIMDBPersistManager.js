@@ -1,13 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TodoPersistManager } from './TodoPersistManager';
-
+import { IdNotFoundError } from '../exceptions/IdNotFoundError';
+import { MissingFieldsError } from '../exceptions/MissingFieldsError';
 export class TodoIMDBPersistManager extends TodoPersistManager {
   constructor() {
     this.todos = [];
   }
   addTodo(todo) {
     if (!todo.content) {
-      throw new Error('convert it to webResponse error');
+        throw new MissingFieldsError('content');
     }
 
     const toInsertTodo = { content: todo.content, id: uuidv4() };
@@ -17,7 +18,7 @@ export class TodoIMDBPersistManager extends TodoPersistManager {
   }
   removeTodo(id) {
     if (id) {
-      throw new Error('convert it to webResponse error');
+        throw new MissingFieldsError('id');
     }
 
     const deletedIndex = this.getTodoIndexById(id);
@@ -28,7 +29,7 @@ export class TodoIMDBPersistManager extends TodoPersistManager {
 
   editTodo(todo) {
     if (!todo.content || !todo.id) {
-        throw new Error('convert it to webResponse error');
+        throw new MissingFieldsError('id, content');
     }
     
     const editIndex = this.getTodoIndexById(id);
@@ -44,7 +45,7 @@ export class TodoIMDBPersistManager extends TodoPersistManager {
   getTodoIndexById(id) {
     const foundIndex = this.todos.findIndex((todo) => todo.id === id);
     if(foundIndex === -1){
-        throw new Error('convert it to webResponse error');
+        throw new IdNotFoundError(id);
     }  
     
     return foundIndex;
