@@ -1,0 +1,32 @@
+{
+  "name": "webpack-localstorage-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve",
+    "build": "webpack --mode production"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^5.2.0",
+    "html-inline-css-webpack-plugin": "^1.11.0",
+    "html-inline-script-webpack-plugin": "^2.0.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.4.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.28.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "jss": "^10.6.0",
+    "jss-plugin-camel-case": "^10.6.0",
+    "jss-plugin-nested": "^10.6.0",
+    "source-map-loader": "^2.0.1",
+    "uuid": "^8.3.2"
+  }
+}

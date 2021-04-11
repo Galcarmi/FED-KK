@@ -4,15 +4,20 @@ import bodyParser from "body-parser";
 import { TodoIMDBManager } from './DBManager/TodoIMDBManager.js';
 import { handleServerError } from './errors/utils.js';
 import { logger } from './logger/logger.js';
+import { getParentFolder } from './serverUtils.js';
 
+const parentFolder = getParentFolder();
 const todoIMDBManager = new TodoIMDBManager();
 const app = express();
 const port = process.env.PORT || 8000;
-
 app.set("port", port);
 app.options("*", cors());
 app.use(cors());
 app.use(bodyParser.json());
+
+app.get('/', (req,res)=>{
+  res.sendFile('/todo-express-client/dist/index.html', {root: parentFolder })
+})
 
 app.post('/todo', (req,res)=>{
   try{
