@@ -18,7 +18,7 @@ export class TodoIMDBManager extends TodoDBManager {
     return toInsertTodo;
   }
   removeTodo(id) {
-    if (id) {
+    if (!id) {
         throw new MissingFieldsError('id');
     }
 
@@ -33,7 +33,7 @@ export class TodoIMDBManager extends TodoDBManager {
         throw new MissingFieldsError('id, content');
     }
     
-    const editIndex = this.getTodoIndexById(id);
+    const editIndex = this.getTodoIndexById(todo.id);
     this.todos[editIndex].content = todo.content;
 
     return this.todos[editIndex];
