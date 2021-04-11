@@ -1,3 +1,5 @@
+import { ServerError } from './ServerError.js';
+
 export const handleServerError = (e, res)=>{
     if(e instanceof ServerError){
         res.status(e.HTTPStatus).send(e.message);
