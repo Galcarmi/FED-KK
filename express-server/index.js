@@ -20,7 +20,8 @@ app.get('/', (req,res)=>{
 
 app.post('/todo', (req,res)=>{
   try{
-    todoIMDBManager.addTodo(req.body);
+    const addedTodo = todoIMDBManager.addTodo(req.body);
+    res.status(200).send(addedTodo);
   }
   catch(e){
     handleServerError(e, res);
@@ -29,7 +30,8 @@ app.post('/todo', (req,res)=>{
 
 app.put('/todo', (req,res)=>{
   try{
-    todoIMDBManager.editTodo(req.body);
+    const editedTodo = todoIMDBManager.editTodo(req.body);
+    res.status(200).send(editedTodo);
   }
   catch(e){
     handleServerError(e, res);
@@ -38,7 +40,8 @@ app.put('/todo', (req,res)=>{
 
 app.delete('/todo', (req,res)=>{
   try{
-    todoIMDBManager.removeTodo(req.body);
+    const deletedTodo = todoIMDBManager.removeTodo(req.body);
+    res.status(200).send(deletedTodo);
   }
   catch(e){
     handleServerError(e, res);
@@ -47,7 +50,8 @@ app.delete('/todo', (req,res)=>{
 
 app.get('/todos', (req,res)=>{
   try{
-    todoIMDBManager.getAllTodos();
+    const todos = todoIMDBManager.getAllTodos();
+    res.status(200).send(todos);
   }
   catch(e){
     handleServerError(e, res);
