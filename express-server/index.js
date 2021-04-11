@@ -14,6 +14,7 @@ app.set("port", port);
 app.options("*", cors());
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(parentFolder+'/todo-express-client/dist'));
 
 app.get('/', (req,res)=>{
   res.sendFile('/todo-express-client/dist/index.html', {root: parentFolder })
