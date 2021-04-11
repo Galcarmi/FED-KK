@@ -1,5 +1,6 @@
 import { ServerError } from './ServerError.js';
 import { logger } from '../logger/logger.js';
+import { HTTPStatuses } from '../constants/HTTPStatus.js'
 
 export const handleServerError = (e, res)=>{
     logger.error(e);
@@ -7,6 +8,6 @@ export const handleServerError = (e, res)=>{
         res.status(e.HTTPStatus).send(e.message);
     }
     else{
-        res.status(500).send('internal server error');
+        res.status(HTTPStatuses.INTERNAL_SERVER_ERROR).send('internal server error');
     }
 }
