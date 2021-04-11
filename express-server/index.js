@@ -20,10 +20,37 @@ app.get('/', (req,res)=>{
 
 app.post('/todo', (req,res)=>{
   try{
-
+    todoIMDBManager.addTodo(req.body);
   }
   catch(e){
-    handleServerError(e);
+    handleServerError(e, res);
+  }
+})
+
+app.put('/todo', (req,res)=>{
+  try{
+    todoIMDBManager.editTodo(req.body);
+  }
+  catch(e){
+    handleServerError(e, res);
+  }
+})
+
+app.delete('/todo', (req,res)=>{
+  try{
+    todoIMDBManager.removeTodo(req.body);
+  }
+  catch(e){
+    handleServerError(e, res);
+  }
+})
+
+app.get('/todos', (req,res)=>{
+  try{
+    todoIMDBManager.getAllTodos();
+  }
+  catch(e){
+    handleServerError(e, res);
   }
 })
 
