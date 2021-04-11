@@ -14,11 +14,6 @@ app.options("*", cors());
 app.use(cors());
 app.use(bodyParser.json());
 
-
-app.get('/', (req,res)=>{
-  res.send('hello there');
-})
-
 app.post('/todo', (req,res)=>{
   try{
     const addedTodo = todoIMDBManager.addTodo(req.body);
