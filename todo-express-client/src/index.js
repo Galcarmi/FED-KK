@@ -1,1 +1,1 @@
-console.log(process)
+import './index.css';
