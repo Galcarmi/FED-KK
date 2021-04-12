@@ -1,9 +1,11 @@
-export const isTestEnv = (args) =>{
-    args.forEach(arg=>{
-        if(arg === '--testenv'){
-            return true;
-        }
-    })
-    
-    return false;
-}
+const isTestEnv = () => {
+  process.argv.forEach((arg) => {
+    if (arg === 'serve') {
+      return true;
+    }
+  });
+
+  return false;
+};
+
+module.exports = { isTestEnv };
