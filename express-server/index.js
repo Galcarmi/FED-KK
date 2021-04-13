@@ -5,6 +5,7 @@ import { TodoIMDBManager } from './DBManager/TodoIMDBManager.js';
 import { handleServerError } from './errors/utils.js';
 import { logger } from './logger/logger.js';
 import { getParentFolder } from './utils/folderUtils.js';
+import { eClientLocations } from './constants/clientLocations.js';
 
 const parentFolder = getParentFolder();
 const todoIMDBManager = new TodoIMDBManager();
@@ -14,10 +15,10 @@ app.set("port", port);
 app.options("*", cors());
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(parentFolder+'/todo-express-client/dist'));
+app.use(express.static(parentFolder + eClientLocations.TASK_4_CLIENT_DIST));
 
 app.get('/', (req,res)=>{
-  res.sendFile('/todo-express-client/dist/index.html', {root: parentFolder })
+  res.sendFile(`${eClientLocations.TASK_4_CLIENT_DIST}/index.html`, {root: parentFolder })
 })
 
 app.post('/todo', (req,res)=>{
