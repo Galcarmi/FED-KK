@@ -8,8 +8,12 @@ export class ViewCtrl {
   constructor(model) {
     this.model = model;
     renderTodoPage();
-    this._initEventListeners();
-    this._initPersistedTodos();
+    this._initEventListeners();    
+  }
+
+  async initPersistedTodos(){
+    await this.model.initTodos();
+    this.model.getTodos().forEach(this._addTodo.bind(this));
     this._updateEmptyState();
   }
 
@@ -117,6 +121,7 @@ export class ViewCtrl {
 
   async _onDeleteDoto(id) {
     this._hideTodoEditInputById(id);
+    console.log(id);
     await this.model.deleteTodoById(id);
     this._deleteTodoById(id);
     this._updateEmptyState();
@@ -140,10 +145,6 @@ export class ViewCtrl {
     } else {
       this._updateEmptyStateVisibility(eShowHide.HIDE);
     }
-  }
-
-  _initPersistedTodos() {
-    this.model.getTodos().forEach(this._addTodo.bind(this));
   }
 
   _initEventListeners() {
