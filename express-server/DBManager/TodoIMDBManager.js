@@ -12,7 +12,7 @@ export class TodoIMDBManager extends TodoDBManager {
         throw new MissingFieldsError('content');
     }
 
-    const toInsertTodo = { content: todo.content, id: uuidv4() };
+    const toInsertTodo = { content: todo.content, id: uuidv4(), isDone:false };
     this.todos.push(toInsertTodo);
 
     return toInsertTodo;
@@ -29,12 +29,13 @@ export class TodoIMDBManager extends TodoDBManager {
   }
 
   editTodo(todo) {
-    if (!todo.content || !todo.id) {
+    if (!todo.content || !todo.id || !todo.isDone) {
         throw new MissingFieldsError('id, content');
     }
     
     const editIndex = this.getTodoIndexById(todo.id);
     this.todos[editIndex].content = todo.content;
+    this.todos[editIndex].isDone = todo.isDone;
 
     return this.todos[editIndex];
   }
