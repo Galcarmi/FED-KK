@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import { TodoIMDBManager } from './DBManager/TodoIMDBManager.js';
 import { handleServerError } from './errors/utils.js';
 import { logger } from './logger/logger.js';
-import { getParentFolder } from './serverUtils.js';
+import { getParentFolder } from './utils/folderUtils.js';
 
 const parentFolder = getParentFolder();
 const todoIMDBManager = new TodoIMDBManager();
