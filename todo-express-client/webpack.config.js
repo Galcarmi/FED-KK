@@ -1,6 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const { isTestEnv } = require('./cmdUtils.js');
+const { isTestEnv } = require('./utils/cmdUtils.js');
 
 const devTool = isTestEnv() ? 'eval' : 'source-map';
 
