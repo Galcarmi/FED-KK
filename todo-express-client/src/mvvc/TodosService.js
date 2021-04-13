@@ -12,13 +12,7 @@ class TodosService {
 
   async deleteTodo(id) {
     console.log(id);
-    const res = await axios.delete(`${serverUrl}/todo`, {
-      headers: {
-      },
-      data: {
-        source: {asdasd:'asd'},
-      },
-    });
+    const res = await axios.delete(`${serverUrl}/todo/${id}`)
     return res.data;
   }
 

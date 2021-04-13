@@ -40,10 +40,9 @@ app.put('/todo', (req,res)=>{
   }
 })
 
-app.delete('/todo', (req,res)=>{
+app.delete('/todo/:id', (req,res)=>{
   try{
-    console.log(res.body)
-    const deletedTodo = todoIMDBManager.removeTodo(req.body.id);
+    const deletedTodo = todoIMDBManager.removeTodo(req.params.id);
     res.status(200).send(deletedTodo);
   }
   catch(e){
