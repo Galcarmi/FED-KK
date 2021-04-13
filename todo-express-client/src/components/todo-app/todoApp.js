@@ -1,5 +1,5 @@
-import { jss } from '../../utils/jss.js';
-import { fullStylesConstants, fractionalStylesConstants } from '../../constants/styles.js';
+import { jss } from '../../styles/jss.js';
+import { fullStylesConstants, fractionalStylesConstants } from '../../styles/constants.js';
 
 const styles = {
   todoApp: {

@@ -1,6 +1,6 @@
 import { elementSelectors } from './DOMSelectors';
 import { eShowHide } from './constants';
-import { classes as contentUtilsClasses } from '../styles/utils/contentUtils';
+import { classes as helperClasses } from '../styles/helperClasses';
 import { renderTodoPage } from '../pages/todoPage';
 import { getTodoItem } from '../components/todo-app/todo-item/todoItem';
 
@@ -49,8 +49,8 @@ export class ViewCtrl {
   _toggleDoneTodoById(id, isDone) {
     const contentElement = elementSelectors.getTodoContentElementById(id);
     isDone
-      ? contentElement.classList.add(contentUtilsClasses.crossedContent)
-      : contentElement.classList.remove(contentUtilsClasses.crossedContent);
+      ? contentElement.classList.add(helperClasses.crossedContent)
+      : contentElement.classList.remove(helperClasses.crossedContent);
   }
 
   _focusOnTextInput() {
@@ -68,11 +68,11 @@ export class ViewCtrl {
   _updateEmptyStateVisibility(visible) {
     switch (visible) {
       case eShowHide.HIDE: {
-        elementSelectors.todoEmptyState().classList.remove(contentUtilsClasses.visible);
+        elementSelectors.todoEmptyState().classList.remove(helperClasses.visible);
         break;
       }
       case eShowHide.SHOW: {
-        elementSelectors.todoEmptyState().classList.add(contentUtilsClasses.visible);
+        elementSelectors.todoEmptyState().classList.add(helperClasses.visible);
         break;
       }
     }
@@ -81,22 +81,22 @@ export class ViewCtrl {
   _showTodoEditInputById({ id, content }) {
     const inputElement = elementSelectors.getEditInputElementOfTodoById(id);
     inputElement.value = content;
-    inputElement.classList.add(contentUtilsClasses.displayBlock);
+    inputElement.classList.add(helperClasses.displayBlock);
     inputElement.focus();
 
     const contentElement = elementSelectors.getTodoContentElementById(id);
-    contentElement.classList.add(contentUtilsClasses.displayNone);
+    contentElement.classList.add(helperClasses.displayNone);
   }
 
   _hideTodoEditInputById(id) {
     const inputElement = elementSelectors.getEditInputElementOfTodoById(id);
-    inputElement.classList.remove(contentUtilsClasses.displayBlock);
+    inputElement.classList.remove(helperClasses.displayBlock);
 
     const contentElement = elementSelectors.getTodoContentElementById(id);
-    contentElement.classList.remove(contentUtilsClasses.displayNone);
+    contentElement.classList.remove(helperClasses.displayNone);
   }
 
-  _onAddTodo() {
+  async _onAddTodo() {
     const textInputContent = this._getTextInputContent();
     if (!textInputContent) {
       return;
@@ -109,13 +109,13 @@ export class ViewCtrl {
     this._updateEmptyState();
   }
 
-  _onDoneTodo(id) {
+  async _onDoneTodo(id) {
     this._hideTodoEditInputById(id);
     const isDone = await this.model.updateTodoDoneState(id);
     this._toggleDoneTodoById(id, isDone);
   }
 
-  _onDeleteDoto(id) {
+  async _onDeleteDoto(id) {
     this._hideTodoEditInputById(id);
     await this.model.deleteTodoById(id);
     this._deleteTodoById(id);
@@ -127,7 +127,7 @@ export class ViewCtrl {
     this._showTodoEditInputById(todo);
   }
 
-  _onEditTodo({ id, content }) {
+  async _onEditTodo({ id, content }) {
     await this.model.editTodoContentById({ id, content });
     this._hideTodoEditInputById(id);
     this._updateTodoContent({ id, content });

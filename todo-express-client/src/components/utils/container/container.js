@@ -1,5 +1,5 @@
-import { jss } from '../../../utils/jss.js';
-import { fractionalStylesConstants } from '../../../constants/styles.js';
+import { jss } from '../../../styles/jss.js';
+import { fractionalStylesConstants } from '../../../styles/constants.js';
 
 const styles = {
   container: {

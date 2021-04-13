@@ -1,5 +1,5 @@
-import { jss } from '../../js/utils.js';
-import { fractionalStylesConstants, fullStylesConstants } from '../../../constants/styles.js'
+import { jss } from '../../../styles/jss.js';
+import { fractionalStylesConstants, fullStylesConstants } from '../../../styles/constants.js'
 const styles = {
     todoApp__list__item : {
       margin: '8px auto',
