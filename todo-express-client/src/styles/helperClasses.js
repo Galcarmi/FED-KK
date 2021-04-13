@@ -2,16 +2,16 @@ import { jss } from './jss.js';
 
 const styles = {
   crossedContent: {
-    textDecoration: 'line-through',
+    textDecoration: 'line-through !important',
   },
   visible: {
     opacity: 1,
   },
   displayBlock: {
-    display: 'block',
+    display: 'block !important',
   },
   displayNone: {
-    display: 'none',
+    display: 'none !important',
   },
 };
 

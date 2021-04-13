@@ -8,14 +8,29 @@ export class ViewCtrl {
   constructor(model) {
     this.model = model;
     window.model = model;
-    renderTodoPage();
-    this._initEventListeners();    
   }
 
   async initPersistedTodos(){
     await this.model.initTodos();
     this.model.getTodos().forEach(this._addTodo.bind(this));
     this._updateEmptyState();
+  }
+
+  initEventListeners() {
+    elementSelectors.actionTodoBtn().addEventListener('click', (e) => {
+      this._onAddTodo();
+      e.stopPropagation();
+    });
+
+    elementSelectors.todoTxtInput().addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        this._onAddTodo();
+      }
+    });
+  }
+
+  renderTodoPage(){
+    renderTodoPage();
   }
 
   _addTodo({ content, id, isDone }) {
@@ -41,11 +56,11 @@ export class ViewCtrl {
   _updateEmptyState(showHideConstant) {
     switch (showHideConstant) {
       case eShowHide.HIDE: {
-        elementSelectors.todoEmptyState().classList.remove('visible');
+        elementSelectors.todoEmptyState().classList.remove(helperClasses.visible);
         break;
       }
       case eShowHide.SHOW: {
-        elementSelectors.todoEmptyState().classList.add('visible');
+        elementSelectors.todoEmptyState().classList.add(helperClasses.visible);
         break;
       }
     }
@@ -145,19 +160,6 @@ export class ViewCtrl {
     } else {
       this._updateEmptyStateVisibility(eShowHide.HIDE);
     }
-  }
-
-  _initEventListeners() {
-    elementSelectors.actionTodoBtn().addEventListener('click', (e) => {
-      this._onAddTodo();
-      e.stopPropagation();
-    });
-
-    elementSelectors.todoTxtInput().addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        this._onAddTodo();
-      }
-    });
   }
 
   _getTodoTemplate({ content, id, isDone }) {
