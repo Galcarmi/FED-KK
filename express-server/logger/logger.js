@@ -1,13 +1,13 @@
-import winston from "winston";
+import winston from 'winston';
 
 function createLogger() {
   const loggerInstance = winston.createLogger({
-    level: "info",
+    level: 'info',
     format: winston.format.json(),
-    defaultMeta: { service: "todos-service" },
+    defaultMeta: { service: 'todos-service' },
     transports: [
-      new winston.transports.File({ filename: "error.log", level: "error" }),
-      new winston.transports.File({ filename: "combined.log" }),
+      new winston.transports.File({ filename: 'error.log', level: 'error' }),
+      new winston.transports.File({ filename: 'combined.log' }),
     ],
   });
 
