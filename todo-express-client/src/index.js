@@ -1,4 +1,6 @@
 import './index.css';
-import { renderTodoPage } from './pages/todoPage.js';
+import { ViewCtrl } from './mvvc/ViewController';
+import { Model } from './mvvc/Model';
 
-renderTodoPage();
+new ViewCtrl(new Model());
+
