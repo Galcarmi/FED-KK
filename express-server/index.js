@@ -11,7 +11,7 @@ const parentFolder = getParentFolder();
 const todoIMDBManager = new TodoIMDBManager();
 const app = express();
 const port = process.env.PORT || 8000;
-app.set("port", port);
+
 app.options("*", cors());
 app.use(cors());
 app.use(bodyParser.json());
