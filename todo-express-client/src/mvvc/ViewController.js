@@ -102,7 +102,7 @@ export class ViewCtrl {
       return;
     }
 
-    const todo = this.model.addTodo(textInputContent);
+    const todo = await this.model.addTodo(textInputContent);
     this._addTodo(todo);
     this._eraseTextInputContent();
     this._focusOnTextInput();
@@ -111,13 +111,13 @@ export class ViewCtrl {
 
   _onDoneTodo(id) {
     this._hideTodoEditInputById(id);
-    const isDone = this.model.updateTodoDoneState(id);
+    const isDone = await this.model.updateTodoDoneState(id);
     this._toggleDoneTodoById(id, isDone);
   }
 
   _onDeleteDoto(id) {
     this._hideTodoEditInputById(id);
-    this.model.deleteTodoById(id);
+    await this.model.deleteTodoById(id);
     this._deleteTodoById(id);
     this._updateEmptyState();
   }
@@ -128,7 +128,7 @@ export class ViewCtrl {
   }
 
   _onEditTodo({ id, content }) {
-    this.model.editTodoContentById({ id, content });
+    await this.model.editTodoContentById({ id, content });
     this._hideTodoEditInputById(id);
     this._updateTodoContent({ id, content });
   }
