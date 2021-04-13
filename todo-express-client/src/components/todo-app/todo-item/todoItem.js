@@ -1,92 +1,95 @@
 import { jss } from '../../../styles/jss.js';
-import { fractionalStylesConstants, fullStylesConstants } from '../../../styles/constants.js';
+import {
+  fractionalStylesConstants,
+  fullStylesConstants,
+} from '../../../styles/constants.js';
 import { classes as helperClasses } from '../../../styles/helperClasses.js';
 
 const styles = {
-    todoApp__list__item : {
-      margin: '8px auto',
-      textAlign: 'center',
-      minHeight: '35px',
-      marginRight: fractionalStylesConstants.smallMargin.value,
-      marginLeft: fractionalStylesConstants.smallMargin.value,
-      borderRadius: fractionalStylesConstants.smallRoundedBorder.value,
-      border: fullStylesConstants.borders.blackBorder,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'relative',
-      '&:hover $todo-app__list__item__actions':{
-            opacity: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'absolute',
-            right: 0,
-      }
-    },
-    'todo-app__list__item__actions' : {
+  todoApp__list__item: {
+    margin: '8px auto',
+    textAlign: 'center',
+    minHeight: fractionalStylesConstants.minTodoItemHeight.value,
+    marginRight: fractionalStylesConstants.smallMargin.value,
+    marginLeft: fractionalStylesConstants.smallMargin.value,
+    borderRadius: fractionalStylesConstants.smallRoundedBorder.value,
+    border: fullStylesConstants.borders.blackBorder,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    '&:hover $todo-app__list__item__actions': {
+      opacity: 1,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       position: 'absolute',
       right: 0,
-      opacity: 0,
-      transition: 'all 0.5s ease',
-    }, 
-    todoApp__list__item__content : {
-      fontSize: fractionalStylesConstants.fontSmall.value,
-      width: '55%',
-      overflowWrap: 'break-word',
-      position: 'absolute',
-      top:'50%',
-      left:'50%',
-      transform:'translate(-50%, -50%)',
     },
-    todoApp__list__item__editInput:{
-      position: 'absolute',
-      top:'50%',
-      left:'50%',
-      transform:'translate(-50%, -50%)',
-      zIndex: '400',
-      border:'none',
-      fontSize: fractionalStylesConstants.fontSmall.value,
-      textAlign: 'center',
-      display: 'none',
-    },
-    todoApp__list__item__actions__done : {
-      margin: '0px 3px',
-      cursor: 'pointer',
-      fill: fullStylesConstants.colors.green,
-    },
-    todoApp__list__item__actions__delete : {
-      margin: '0px 3px',
-      cursor: 'pointer',
-      fill: fullStylesConstants.colors.red,
-    },
-    todoApp__list__item__actions__edit : {
-      margin: '0px 3px',
-      cursor: 'pointer',
-      fill: fullStylesConstants.colors.softYellow,
-    },
-    todoApp__list__emptyState : {
-      position: 'absolute',
-      left:'50%',
-      top:'50%',
-      transform:'translate(-50%, -50%)',
-      fontSize: fractionalStylesConstants.fontMedium.value,
-      opacity:0,
-    }
-  };
+  },
+  'todo-app__list__item__actions': {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    right: 0,
+    opacity: 0,
+    transition: 'all 0.5s ease',
+  },
+  todoApp__list__item__content: {
+    fontSize: fractionalStylesConstants.fontSmall.value,
+    width: '55%',
+    overflowWrap: 'break-word',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
+  todoApp__list__item__editInput: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: '400',
+    border: 'none',
+    fontSize: fractionalStylesConstants.fontSmall.value,
+    textAlign: 'center',
+    display: 'none',
+  },
+  todoApp__list__item__actions__done: {
+    margin: `0px ${fractionalStylesConstants.xSmallMargin.value}`,
+    cursor: 'pointer',
+    fill: fullStylesConstants.colors.green,
+  },
+  todoApp__list__item__actions__delete: {
+    margin: `0px ${fractionalStylesConstants.xSmallMargin.value}`,
+    cursor: 'pointer',
+    fill: fullStylesConstants.colors.red,
+  },
+  todoApp__list__item__actions__edit: {
+    margin: `0px ${fractionalStylesConstants.xSmallMargin.value}`,
+    cursor: 'pointer',
+    fill: fullStylesConstants.colors.softYellow,
+  },
+  todoApp__list__emptyState: {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+    fontSize: fractionalStylesConstants.fontMedium.value,
+    opacity: 0,
+  },
+};
 
 export const { classes } = jss.createStyleSheet(styles).attach();
 
 export const getTodoItem = (props) => {
-    return `
+  return `
     <div class="${classes.todoApp__list__item}" id="${props.id}">
         <input type="text" class="${classes.todoApp__list__item__editInput}">
         <div class="${classes.todoApp__list__item__content} ${
-          props.isDone && helperClasses.crossedContent
-        }">${props.content}</div>
+    props.isDone && helperClasses.crossedContent
+  }">${props.content}</div>
         <div class="${classes['todo-app__list__item__actions']}">
           <svg
             class="${classes.todoApp__list__item__actions__done}"
@@ -123,4 +126,4 @@ export const getTodoItem = (props) => {
           </svg>
         </div>
       </div>`;
-}
+};

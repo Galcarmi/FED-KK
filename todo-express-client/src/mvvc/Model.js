@@ -5,12 +5,12 @@ export class Model {
     this.todos = [];
   }
 
-  async initTodos(){
+  async initTodos() {
     this.todos = await todosService.getAllTodos();
   }
 
   async addTodo(content) {
-    const todo = await todosService.addTodo({content});
+    const todo = await todosService.addTodo({ content });
     this.todos.push(todo);
 
     return todo;
@@ -23,7 +23,7 @@ export class Model {
   }
 
   async editTodoContentById({ id, content }) {
-    await todosService.editTodo({ id, content })  
+    await todosService.editTodo({ id, content });
     const editedIndex = this.todos.findIndex((todo) => todo.id === id);
     this.todos[editedIndex].content = content;
   }
@@ -32,7 +32,7 @@ export class Model {
     const editedIndex = this.todos.findIndex((todo) => todo.id === id);
     const isDone = !this.todos[editedIndex].isDone;
 
-    await todosService.editTodo({...this.todos[editedIndex], isDone})
+    await todosService.editTodo({ ...this.todos[editedIndex], isDone });
 
     this.todos[editedIndex].isDone = isDone;
 
@@ -46,5 +46,4 @@ export class Model {
   getTodos() {
     return this.todos;
   }
-
 }

@@ -10,7 +10,7 @@ export class ViewCtrl {
     window.model = model;
   }
 
-  async initPersistedTodos(){
+  async initPersistedTodos() {
     await this.model.initTodos();
     this.model.getTodos().forEach(this._addTodo.bind(this));
     this._updateEmptyState();
@@ -29,7 +29,7 @@ export class ViewCtrl {
     });
   }
 
-  renderTodoPage(){
+  renderTodoPage() {
     renderTodoPage();
   }
 
@@ -56,7 +56,9 @@ export class ViewCtrl {
   _updateEmptyState(showHideConstant) {
     switch (showHideConstant) {
       case eShowHide.HIDE: {
-        elementSelectors.todoEmptyState().classList.remove(helperClasses.visible);
+        elementSelectors
+          .todoEmptyState()
+          .classList.remove(helperClasses.visible);
         break;
       }
       case eShowHide.SHOW: {
@@ -88,7 +90,9 @@ export class ViewCtrl {
   _updateEmptyStateVisibility(visible) {
     switch (visible) {
       case eShowHide.HIDE: {
-        elementSelectors.todoEmptyState().classList.remove(helperClasses.visible);
+        elementSelectors
+          .todoEmptyState()
+          .classList.remove(helperClasses.visible);
         break;
       }
       case eShowHide.SHOW: {

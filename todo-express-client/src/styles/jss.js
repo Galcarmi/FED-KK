@@ -5,4 +5,4 @@ import jssPluginNested from 'jss-plugin-nested';
 jss.use(jssCamelCase());
 jss.use(jssPluginNested());
 
-export {jss};
+export { jss };

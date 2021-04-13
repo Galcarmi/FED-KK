@@ -3,33 +3,51 @@ import { classes as todoItemClasses } from '../components/todo-app/todo-item/tod
 
 export const elementSelectors = {
   todoList: () => document.querySelector(`.${todoAppClasses.todoApp__list}`),
-  actionTodoBtn: () => document.querySelector(`.${todoAppClasses.todoApp__inputContainer__addBtn}`),
-  todoTxtInput: () => document.querySelector(`.${todoAppClasses.todoApp__inputContainer__textInput}`),
+  actionTodoBtn: () =>
+    document.querySelector(
+      `.${todoAppClasses.todoApp__inputContainer__addBtn}`
+    ),
+  todoTxtInput: () =>
+    document.querySelector(
+      `.${todoAppClasses.todoApp__inputContainer__textInput}`
+    ),
   getTodoItemById: (id) => document.querySelector(`[id='${id}']`),
-  todoEmptyState: () => document.querySelector(`.${todoAppClasses.todoApp__list__emptyState}`),
+  todoEmptyState: () =>
+    document.querySelector(`.${todoAppClasses.todoApp__list__emptyState}`),
   getTodoContentElementById: (id) => {
     const todoItem = elementSelectors.getTodoItemById(id);
-    return todoItem.querySelector(`.${todoItemClasses.todoApp__list__item__content}`);
+    return todoItem.querySelector(
+      `.${todoItemClasses.todoApp__list__item__content}`
+    );
   },
   getDoneSVGElementOfTodoById: (id) => {
     const todoItem = elementSelectors.getTodoItemById(id);
-    return todoItem.querySelector(`.${todoItemClasses.todoApp__list__item__actions__done}`);
+    return todoItem.querySelector(
+      `.${todoItemClasses.todoApp__list__item__actions__done}`
+    );
   },
   getDeleteSVGElementOfTodoById: (id) => {
     const todoItem = elementSelectors.getTodoItemById(id);
-    return todoItem.querySelector(`.${todoItemClasses.todoApp__list__item__actions__delete}`);
+    return todoItem.querySelector(
+      `.${todoItemClasses.todoApp__list__item__actions__delete}`
+    );
   },
   getEditSVGElementOfTodoById: (id) => {
     const todoItem = elementSelectors.getTodoItemById(id);
-    return todoItem.querySelector(`.${todoItemClasses.todoApp__list__item__actions__edit}`);
+    return todoItem.querySelector(
+      `.${todoItemClasses.todoApp__list__item__actions__edit}`
+    );
   },
   getEditInputElementOfTodoById: (id) => {
     const todoItem = elementSelectors.getTodoItemById(id);
-    return todoItem.querySelector(`.${todoItemClasses.todoApp__list__item__editInput}`);
+    return todoItem.querySelector(
+      `.${todoItemClasses.todoApp__list__item__editInput}`
+    );
   },
   getActionsContainerElementOfTodoById: (id) => {
     const todoItem = elementSelectors.getTodoItemById(id);
-    return todoItem.querySelector(`.${todoItemClasses['todo-app__list__item__actions']}`);
+    return todoItem.querySelector(
+      `.${todoItemClasses['todo-app__list__item__actions']}`
+    );
   },
 };
-

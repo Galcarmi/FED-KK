@@ -19,26 +19,34 @@ const fractionalStylesConstants = {
     unit: '%',
     quantity: 2,
   },
-  smallPadding:{
+  smallPadding: {
     unit: 'px',
-    quantity: 5, 
+    quantity: 5,
   },
-  smallMargin : {
+  xSmallMargin: {
     unit: 'px',
-    quantity: 5, 
+    quantity: 3,
   },
-  smallRoundedBorder : {
+  smallMargin: {
     unit: 'px',
-    quantity: 25, 
+    quantity: 5,
   },
-  fontSmall : {
+  smallRoundedBorder: {
+    unit: 'px',
+    quantity: 25,
+  },
+  fontSmall: {
     unit: 'em',
-    quantity: 1.2,  
+    quantity: 1.2,
   },
-  fontMedium : {
+  fontMedium: {
     unit: 'em',
-    quantity: 1.4,  
-  }
+    quantity: 1.4,
+  },
+  minTodoItemHeight: {
+    unit: 'px',
+    quantity: 35,
+  },
 };
 
 const fullStylesConstants = {
@@ -46,21 +54,21 @@ const fullStylesConstants = {
     mediumSizeShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
   },
   colors: {
-      softBlue : 'rgba(82, 153, 229, 1)', 
-      blue : 'rgb(0, 123, 255)', 
-      softYellow : 'rgb(177, 177, 41)',
-      white: 'white',
-      red: 'red',
-      green: 'green'
+    softBlue: 'rgba(82, 153, 229, 1)',
+    blue: 'rgb(0, 123, 255)',
+    softYellow: 'rgb(177, 177, 41)',
+    white: 'white',
+    red: 'red',
+    green: 'green',
   },
   borders: {
-      greyTopBorder : 'solid 3px rgb(177, 184, 189)',
-      blackBorder : 'solid 2px rgb(62, 66, 70)',
-      focusedBlueBorder : 'solid 3px rgba(82, 153, 229, 1)'
+    greyTopBorder: 'solid 3px rgb(177, 184, 189)',
+    blackBorder: 'solid 2px rgb(62, 66, 70)',
+    focusedBlueBorder: 'solid 3px rgba(82, 153, 229, 1)',
   },
-  padding : {
-      smallSidesPadding : '0px 10px 0px 10px'
-  }
+  padding: {
+    smallSidesPadding: '0px 10px 0px 10px',
+  },
 };
 
 const insertValuesToFractionalStylesObj = (styleObj) => {

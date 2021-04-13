@@ -1,6 +1,4 @@
 export const eShowHide = {
-    SHOW: 'SHOW',
-    HIDE: 'HIDE',
-  };
-  
-  
+  SHOW: 'SHOW',
+  HIDE: 'HIDE',
+};
