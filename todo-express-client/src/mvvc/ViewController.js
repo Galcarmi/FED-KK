@@ -7,6 +7,7 @@ import { getTodoItem } from '../components/todo-app/todo-item/todoItem';
 export class ViewCtrl {
   constructor(model) {
     this.model = model;
+    window.model = model;
     renderTodoPage();
     this._initEventListeners();    
   }
@@ -121,7 +122,6 @@ export class ViewCtrl {
 
   async _onDeleteDoto(id) {
     this._hideTodoEditInputById(id);
-    console.log(id);
     await this.model.deleteTodoById(id);
     this._deleteTodoById(id);
     this._updateEmptyState();

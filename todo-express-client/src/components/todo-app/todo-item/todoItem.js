@@ -1,5 +1,7 @@
 import { jss } from '../../../styles/jss.js';
-import { fractionalStylesConstants, fullStylesConstants } from '../../../styles/constants.js'
+import { fractionalStylesConstants, fullStylesConstants } from '../../../styles/constants.js';
+import { classes as helperClasses } from '../../../styles/helperClasses.js';
+
 const styles = {
     todoApp__list__item : {
       margin: '8px auto',
@@ -83,7 +85,7 @@ export const getTodoItem = (props) => {
     <div class="${classes.todoApp__list__item}" id="${props.id}">
         <input type="text" class="${classes.todoApp__list__item__editInput}">
         <div class="${classes.todoApp__list__item__content} ${
-          props.isDone && 'crossed-content'
+          props.isDone && helperClasses.crossedContent
         }">${props.content}</div>
         <div class="${classes['todo-app__list__item__actions']}">
           <svg

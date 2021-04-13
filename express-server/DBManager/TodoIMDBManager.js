@@ -9,17 +9,17 @@ export class TodoIMDBManager extends TodoDBManager {
   }
   addTodo(todo) {
     if (!todo.content) {
-        throw new MissingFieldsError('content');
+      throw new MissingFieldsError('content');
     }
 
-    const toInsertTodo = { content: todo.content, id: uuidv4(), isDone:false };
+    const toInsertTodo = { content: todo.content, id: uuidv4(), isDone: false };
     this.todos.push(toInsertTodo);
 
     return toInsertTodo;
   }
   removeTodo(id) {
     if (!id) {
-        throw new MissingFieldsError('id');
+      throw new MissingFieldsError('id');
     }
 
     const deletedIndex = this.getTodoIndexById(id);
@@ -29,13 +29,12 @@ export class TodoIMDBManager extends TodoDBManager {
   }
 
   editTodo(todo) {
-    if (!todo.content || !todo.id || !todo.isDone) {
-        throw new MissingFieldsError('id, content');
+    if (!todo.id) {
+      throw new MissingFieldsError('id');
     }
-    
+
     const editIndex = this.getTodoIndexById(todo.id);
-    this.todos[editIndex].content = todo.content;
-    this.todos[editIndex].isDone = todo.isDone;
+    this.todos[editIndex] = { ...this.todos[editIndex], ...todo };
 
     return this.todos[editIndex];
   }
@@ -46,10 +45,10 @@ export class TodoIMDBManager extends TodoDBManager {
 
   getTodoIndexById(id) {
     const foundIndex = this.todos.findIndex((todo) => todo.id === id);
-    if(foundIndex === -1){
-        throw new IdNotFoundError(id);
-    }  
-    
+    if (foundIndex === -1) {
+      throw new IdNotFoundError(id);
+    }
+
     return foundIndex;
   }
 }
