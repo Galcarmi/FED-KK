@@ -1,31 +1,50 @@
-export class Model {
-    constructor() {}
-  
-    addTodo() {
-      throw new Error('method not implemented');
-    }
-  
-    deleteTodoById() {
-      throw new Error('method not implemented');
-    }
-  
-    editTodoContentById() {
-      throw new Error('method not implemented');
-    }
-  
-    updateTodoDoneState() {
-      throw new Error('method not implemented');
-    }
-  
-    getTodoItemById() {
-      throw new Error('method not implemented');
-    }
-  
-    getTodos() {
-      throw new Error('method not implemented');
-    }
+import { todosService } from './TodosService';
 
-    setTodos(){
-      throw new Error('method not implemented'); 
-    }
+export class Model {
+  constructor() {
+    this.todos = [];
   }
+
+  async initTodos(){
+    this.todos = await todosService.getAllTodos();
+  }
+
+  async addTodo(content) {
+    const todo = await todosService.addTodo({content});
+    this.todos.push(todo);
+
+    return todo;
+  }
+
+  async deleteTodoById(id) {
+    await todosService.deleteTodo(id);
+    const deletedIndex = this.todos.findIndex((todo) => todo.id === id);
+    this.todos.splice(deletedIndex, 1);
+  }
+
+  async editTodoContentById({ id, content }) {
+    await todosService.editTodo({ id, content })  
+    const editedIndex = this.todos.findIndex((todo) => todo.id === id);
+    this.todos[editedIndex].content = content;
+  }
+
+  async updateTodoDoneState(id) {
+    const editedIndex = this.todos.findIndex((todo) => todo.id === id);
+    const isDone = !this.todos[editedIndex].isDone;
+
+    await todosService.editTodo({...this.todos[editedIndex], isDone})
+
+    this.todos[editedIndex].isDone = isDone;
+
+    return isDone;
+  }
+
+  getTodoItemById(id) {
+    return this.todos.find((todo) => todo.id === id);
+  }
+
+  getTodos() {
+    return this.todos;
+  }
+
+}
