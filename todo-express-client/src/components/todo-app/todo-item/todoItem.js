@@ -24,7 +24,7 @@ const styles = {
     ...commonStyles.sidesMarginS,
     ...commonStyles.smallRoundedBorder,
     ...commonStyles.blackBorder,
-    margin: '8px auto',
+    ...commonStyles.marginTopBottomMedium,
     textAlign: 'center',
     display: 'flex',
     alignItems: 'center',

@@ -29,6 +29,10 @@ const commonStyles = {
     paddingTop: '5px',
     paddingBottom: '5px',
   },
+  marginTopBottomMedium:{
+    marginTop: '7px',
+    marginBottom: '7px',
+  },
   sidesMarginXS: {
     marginLeft: '3px',
     marginRight: '3px'
