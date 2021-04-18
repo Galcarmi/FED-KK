@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { TodoInMemoryDBManager } = require('./DBManager/TodoInMemoryDBManager.js');
-const { logger } = require('./logger/logger.js');
-const { eClientLocations } = require('./constants/clientLocations.js');
+const { TodoInMemoryDBManager } = require('./DBManager/TodoInMemoryDBManager');
+const { logger } = require('./logger/logger');
+const { eClientLocations } = require('./constants/clientLocations');
 const { errorMiddleware, wrapError } = require('./middleware/errorHandler');
+const { userIdMiddleware } = require('./middleware/userIdMiddleware')
 
 const parentFolder = path.join(__dirname, '../')
 const todoInMemoryDBManager = new TodoInMemoryDBManager();
@@ -13,6 +14,7 @@ const port = process.env.PORT || 8000;
 
 app.use(bodyParser.json());
 app.use(express.static(parentFolder + eClientLocations.TASK_4_CLIENT_DIST));
+app.use(userIdMiddleware);
 
 app.get('/', wrapError((req, res) => {
   res.sendFile(`${eClientLocations.TASK_4_CLIENT_DIST}/index.html`, {
