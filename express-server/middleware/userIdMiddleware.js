@@ -15,8 +15,10 @@ function parseCookies(request) {
 
 exports.userIdMiddleware = (req, res, next) => {
   const cookies = parseCookies(req);
-  if (!cookies.userid) {
-    res.cookie('userid', v4());
+  if (!cookies.userId) {
+    res.cookie('userId', v4());
   }
+
+  req.userId = cookies.userId;
   next();
 };

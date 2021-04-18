@@ -23,22 +23,22 @@ app.get('/', wrapError((req, res) => {
 }));
 
 app.post('/todo', wrapError((req, res) => {
-    const addedTodo = todoInMemoryDBManager.addTodo(req.body);
+    const addedTodo = todoInMemoryDBManager.addTodo(req.userId, req.body);
     res.status(200).send(addedTodo);
 }));
 
 app.put('/todo', wrapError((req, res) => {
-    const editedTodo = todoInMemoryDBManager.editTodo(req.body);
+    const editedTodo = todoInMemoryDBManager.editTodo(req.userId, req.body);
     res.status(200).send(editedTodo);
 }));
 
 app.delete('/todo/:id', wrapError((req, res) => {
-    const deletedTodo = todoInMemoryDBManager.removeTodo(req.params.id);
+    const deletedTodo = todoInMemoryDBManager.removeTodo(req.userId, req.params.id);
     res.status(200).send(deletedTodo);  
 }));
 
 app.get('/todos', wrapError((req, res) => {
-    const todos = todoInMemoryDBManager.getAllTodos();
+    const todos = todoInMemoryDBManager.getAllTodos(req.userId);
     res.status(200).send(todos);  
 }));
 

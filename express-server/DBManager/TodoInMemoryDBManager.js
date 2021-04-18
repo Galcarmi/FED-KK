@@ -8,48 +8,56 @@ class TodoInMemoryDBManager extends TodoDBManager {
     super();
     this.todos = {};
   }
-  addTodo(todo) {
+  addTodo(userId, todo) {
     if (!todo.content) {
       throw new MissingFieldsError('content');
     }
-
+    this._createEmptyTodosIfUserIdNotExists(userId);
     const toInsertTodo = { content: todo.content, id: v4(), isDone: false };
-    this.todos[toInsertTodo.id] = toInsertTodo;
+    this.todos[userId][toInsertTodo.id] = toInsertTodo;
 
     return toInsertTodo;
   }
-  removeTodo(id) {
+
+  removeTodo(userId, id) {
     if (!id) {
       throw new MissingFieldsError('id');
     }
-
-    this._throwIfTodoIdNotExists(id);
-
-    const deletedTodo = this.todos[id];
-    delete this.todos[id]
+    
+    this._createEmptyTodosIfUserIdNotExists(userId);
+    this._throwIfTodoIdNotExists(userId, id);
+    const deletedTodo = this.todos[userId][id];
+    delete this.todos[userId][id]
 
     return deletedTodo;
   }
 
-  editTodo(todo) {
+  editTodo(userId, todo) {
     if (!todo.id) {
       throw new MissingFieldsError('id');
     }
+    this._createEmptyTodosIfUserIdNotExists(userId);
+    this._throwIfTodoIdNotExists(userId, todo.id);
 
-    this._throwIfTodoIdNotExists(todo.id);
+    this.todos[userId][todo.id] = {...this.todos[userId][todo.id], ...todo}
 
-    this.todos[todo.id] = {...this.todos[todo.id], ...todo}
-
-    return this.todos[todo.id];
+    return this.todos[userId][todo.id];
   }
 
-  getAllTodos() {
-    return this.todos;
+  getAllTodos(userId) {
+    this._createEmptyTodosIfUserIdNotExists(userId);
+    return this.todos[userId];
   }
 
-  _throwIfTodoIdNotExists(id){
-    if(!this.todos[id]){
+  _throwIfTodoIdNotExists(userId, id){
+    if(!this.todos[userId][id]){
       throw new IdNotFoundError(id)
+    }
+  }
+
+  _createEmptyTodosIfUserIdNotExists(userId){
+    if(!this.todos[userId]){
+      this.todos[userId] = {}; 
     }
   }
 }

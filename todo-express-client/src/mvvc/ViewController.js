@@ -7,7 +7,6 @@ import { getTodoItem } from '../components/todo-app/todo-item/todoItem';
 export class ViewCtrl {
   constructor(model) {
     this.model = model;
-    window.model = model;
   }
 
   async initPersistedTodos() {
