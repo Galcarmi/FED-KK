@@ -2,7 +2,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { TodoDBManager } from './TodoDBManager.js';
 import { IdNotFoundError } from '../errors/IdNotFoundError.js';
 import { MissingFieldsError } from '../errors/MissingFieldsError.js';
-export class TodoIMDBManager extends TodoDBManager {
+
+export class TodoInMemoryDBManager extends TodoDBManager {
   constructor() {
     super();
     this.todos = [];

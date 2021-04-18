@@ -1,14 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { TodoIMDBManager } from './DBManager/TodoIMDBManager.js';
+import { TodoInMemoryDBManager } from './DBManager/TodoInMemoryDBManager.js';
 import { handleServerError } from './errors/utils.js';
 import { logger } from './logger/logger.js';
 import { getParentFolder } from './utils/folderUtils.js';
 import { eClientLocations } from './constants/clientLocations.js';
 
 const parentFolder = getParentFolder();
-const todoIMDBManager = new TodoIMDBManager();
+const todoInMemoryDBManager = new TodoInMemoryDBManager();
 const app = express();
 const port = process.env.PORT || 8000;
 
@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 
 app.post('/todo', (req, res) => {
   try {
-    const addedTodo = todoIMDBManager.addTodo(req.body);
+    const addedTodo = todoInMemoryDBManager.addTodo(req.body);
     res.status(200).send(addedTodo);
   } catch (e) {
     handleServerError(e, res);
@@ -33,7 +33,7 @@ app.post('/todo', (req, res) => {
 
 app.put('/todo', (req, res) => {
   try {
-    const editedTodo = todoIMDBManager.editTodo(req.body);
+    const editedTodo = todoInMemoryDBManager.editTodo(req.body);
     res.status(200).send(editedTodo);
   } catch (e) {
     handleServerError(e, res);
@@ -42,7 +42,7 @@ app.put('/todo', (req, res) => {
 
 app.delete('/todo/:id', (req, res) => {
   try {
-    const deletedTodo = todoIMDBManager.removeTodo(req.params.id);
+    const deletedTodo = todoInMemoryDBManager.removeTodo(req.params.id);
     res.status(200).send(deletedTodo);
   } catch (e) {
     handleServerError(e, res);
@@ -51,7 +51,7 @@ app.delete('/todo/:id', (req, res) => {
 
 app.get('/todos', (req, res) => {
   try {
-    const todos = todoIMDBManager.getAllTodos();
+    const todos = todoInMemoryDBManager.getAllTodos();
     res.status(200).send(todos);
   } catch (e) {
     handleServerError(e, res);
