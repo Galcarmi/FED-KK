@@ -3,7 +3,7 @@ const { logger } = require('../logger/logger.js');
 const { HTTPStatuses } = require('../constants/HTTPStatus.js');
 
 exports.wrapError = (fn) => (req, res, next) => {
-  fn(req, res, next).catch(next);
+    Promise.resolve(fn(req, res, next)).catch(next)
 };
 
 exports.errorMiddleware = (err, req, res, next) => {

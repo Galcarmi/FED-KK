@@ -6,7 +6,7 @@ const { MissingFieldsError } = require('../errors/MissingFieldsError.js');
 class TodoInMemoryDBManager extends TodoDBManager {
   constructor() {
     super();
-    this.todos = [];
+    this.todos = {};
   }
   addTodo(todo) {
     if (!todo.content) {
@@ -14,7 +14,7 @@ class TodoInMemoryDBManager extends TodoDBManager {
     }
 
     const toInsertTodo = { content: todo.content, id: v4(), isDone: false };
-    this.todos.push(toInsertTodo);
+    this.todos[toInsertTodo.id] = toInsertTodo;
 
     return toInsertTodo;
   }
@@ -23,8 +23,10 @@ class TodoInMemoryDBManager extends TodoDBManager {
       throw new MissingFieldsError('id');
     }
 
-    const deletedIndex = this.getTodoIndexById(id);
-    const deletedTodo = this.todos.splice(deletedIndex, 1);
+    _throwIfTodoIdNotExists(id);
+
+    const deletedTodo = this.todos[id];
+    delete this.todos[id]
 
     return deletedTodo;
   }
@@ -34,23 +36,21 @@ class TodoInMemoryDBManager extends TodoDBManager {
       throw new MissingFieldsError('id');
     }
 
-    const editIndex = this.getTodoIndexById(todo.id);
-    this.todos[editIndex] = { ...this.todos[editIndex], ...todo };
+    _throwIfTodoIdNotExists(id);
 
-    return this.todos[editIndex];
+    this.todos[todo.id] = {...this.todos[id], ...todo}
+
+    return this.todos[todo.id];
   }
 
   getAllTodos() {
     return this.todos;
   }
 
-  getTodoIndexById(id) {
-    const foundIndex = this.todos.findIndex((todo) => todo.id === id);
-    if (foundIndex === -1) {
-      throw new IdNotFoundError(id);
+  _throwIfTodoIdNotExists(id){
+    if(!this.todos[id]){
+      throw new IdNotFoundError(id)
     }
-
-    return foundIndex;
   }
 }
 
