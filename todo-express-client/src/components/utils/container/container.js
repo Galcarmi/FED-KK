@@ -1,5 +1,5 @@
 import { jss } from '../../../styles/jss.js';
-import { fractionalStylesConstants } from '../../../styles/constants.js';
+import { commonStyles } from '../../../styles/constants.js';
 
 export const getContainer = (props) => {
     return `<div class="${s.container}">${props.children ? props.children : ''}</div>`
@@ -8,19 +8,16 @@ export const getContainer = (props) => {
 const styles = {
   container: {
     height: '100vh',
-    marginLeft: fractionalStylesConstants.sideMarginBigPercent.value,
-    marginRight: fractionalStylesConstants.sideMarginBigPercent.value,
+    ...commonStyles.sidesMarginBigPercent
   },
   '@media only screen and (max-width: 600px)':{
     container: {
-      marginLeft: fractionalStylesConstants.sideMarginMediumPercent.value,
-      marginRight: fractionalStylesConstants.sideMarginMediumPercent.value,
+      ...commonStyles.sidesMarginMediumPercent
     },
   },
   '@media only screen and (max-width: 400px)':{
     container: {
-        marginLeft: fractionalStylesConstants.sideMarginSmallPercent.value,
-        marginRight: fractionalStylesConstants.sideMarginSmallPercent.value,
+      ...commonStyles.sidesMarginSmallPercent
     },
   }
 };

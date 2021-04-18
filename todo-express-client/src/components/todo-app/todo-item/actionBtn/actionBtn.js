@@ -1,7 +1,4 @@
-import {
-  fractionalStylesConstants,
-  fullStylesConstants,
-} from '../../../../styles/constants';
+import { commonStyles, colors } from '../../../../styles/constants';
 import { jss } from '../../../../styles/jss.js';
 
 export const eActionBtn = {
@@ -65,19 +62,19 @@ export const getActionBtn = (actionBtn) => {
 
 const styles = {
   todoApp__list__item__actions__done: {
-    margin: `0px ${fractionalStylesConstants.xSmallMargin.value}`,
+    ...commonStyles.sidesMarginXS,
     cursor: 'pointer',
-    fill: fullStylesConstants.colors.green,
+    fill: colors.green,
   },
   todoApp__list__item__actions__delete: {
-    margin: `0px ${fractionalStylesConstants.xSmallMargin.value}`,
+    ...commonStyles.sidesMarginXS,
     cursor: 'pointer',
-    fill: fullStylesConstants.colors.red,
+    fill: colors.red,
   },
   todoApp__list__item__actions__edit: {
-    margin: `0px ${fractionalStylesConstants.xSmallMargin.value}`,
+    ...commonStyles.sidesMarginXS,
     cursor: 'pointer',
-    fill: fullStylesConstants.colors.softYellow,
+    fill: colors.softYellow,
   },
 };
 

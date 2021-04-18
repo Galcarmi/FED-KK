@@ -1,8 +1,5 @@
 import { jss } from '../../../styles/jss.js';
-import {
-  fractionalStylesConstants,
-  fullStylesConstants,
-} from '../../../styles/constants.js';
+import { commonStyles } from '../../../styles/constants.js';
 import { classes as helperClasses } from '../../../styles/helperClasses.js';
 import { getActionBtn, eActionBtn } from './actionBtn/actionBtn';
 
@@ -23,13 +20,12 @@ export const getTodoItem = (props) => {
 
 const styles = {
   todoApp__list__item: {
+    ...commonStyles.minTodoItemHeight,
+    ...commonStyles.sidesMarginS,
+    ...commonStyles.smallRoundedBorder,
+    ...commonStyles.blackBorder,
     margin: '8px auto',
     textAlign: 'center',
-    minHeight: fractionalStylesConstants.minTodoItemHeight.value,
-    marginRight: fractionalStylesConstants.smallMargin.value,
-    marginLeft: fractionalStylesConstants.smallMargin.value,
-    borderRadius: fractionalStylesConstants.smallRoundedBorder.value,
-    border: fullStylesConstants.borders.blackBorder,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -53,7 +49,7 @@ const styles = {
     transition: 'all 0.5s ease',
   },
   todoApp__list__item__content: {
-    fontSize: fractionalStylesConstants.fontSmall.value,
+    ...commonStyles.fontSmall,
     width: '55%',
     overflowWrap: 'break-word',
     position: 'absolute',
@@ -62,22 +58,22 @@ const styles = {
     transform: 'translate(-50%, -50%)',
   },
   todoApp__list__item__editInput: {
+    ...commonStyles.fontSmall,
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     zIndex: '400',
     border: 'none',
-    fontSize: fractionalStylesConstants.fontSmall.value,
     textAlign: 'center',
     display: 'none',
   },
   todoApp__list__emptyState: {
+    ...commonStyles.fontMedium,
     position: 'absolute',
     left: '50%',
     top: '50%',
     transform: 'translate(-50%, -50%)',
-    fontSize: fractionalStylesConstants.fontMedium.value,
     opacity: 0,
   },
 };
