@@ -1,8 +1,8 @@
-import { ServerError } from './ServerError.js';
-import { logger } from '../logger/logger.js';
-import { HTTPStatuses } from '../constants/HTTPStatus.js';
+const { ServerError } = require('./ServerError.js');
+const { logger } = require('../logger/logger.js');
+const { HTTPStatuses } = require('../constants/HTTPStatus.js');
 
-export const handleServerError = (e, res) => {
+const handleServerError = (e, res) => {
   if (e instanceof ServerError) {
     res.status(e.HTTPStatus).send(e.message);
     logger.error(`custom server error: ${e.message}`);
@@ -13,3 +13,7 @@ export const handleServerError = (e, res) => {
     logger.error(`internal server error: ${e.message}`);
   }
 };
+
+module.exports = {
+  handleServerError
+}

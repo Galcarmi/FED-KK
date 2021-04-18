@@ -1,9 +1,9 @@
-import { v4 as uuidv4 } from 'uuid';
-import { TodoDBManager } from './TodoDBManager.js';
-import { IdNotFoundError } from '../errors/IdNotFoundError.js';
-import { MissingFieldsError } from '../errors/MissingFieldsError.js';
+const { v4 } = require('uuid');
+const { TodoDBManager } = require('./TodoDBManager.js');
+const { IdNotFoundError } = require('../errors/IdNotFoundError.js');
+const { MissingFieldsError } = require('../errors/MissingFieldsError.js');
 
-export class TodoInMemoryDBManager extends TodoDBManager {
+class TodoInMemoryDBManager extends TodoDBManager {
   constructor() {
     super();
     this.todos = [];
@@ -13,7 +13,7 @@ export class TodoInMemoryDBManager extends TodoDBManager {
       throw new MissingFieldsError('content');
     }
 
-    const toInsertTodo = { content: todo.content, id: uuidv4(), isDone: false };
+    const toInsertTodo = { content: todo.content, id: v4(), isDone: false };
     this.todos.push(toInsertTodo);
 
     return toInsertTodo;
@@ -52,4 +52,8 @@ export class TodoInMemoryDBManager extends TodoDBManager {
 
     return foundIndex;
   }
+}
+
+module.exports = {
+  TodoInMemoryDBManager
 }

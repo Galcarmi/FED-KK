@@ -1,13 +1,13 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import { TodoInMemoryDBManager } from './DBManager/TodoInMemoryDBManager.js';
-import { handleServerError } from './errors/utils.js';
-import { logger } from './logger/logger.js';
-import { getParentFolder } from './utils/folderUtils.js';
-import { eClientLocations } from './constants/clientLocations.js';
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const path = require('path');
+const { TodoInMemoryDBManager } = require('./DBManager/TodoInMemoryDBManager.js');
+const { handleServerError } = require('./errors/utils.js');
+const { logger } = require('./logger/logger.js');
+const { eClientLocations } = require('./constants/clientLocations.js');
 
-const parentFolder = getParentFolder();
+const parentFolder = path.join(__dirname, '../')
 const todoInMemoryDBManager = new TodoInMemoryDBManager();
 const app = express();
 const port = process.env.PORT || 8000;

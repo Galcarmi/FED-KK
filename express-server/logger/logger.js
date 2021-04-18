@@ -1,4 +1,4 @@
-import winston from 'winston';
+const winston = require('winston');
 
 function createLogger() {
   const loggerInstance = winston.createLogger({
@@ -14,4 +14,7 @@ function createLogger() {
   return loggerInstance;
 }
 
-export const logger = createLogger();
+module.exports = {
+  logger : createLogger()
+}
+
