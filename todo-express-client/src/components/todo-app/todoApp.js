@@ -5,16 +5,16 @@ import {
 } from '../../styles/constants.js';
 
 export const getTodoApp = (children) => {
-  return `<div class="${classes.todoApp}">
-    <div class="${classes.todoApp__list}">
+  return `<div class="${s.todoApp}">
+    <div class="${s.todoApp__list}">
       <div class="${
-        classes.todoApp__list__emptyState
+        s.todoApp__list__emptyState
       }">Add your first TODO !</div>
       ${children ? children : ''}
     </div>
-    <div class="${classes.todoApp__inputContainer}">
-      <input type="text" class="${classes.todoApp__inputContainer__textInput}"/>
-      <button class="${classes.todoApp__inputContainer__addBtn}">Add</button>
+    <div class="${s.todoApp__inputContainer}">
+      <input type="text" class="${s.todoApp__inputContainer__textInput}"/>
+      <button class="${s.todoApp__inputContainer__addBtn}">Add</button>
     </div>
   </div>`;
 };
@@ -114,4 +114,5 @@ const styles = {
   },
 };
 
-export const { classes } = jss.createStyleSheet(styles).attach();
+const { classes } = jss.createStyleSheet(styles).attach();
+export const s = classes;

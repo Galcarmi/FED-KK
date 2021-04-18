@@ -2,7 +2,7 @@ import { jss } from '../../../styles/jss.js';
 import { fractionalStylesConstants } from '../../../styles/constants.js';
 
 export const getContainer = (props) => {
-    return `<div class="${classes.container}">${props.children ? props.children : ''}</div>`
+    return `<div class="${s.container}">${props.children ? props.children : ''}</div>`
 }
 
 const styles = {
@@ -26,3 +26,4 @@ const styles = {
 };
 
 const { classes } = jss.createStyleSheet(styles).attach();
+export const s = classes;

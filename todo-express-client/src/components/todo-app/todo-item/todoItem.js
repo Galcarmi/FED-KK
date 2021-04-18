@@ -8,12 +8,12 @@ import { getActionBtn, eActionBtn } from './actionBtn/actionBtn';
 
 export const getTodoItem = (props) => {
   return `
-    <div class="${classes.todoApp__list__item}" id="${props.id}">
-        <input type="text" class="${classes.todoApp__list__item__editInput}">
-        <div class="${classes.todoApp__list__item__content} ${
+    <div class="${s.todoApp__list__item}" id="${props.id}">
+        <input type="text" class="${s.todoApp__list__item__editInput}">
+        <div class="${s.todoApp__list__item__content} ${
     props.isDone && helperClasses.crossedContent
   }">${props.content}</div>
-        <div class="${classes['todo-app__list__item__actions']}">
+        <div class="${s['todo-app__list__item__actions']}">
           ${getActionBtn(eActionBtn.EDIT)}
           ${getActionBtn(eActionBtn.DELETE)}
           ${getActionBtn(eActionBtn.DONE)}
@@ -82,4 +82,5 @@ const styles = {
   },
 };
 
-export const { classes } = jss.createStyleSheet(styles).attach();
+const { classes } = jss.createStyleSheet(styles).attach();
+export const s = classes;

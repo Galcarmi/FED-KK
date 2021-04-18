@@ -15,7 +15,7 @@ export const getActionBtn = (actionBtn) => {
   switch (actionBtn) {
     case eActionBtn.DONE: {
       svgBtn = `<svg
-            class="${classes.todoApp__list__item__actions__done}"
+            class="${s.todoApp__list__item__actions__done}"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -29,7 +29,7 @@ export const getActionBtn = (actionBtn) => {
     }
     case eActionBtn.DELETE: {
       svgBtn = `<svg
-            class="${classes.todoApp__list__item__actions__delete}"
+            class="${s.todoApp__list__item__actions__delete}"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -43,7 +43,7 @@ export const getActionBtn = (actionBtn) => {
     }
     case eActionBtn.EDIT: {
       svgBtn = `<svg
-            class="${classes.todoApp__list__item__actions__edit}"
+            class="${s.todoApp__list__item__actions__edit}"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -81,4 +81,5 @@ const styles = {
   },
 };
 
-export const { classes } = jss.createStyleSheet(styles).attach();
+const { classes } = jss.createStyleSheet(styles).attach();
+export const s = classes;

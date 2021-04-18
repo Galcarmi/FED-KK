@@ -1,6 +1,6 @@
-import { classes as todoAppClasses } from '../components/todo-app/todoApp.js';
-import { classes as todoItemClasses } from '../components/todo-app/todo-item/todoItem.js';
-import { classes as actionBtnClasses } from '../components/todo-app/todo-item/actionBtn/actionBtn';
+import { s as todoAppClasses } from '../components/todo-app/todoApp.js';
+import { s as todoItemClasses } from '../components/todo-app/todo-item/todoItem.js';
+import { s as actionBtnClasses } from '../components/todo-app/todo-item/actionBtn/actionBtn';
 
 export const elementSelectors = {
   todoList: () => document.querySelector(`.${todoAppClasses.todoApp__list}`),
