@@ -23,7 +23,7 @@ class TodoInMemoryDBManager extends TodoDBManager {
       throw new MissingFieldsError('id');
     }
 
-    _throwIfTodoIdNotExists(id);
+    this._throwIfTodoIdNotExists(id);
 
     const deletedTodo = this.todos[id];
     delete this.todos[id]
@@ -36,9 +36,9 @@ class TodoInMemoryDBManager extends TodoDBManager {
       throw new MissingFieldsError('id');
     }
 
-    _throwIfTodoIdNotExists(id);
+    this._throwIfTodoIdNotExists(todo.id);
 
-    this.todos[todo.id] = {...this.todos[id], ...todo}
+    this.todos[todo.id] = {...this.todos[todo.id], ...todo}
 
     return this.todos[todo.id];
   }
