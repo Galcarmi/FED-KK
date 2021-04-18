@@ -7,12 +7,11 @@ import { getTodoItem } from '../components/todo-app/todo-item/todoItem';
 export class ViewCtrl {
   constructor(model) {
     this.model = model;
-    window.model = model;
   }
 
   async initPersistedTodos() {
     await this.model.initTodos();
-    this.model.getTodos().forEach(this._addTodo.bind(this));
+    Object.entries(this.model.getTodos()).map(todoEntry=>todoEntry[1]).forEach((todo)=>{this._addTodo(todo)});
     this._updateEmptyState();
   }
 
@@ -158,7 +157,7 @@ export class ViewCtrl {
   }
 
   _updateEmptyState() {
-    const todos = this.model.getTodos();
+    const todos = Object.entries(this.model.getTodos()).map(todoEntry=>todoEntry[1]);
     if (!todos.length) {
       this._updateEmptyStateVisibility(eShowHide.SHOW);
     } else {

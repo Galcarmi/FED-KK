@@ -1,27 +1,25 @@
 import axios from 'axios';
 
-const serverUrl = 'http://localhost:8000';
-
 class TodosService {
   constructor() {}
 
   async addTodo(todo) {
-    const res = await axios.post(`${serverUrl}/todo`, todo);
+    const res = await axios.post(`/todo`, todo);
     return res.data;
   }
 
   async deleteTodo(id) {
-    const res = await axios.delete(`${serverUrl}/todo/${id}`);
+    const res = await axios.delete(`/todo/${id}`);
     return res.data;
   }
 
   async editTodo(todo) {
-    const res = await axios.put(`${serverUrl}/todo`, todo);
+    const res = await axios.put(`/todo`, todo);
     return res.data;
   }
 
   async getAllTodos() {
-    const res = await axios.get(`${serverUrl}/todos`);
+    const res = await axios.get(`/todos`);
     return res.data;
   }
 }

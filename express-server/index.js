@@ -1,62 +1,48 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import { TodoIMDBManager } from './DBManager/TodoIMDBManager.js';
-import { handleServerError } from './errors/utils.js';
-import { logger } from './logger/logger.js';
-import { getParentFolder } from './utils/folderUtils.js';
-import { eClientLocations } from './constants/clientLocations.js';
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+const { TodoInMemoryDBManager } = require('./DBManager/TodoInMemoryDBManager');
+const { logger } = require('./logger/logger');
+const { eClientLocations } = require('./constants/clientLocations');
+const { errorMiddleware, wrapError } = require('./middleware/errorHandler');
+const { userIdMiddleware } = require('./middleware/userIdMiddleware')
 
-const parentFolder = getParentFolder();
-const todoIMDBManager = new TodoIMDBManager();
+const parentFolder = path.join(__dirname, '../')
+const todoInMemoryDBManager = new TodoInMemoryDBManager();
 const app = express();
 const port = process.env.PORT || 8000;
 
-app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(parentFolder + eClientLocations.TASK_4_CLIENT_DIST));
+app.use(userIdMiddleware);
 
-app.get('/', (req, res) => {
+app.get('/', wrapError((req, res) => {
   res.sendFile(`${eClientLocations.TASK_4_CLIENT_DIST}/index.html`, {
     root: parentFolder,
   });
-});
+}));
 
-app.post('/todo', (req, res) => {
-  try {
-    const addedTodo = todoIMDBManager.addTodo(req.body);
+app.post('/todo', wrapError((req, res) => {
+    const addedTodo = todoInMemoryDBManager.addTodo(req.userId, req.body);
     res.status(200).send(addedTodo);
-  } catch (e) {
-    handleServerError(e, res);
-  }
-});
+}));
 
-app.put('/todo', (req, res) => {
-  try {
-    const editedTodo = todoIMDBManager.editTodo(req.body);
+app.put('/todo', wrapError((req, res) => {
+    const editedTodo = todoInMemoryDBManager.editTodo(req.userId, req.body);
     res.status(200).send(editedTodo);
-  } catch (e) {
-    handleServerError(e, res);
-  }
-});
+}));
 
-app.delete('/todo/:id', (req, res) => {
-  try {
-    const deletedTodo = todoIMDBManager.removeTodo(req.params.id);
-    res.status(200).send(deletedTodo);
-  } catch (e) {
-    handleServerError(e, res);
-  }
-});
+app.delete('/todo/:id', wrapError((req, res) => {
+    const deletedTodo = todoInMemoryDBManager.removeTodo(req.userId, req.params.id);
+    res.status(200).send(deletedTodo);  
+}));
 
-app.get('/todos', (req, res) => {
-  try {
-    const todos = todoIMDBManager.getAllTodos();
-    res.status(200).send(todos);
-  } catch (e) {
-    handleServerError(e, res);
-  }
-});
+app.get('/todos', wrapError((req, res) => {
+    const todos = todoInMemoryDBManager.getAllTodos(req.userId);
+    res.status(200).send(todos);  
+}));
+
+app.use(errorMiddleware);
 
 app.listen(port, () => {
   logger.info(`listening on ${port}`);

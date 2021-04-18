@@ -1,84 +1,75 @@
-const fractionalStylesConstants = {
-  screenSizeMedium: {
-    unit: 'px',
-    quantity: 600,
-  },
-  screenSizeSmall: {
-    unit: 'px',
-    quantity: 400,
-  },
-  sideMarginBigPercent: {
-    unit: '%',
-    quantity: 10,
-  },
-  sideMarginMediumPercent: {
-    unit: '%',
-    quantity: 5,
-  },
-  sideMarginSmallPercent: {
-    unit: '%',
-    quantity: 2,
-  },
-  smallPadding: {
-    unit: 'px',
-    quantity: 5,
-  },
-  xSmallMargin: {
-    unit: 'px',
-    quantity: 3,
-  },
-  smallMargin: {
-    unit: 'px',
-    quantity: 5,
-  },
-  smallRoundedBorder: {
-    unit: 'px',
-    quantity: 25,
-  },
-  fontSmall: {
-    unit: 'em',
-    quantity: 1.2,
-  },
-  fontMedium: {
-    unit: 'em',
-    quantity: 1.4,
-  },
-  minTodoItemHeight: {
-    unit: 'px',
-    quantity: 35,
-  },
-};
 
-const fullStylesConstants = {
-  shadows: {
-    mediumSizeShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-  },
-  colors: {
+const colors = {
     softBlue: 'rgba(82, 153, 229, 1)',
     blue: 'rgb(0, 123, 255)',
     softYellow: 'rgb(177, 177, 41)',
     white: 'white',
     red: 'red',
     green: 'green',
-  },
-  borders: {
-    greyTopBorder: 'solid 3px rgb(177, 184, 189)',
-    blackBorder: 'solid 2px rgb(62, 66, 70)',
-    focusedBlueBorder: 'solid 3px rgba(82, 153, 229, 1)',
-  },
-  padding: {
-    smallSidesPadding: '0px 10px 0px 10px',
-  },
 };
 
-const insertValuesToFractionalStylesObj = (styleObj) => {
-  for (const property in styleObj) {
-    styleObj[
-      property
-    ].value = `${styleObj[property].quantity}${styleObj[property].unit}`;
+const commonStyles = {
+  sidesMarginBigPercent: {
+    marginLeft:'10%',
+    marginRight:'10%'
+  },
+  sidesMarginMediumPercent: {
+    marginLeft:'5%',
+    marginRight:'5%'
+  },
+  sidesMarginSmallPercent: {
+    marginLeft:'2%',
+    marginRight:'2%'
+  },
+  sidesPaddingS:{
+    paddingLeft:'10px',
+    paddingRight:'10px'
+  },
+  paddingTopBottomS:{
+    paddingTop: '5px',
+    paddingBottom: '5px',
+  },
+  marginTopBottomMedium:{
+    marginTop: '7px',
+    marginBottom: '7px',
+  },
+  sidesMarginXS: {
+    marginLeft: '3px',
+    marginRight: '3px'
+  },
+  sidesMarginS: {
+    marginLeft: '5px',
+    marginRight: '5px'
+  },
+  marginRightS:{
+    marginRight: '5px'
+  },
+  smallRoundedBorder: {
+    borderRadius:'25px',
+  },
+  fontSmall: {
+    fontSize:'1.2em',
+  },
+  fontMedium: {
+    fontSize:'1.4em',
+  },
+  minTodoItemHeight: {
+    minHeight: '35px'
+  },
+  mediumSizeShadow: {
+    boxShadow : 'rgba(0, 0, 0, 0.35) 0px 5px 15px'
+  },
+  greyTopBorder:{
+    borderTop: 'solid 3px rgb(177, 184, 189)'
+  },
+  blackBorder:{
+    border: 'solid 2px rgb(62, 66, 70)'
+  },
+  focusedBlueBorder:{
+    border: 'solid 3px rgba(82, 153, 229, 1)'
   }
-};
+}
 
-insertValuesToFractionalStylesObj(fractionalStylesConstants);
 
-export { fullStylesConstants, fractionalStylesConstants };
+
+export { colors, commonStyles };
