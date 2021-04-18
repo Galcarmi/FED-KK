@@ -4,6 +4,21 @@ import {
   fractionalStylesConstants,
 } from '../../styles/constants.js';
 
+export const getTodoApp = (children) => {
+  return `<div class="${classes.todoApp}">
+    <div class="${classes.todoApp__list}">
+      <div class="${
+        classes.todoApp__list__emptyState
+      }">Add your first TODO !</div>
+      ${children ? children : ''}
+    </div>
+    <div class="${classes.todoApp__inputContainer}">
+      <input type="text" class="${classes.todoApp__inputContainer__textInput}"/>
+      <button class="${classes.todoApp__inputContainer__addBtn}">Add</button>
+    </div>
+  </div>`;
+};
+
 const styles = {
   todoApp: {
     backgroundColor: fullStylesConstants.colors.white,
@@ -100,18 +115,3 @@ const styles = {
 };
 
 export const { classes } = jss.createStyleSheet(styles).attach();
-
-export const getTodoApp = (children) => {
-  return `<div class="${classes.todoApp}">
-    <div class="${classes.todoApp__list}">
-      <div class="${
-        classes.todoApp__list__emptyState
-      }">Add your first TODO !</div>
-      ${children ? children : ''}
-    </div>
-    <div class="${classes.todoApp__inputContainer}">
-      <input type="text" class="${classes.todoApp__inputContainer__textInput}"/>
-      <button class="${classes.todoApp__inputContainer__addBtn}">Add</button>
-    </div>
-  </div>`;
-};
