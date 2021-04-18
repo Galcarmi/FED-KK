@@ -12,7 +12,6 @@ const todoInMemoryDBManager = new TodoInMemoryDBManager();
 const app = express();
 const port = process.env.PORT || 8000;
 
-app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(parentFolder + eClientLocations.TASK_4_CLIENT_DIST));
 
