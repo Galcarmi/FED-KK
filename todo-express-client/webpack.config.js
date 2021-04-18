@@ -15,6 +15,10 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, 'src'),
+    port: 3000,
+    proxy: {
+      '/': 'http://localhost:8000',
+   }
   },
   devtool: devTool,
   module: {
