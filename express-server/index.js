@@ -13,11 +13,11 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(bodyParser.json());
-app.use(express.static(parentFolder + eClientLocations.TASK_4_CLIENT_DIST));
+app.use(express.static(parentFolder + eClientLocations.PRODUCTION));
 app.use(userIdMiddleware);
 
 app.get('/', wrapError((req, res) => {
-  res.sendFile(`${eClientLocations.TASK_4_CLIENT_DIST}/index.html`, {
+  res.sendFile(`${eClientLocations.PRODUCTION}/index.html`, {
     root: parentFolder,
   });
 }));
