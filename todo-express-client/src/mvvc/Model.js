@@ -6,37 +6,41 @@ export class Model {
   }
 
   async initTodos() {
-    this.todos = await todosService.getAllTodos();
+    const todos = await todosService.getAllTodos();
+    todos.forEach(todo=>{
+      this.todos[todo._id] = todo;
+    })
   }
 
   async addTodo(content) {
     const todo = await todosService.addTodo({ content });
-    this.todos[todo.id] = todo;
+    this.todos[todo._id] = todo;
 
     return todo;
   }
 
-  async deleteTodoById(id) {
-    await todosService.deleteTodo(id);
-    delete this.todos[id];
+  async deleteTodoById(_id) {
+    await todosService.deleteTodo(_id);
+    delete this.todos[_id];
   }
 
-  async editTodoContentById({ id, content }) {
-    await todosService.editTodo({ id, content });
-    this.todos[id].content = content;
+  async editTodoContentById({ _id, content }) {
+    await todosService.editTodo({ _id, content });
+    this.todos[_id].content = content;
   }
 
-  async updateTodoDoneState(id) {
-    const isDone = !this.todos[id].isDone;
-    await todosService.editTodo({ ...this.todos[id], isDone });
+  async updateTodoDoneState(_id) {
+    const isDone = !this.todos[_id].isDone;
+    await todosService.editTodo({ ...this.todos[_id], isDone });
 
-    this.todos[id].isDone = isDone;
+    this.todos[_id].isDone = isDone;
 
     return isDone;
   }
 
-  getTodoItemById(id) {
-    return this.todos[id];
+
+  getTodoItemById(_id) {
+    return this.todos[_id];
   }
 
   getTodos() {

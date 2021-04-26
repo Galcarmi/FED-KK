@@ -12,41 +12,41 @@ export const elementSelectors = {
     document.querySelector(
       `.${todoAppClasses.todoApp__inputContainer__textInput}`
     ),
-  getTodoItemById: (id) => document.querySelector(`[id='${id}']`),
+  getTodoItemById: (_id) => document.querySelector(`[id='${_id}']`),
   todoEmptyState: () =>
     document.querySelector(`.${todoAppClasses.todoApp__list__emptyState}`),
-  getTodoContentElementById: (id) => {
-    const todoItem = elementSelectors.getTodoItemById(id);
+  getTodoContentElementById: (_id) => {
+    const todoItem = elementSelectors.getTodoItemById(_id);
     return todoItem.querySelector(
       `.${todoItemClasses.todoApp__list__item__content}`
     );
   },
-  getDoneSVGElementOfTodoById: (id) => {
-    const todoItem = elementSelectors.getTodoItemById(id);
+  getDoneSVGElementOfTodoById: (_id) => {
+    const todoItem = elementSelectors.getTodoItemById(_id);
     return todoItem.querySelector(
       `.${actionBtnClasses.todoApp__list__item__actions__done}`
     );
   },
-  getDeleteSVGElementOfTodoById: (id) => {
-    const todoItem = elementSelectors.getTodoItemById(id);
+  getDeleteSVGElementOfTodoById: (_id) => {
+    const todoItem = elementSelectors.getTodoItemById(_id);
     return todoItem.querySelector(
       `.${actionBtnClasses.todoApp__list__item__actions__delete}`
     );
   },
-  getEditSVGElementOfTodoById: (id) => {
-    const todoItem = elementSelectors.getTodoItemById(id);
+  getEditSVGElementOfTodoById: (_id) => {
+    const todoItem = elementSelectors.getTodoItemById(_id);
     return todoItem.querySelector(
       `.${actionBtnClasses.todoApp__list__item__actions__edit}`
     );
   },
-  getEditInputElementOfTodoById: (id) => {
-    const todoItem = elementSelectors.getTodoItemById(id);
+  getEditInputElementOfTodoById: (_id) => {
+    const todoItem = elementSelectors.getTodoItemById(_id);
     return todoItem.querySelector(
       `.${todoItemClasses.todoApp__list__item__editInput}`
     );
   },
-  getActionsContainerElementOfTodoById: (id) => {
-    const todoItem = elementSelectors.getTodoItemById(id);
+  getActionsContainerElementOfTodoById: (_id) => {
+    const todoItem = elementSelectors.getTodoItemById(_id);
     return todoItem.querySelector(
       `.${todoItemClasses['todo-app__list__item__actions']}`
     );
