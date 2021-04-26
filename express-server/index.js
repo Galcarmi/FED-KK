@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
-const { TodoInMemoryDBManager } = require('./DBManager/TodoInMemoryDBManager');
 const { TodoMongoDBManager } = require('./DBManager/TodoMongoDBManager');
 const { logger } = require('./logger/logger');
 const { eClientLocations } = require('./constants/clientLocations');
