@@ -8,12 +8,12 @@ exports.wrapError = (fn) => (req, res, next) => {
 
 exports.errorMiddleware = (err, req, res, next) => {
   if (err instanceof ServerError) {
-    res.status(err.HTTPStatus).send(err.message);
     logger.error(`custom server error: ${err.message}`);
+    res.status(err.HTTPStatus).send(err.message);
   } else {
+    logger.error(`internal server error: ${err.message}`);
     res
       .status(HTTPStatuses.INTERNAL_SERVER_ERROR)
       .send('internal server error');
-    logger.error(`internal server error: ${err.message}`);
   }
 };
