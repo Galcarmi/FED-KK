@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose');
 const { TodoMongoDBManager } = require('./DBManager/TodoMongoDBManager');
 const { logger } = require('./logger/logger');
@@ -22,6 +23,7 @@ const DBURI = `mongodb+srv://admin:${process.env.DBPassword}@cluster0.5zncg.mong
 mongoose.connect(DBURI, {useNewUrlParser:true, useUnifiedTopology:true});
 app.use(bodyParser.json());
 app.use(express.static(parentFolder + eClientLocations.PRODUCTION));
+app.use(cookieParser())
 app.use(userIdMiddleware);
 
 app.get('/', wrapError((req, res) => {
