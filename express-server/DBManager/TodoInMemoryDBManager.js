@@ -1,9 +1,9 @@
-const { v4 } = require('uuid');
-const { TodoDBManager } = require('./TodoDBManager.js');
-const { IdNotFoundError } = require('../errors/IdNotFoundError.js');
-const { MissingFieldsError } = require('../errors/MissingFieldsError.js');
+import { v4 } from 'uuid';
+import { TodoDBManager } from './TodoDBManager.js';
+import { IdNotFoundError } from '../errors/IdNotFoundError.js';
+import { MissingFieldsError } from '../errors/MissingFieldsError.js';
 
-class TodoInMemoryDBManager extends TodoDBManager {
+export class TodoInMemoryDBManager extends TodoDBManager {
   constructor() {
     super();
     this.todos = {};
@@ -60,8 +60,4 @@ class TodoInMemoryDBManager extends TodoDBManager {
       this.todos[userId] = {}; 
     }
   }
-}
-
-module.exports = {
-  TodoInMemoryDBManager
 }

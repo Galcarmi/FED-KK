@@ -1,9 +1,9 @@
-const { TodoDBManager } = require('./TodoDBManager');
-const { IdNotFoundError } = require('../errors/IdNotFoundError');
-const { MissingFieldsError } = require('../errors/MissingFieldsError');
-const Todo = require('./models/Todo');
+import { TodoDBManager } from './TodoDBManager.js';
+import { IdNotFoundError } from '../errors/IdNotFoundError.js';
+import { MissingFieldsError } from '../errors/MissingFieldsError.js';
+import Todo from './models/Todo.js';
 
-class TodoMongoDBManager extends TodoDBManager {
+export class TodoMongoDBManager extends TodoDBManager {
   constructor() {
     super();
   }
@@ -53,8 +53,4 @@ class TodoMongoDBManager extends TodoDBManager {
 
     return todos;
   }
-}
-
-module.exports = {
-    TodoMongoDBManager
 }

@@ -1,19 +1,20 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const cookieParser = require('cookie-parser')
-const mongoose = require('mongoose');
-const { TodoMongoDBManager } = require('./DBManager/TodoMongoDBManager');
-const { logger } = require('./logger/logger');
-const { eClientLocations } = require('./constants/clientLocations');
-const { errorMiddleware, wrapError } = require('./middleware/errorHandler');
-const { userIdMiddleware } = require('./middleware/userIdMiddleware')
+import express from 'express';
+import bodyParser from 'body-parser';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import { TodoMongoDBManager } from './DBManager/TodoMongoDBManager.js';
+import { logger } from './logger/logger.js';
+import { eClientLocations } from './constants/clientLocations.js';
+import { errorMiddleware, wrapError } from './middleware/errorHandler.js';
+import { userIdMiddleware } from './middleware/userIdMiddleware.js';
 
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
+  dotenv.config();
 }
 
-const parentFolder = path.join(__dirname, '../')
+const parentFolder = path.join(process.cwd(), '../')
 const todoMongoDBManager = new TodoMongoDBManager();
 const app = express();
 const port = process.env.PORT || 8000;

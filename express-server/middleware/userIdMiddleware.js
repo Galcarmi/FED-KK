@@ -1,6 +1,6 @@
-const { v4 } = require('uuid');
+import { v4 } from 'uuid';
 
-exports.userIdMiddleware = (req, res, next) => {
+export const userIdMiddleware = (req, res, next) => {
   let userId = req.cookies.userId;
   if (!userId) {
     userId = v4();
