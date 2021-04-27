@@ -36,10 +36,6 @@ module.exports = {
         enforce: 'pre',
         use: ['source-map-loader'],
       },
-      {
-        test: /\.svg$/,
-        loader: 'svg-inline-loader',
-      },
     ],
   },
   plugins: [
