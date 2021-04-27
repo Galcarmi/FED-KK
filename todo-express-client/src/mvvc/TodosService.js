@@ -8,8 +8,8 @@ class TodosService {
     return res.data;
   }
 
-  async deleteTodo(id) {
-    const res = await axios.delete(`/todo/${id}`);
+  async deleteTodo(_id) {
+    const res = await axios.delete(`/todo/${_id}`);
     return res.data;
   }
 

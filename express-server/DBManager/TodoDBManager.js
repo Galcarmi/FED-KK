@@ -1,4 +1,4 @@
-class TodoDBManager {
+export class TodoDBManager {
   constructor() {}
   addTodo(todo) {
     throw new Error('method not implemented');
@@ -15,8 +15,4 @@ class TodoDBManager {
   getTodoIndexById(id) {
     throw new Error('method not implemented');
   }
-}
-
-module.exports = {
-  TodoDBManager
 }

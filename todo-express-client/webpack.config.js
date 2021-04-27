@@ -18,7 +18,7 @@ module.exports = {
     port: 3000,
     proxy: {
       '/': 'http://localhost:8000',
-   }
+    },
   },
   devtool: devTool,
   module: {
@@ -35,6 +35,10 @@ module.exports = {
         test: /\.js$/,
         enforce: 'pre',
         use: ['source-map-loader'],
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader',
       },
     ],
   },

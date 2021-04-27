@@ -5,7 +5,7 @@ import { getActionBtn, eActionBtn } from './actionBtn/actionBtn';
 
 export const getTodoItem = (props) => {
   return `
-    <div class="${s.todoApp__list__item}" id="${props.id}">
+    <div class="${s.todoApp__list__item}" id="${props._id}">
         <input type="text" class="${s.todoApp__list__item__editInput}">
         <div class="${s.todoApp__list__item__content} ${
     props.isDone && helperClasses.crossedContent

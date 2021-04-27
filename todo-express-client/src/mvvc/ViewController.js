@@ -32,23 +32,23 @@ export class ViewCtrl {
     renderTodoPage();
   }
 
-  _addTodo({ content, id, isDone }) {
+  _addTodo({ content, _id, isDone }) {
     const todoHTMLList = elementSelectors.todoList();
     todoHTMLList.insertAdjacentHTML(
       'beforeend',
-      this._getTodoTemplate({ content, id, isDone })
+      this._getTodoTemplate({ content, _id, isDone })
     );
-    this._addEventListenersForTodoItem(id);
+    this._addEventListenersForTodoItem(_id);
   }
 
-  _deleteTodoById(id) {
+  _deleteTodoById(_id) {
     const todoList = elementSelectors.todoList();
-    const todoItem = elementSelectors.getTodoItemById(id);
+    const todoItem = elementSelectors.getTodoItemById(_id);
     todoList.removeChild(todoItem);
   }
 
-  _updateTodoContent({ content, id }) {
-    const contentElement = elementSelectors.getTodoContentElementById(id);
+  _updateTodoContent({ content, _id }) {
+    const contentElement = elementSelectors.getTodoContentElementById(_id);
     contentElement.innerHTML = content;
   }
 
@@ -67,8 +67,8 @@ export class ViewCtrl {
     }
   }
 
-  _toggleDoneTodoById(id, isDone) {
-    const contentElement = elementSelectors.getTodoContentElementById(id);
+  _toggleDoneTodoById(_id, isDone) {
+    const contentElement = elementSelectors.getTodoContentElementById(_id);
     isDone
       ? contentElement.classList.add(helperClasses.crossedContent)
       : contentElement.classList.remove(helperClasses.crossedContent);
@@ -101,21 +101,21 @@ export class ViewCtrl {
     }
   }
 
-  _showTodoEditInputById({ id, content }) {
-    const inputElement = elementSelectors.getEditInputElementOfTodoById(id);
+  _showTodoEditInputById({ _id, content }) {
+    const inputElement = elementSelectors.getEditInputElementOfTodoById(_id);
     inputElement.value = content;
     inputElement.classList.add(helperClasses.displayBlock);
     inputElement.focus();
 
-    const contentElement = elementSelectors.getTodoContentElementById(id);
+    const contentElement = elementSelectors.getTodoContentElementById(_id);
     contentElement.classList.add(helperClasses.displayNone);
   }
 
-  _hideTodoEditInputById(id) {
-    const inputElement = elementSelectors.getEditInputElementOfTodoById(id);
+  _hideTodoEditInputById(_id) {
+    const inputElement = elementSelectors.getEditInputElementOfTodoById(_id);
     inputElement.classList.remove(helperClasses.displayBlock);
 
-    const contentElement = elementSelectors.getTodoContentElementById(id);
+    const contentElement = elementSelectors.getTodoContentElementById(_id);
     contentElement.classList.remove(helperClasses.displayNone);
   }
 
@@ -132,28 +132,28 @@ export class ViewCtrl {
     this._updateEmptyState();
   }
 
-  async _onDoneTodo(id) {
-    this._hideTodoEditInputById(id);
-    const isDone = await this.model.updateTodoDoneState(id);
-    this._toggleDoneTodoById(id, isDone);
+  async _onDoneTodo(_id) {
+    this._hideTodoEditInputById(_id);
+    const isDone = await this.model.updateTodoDoneState(_id);
+    this._toggleDoneTodoById(_id, isDone);
   }
 
-  async _onDeleteDoto(id) {
-    this._hideTodoEditInputById(id);
-    await this.model.deleteTodoById(id);
-    this._deleteTodoById(id);
+  async _onDeleteDoto(_id) {
+    this._hideTodoEditInputById(_id);
+    await this.model.deleteTodoById(_id);
+    this._deleteTodoById(_id);
     this._updateEmptyState();
   }
 
-  _onEditTodoBtnClick(id) {
-    const todo = this.model.getTodoItemById(id);
+  _onEditTodoBtnClick(_id) {
+    const todo = this.model.getTodoItemById(_id);
     this._showTodoEditInputById(todo);
   }
 
-  async _onEditTodo({ id, content }) {
-    await this.model.editTodoContentById({ id, content });
-    this._hideTodoEditInputById(id);
-    this._updateTodoContent({ id, content });
+  async _onEditTodo({ _id, content }) {
+    await this.model.editTodoContentById({ _id, content });
+    this._hideTodoEditInputById(_id);
+    this._updateTodoContent({ _id, content });
   }
 
   _updateEmptyState() {
@@ -165,32 +165,32 @@ export class ViewCtrl {
     }
   }
 
-  _getTodoTemplate({ content, id, isDone }) {
-    return getTodoItem({ content, id, isDone });
+  _getTodoTemplate({ content, _id, isDone }) {
+    return getTodoItem({ content, _id, isDone });
   }
 
-  _addEventListenersForTodoItem(id) {
-    const doneSVG = elementSelectors.getDoneSVGElementOfTodoById(id);
-    const deleteSVG = elementSelectors.getDeleteSVGElementOfTodoById(id);
-    const editSVG = elementSelectors.getEditSVGElementOfTodoById(id);
-    const inputElement = elementSelectors.getEditInputElementOfTodoById(id);
+  _addEventListenersForTodoItem(_id) {
+    const doneSVG = elementSelectors.getDoneSVGElementOfTodoById(_id);
+    const deleteSVG = elementSelectors.getDeleteSVGElementOfTodoById(_id);
+    const editSVG = elementSelectors.getEditSVGElementOfTodoById(_id);
+    const inputElement = elementSelectors.getEditInputElementOfTodoById(_id);
 
     doneSVG.addEventListener('click', () => {
-      this._onDoneTodo(id);
+      this._onDoneTodo(_id);
     });
 
     deleteSVG.addEventListener('click', () => {
-      this._onDeleteDoto(id);
+      this._onDeleteDoto(_id);
     });
 
     editSVG.addEventListener('click', () => {
-      this._onEditTodoBtnClick(id);
+      this._onEditTodoBtnClick(_id);
     });
 
     inputElement.addEventListener('focusout', () => {
       const editedContent = inputElement.value;
       this._onEditTodo({
-        id,
+        _id,
         content: editedContent,
       });
     });
@@ -199,7 +199,7 @@ export class ViewCtrl {
       if (e.key === 'Enter') {
         const editedContent = inputElement.value;
         this._onEditTodo({
-          id,
+          _id,
           content: editedContent,
         });
       }

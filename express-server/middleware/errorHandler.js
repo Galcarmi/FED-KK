@@ -1,19 +1,24 @@
-const { ServerError } = require('../errors/ServerError');
-const { logger } = require('../logger/logger.js');
-const { HTTPStatuses } = require('../constants/HTTPStatus.js');
+import { ServerError } from '../errors/ServerError.js';
+import { logger } from '../logger/logger.js';
+import { HTTPStatuses } from '../constants/HTTPStatus.js';
 
-exports.wrapError = (fn) => (req, res, next) => {
-    Promise.resolve(fn(req, res, next)).catch(next)
+export const wrapError = (fn) => async (req, res, next) => {
+  try{
+    await fn(req, res, next);
+  }
+  catch(err){
+    next(err);
+  }
 };
 
-exports.errorMiddleware = (err, req, res, next) => {
+export const errorMiddleware = (err, req, res, next) => {
   if (err instanceof ServerError) {
-    res.status(err.HTTPStatus).send(err.message);
     logger.error(`custom server error: ${err.message}`);
+    res.status(err.HTTPStatus).send(err.message);
   } else {
+    logger.error(`internal server error: ${err.message}`);
     res
       .status(HTTPStatuses.INTERNAL_SERVER_ERROR)
-      .send('internal server error');
-    logger.error(`internal server error: ${err.message}`);
+      .send(err);
   }
 };

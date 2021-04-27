@@ -1,44 +1,55 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const { TodoInMemoryDBManager } = require('./DBManager/TodoInMemoryDBManager');
-const { logger } = require('./logger/logger');
-const { eClientLocations } = require('./constants/clientLocations');
-const { errorMiddleware, wrapError } = require('./middleware/errorHandler');
-const { userIdMiddleware } = require('./middleware/userIdMiddleware')
+import express from 'express';
+import bodyParser from 'body-parser';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import { TodoMongoDBManager } from './DBManager/TodoMongoDBManager.js';
+import { logger } from './logger/logger.js';
+import { eClientLocations } from './constants/clientLocations.js';
+import { errorMiddleware, wrapError } from './middleware/errorHandler.js';
+import { userIdMiddleware } from './middleware/userIdMiddleware.js';
 
-const parentFolder = path.join(__dirname, '../')
-const todoInMemoryDBManager = new TodoInMemoryDBManager();
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
+}
+
+const parentFolder = path.join(process.cwd(), '../')
+const todoMongoDBManager = new TodoMongoDBManager();
 const app = express();
 const port = process.env.PORT || 8000;
 
+const DBURI = `mongodb+srv://admin:${process.env.DBPassword}@cluster0.5zncg.mongodb.net/todoapp?retryWrites=true&w=majority`;
+
+mongoose.connect(DBURI, {useNewUrlParser:true, useUnifiedTopology:true});
 app.use(bodyParser.json());
-app.use(express.static(parentFolder + eClientLocations.TASK_4_CLIENT_DIST));
+app.use(express.static(parentFolder + eClientLocations.PRODUCTION));
+app.use(cookieParser())
 app.use(userIdMiddleware);
 
 app.get('/', wrapError((req, res) => {
-  res.sendFile(`${eClientLocations.TASK_4_CLIENT_DIST}/index.html`, {
+  res.sendFile(`${eClientLocations.PRODUCTION}/index.html`, {
     root: parentFolder,
   });
 }));
 
-app.post('/todo', wrapError((req, res) => {
-    const addedTodo = todoInMemoryDBManager.addTodo(req.userId, req.body);
+app.post('/todo', wrapError(async (req, res) => {
+    const addedTodo = await todoMongoDBManager.addTodo(req.userId, req.body);
     res.status(200).send(addedTodo);
 }));
 
-app.put('/todo', wrapError((req, res) => {
-    const editedTodo = todoInMemoryDBManager.editTodo(req.userId, req.body);
+app.put('/todo', wrapError(async (req, res) => {
+    const editedTodo = await todoMongoDBManager.editTodo(req.userId, req.body);
     res.status(200).send(editedTodo);
 }));
 
-app.delete('/todo/:id', wrapError((req, res) => {
-    const deletedTodo = todoInMemoryDBManager.removeTodo(req.userId, req.params.id);
+app.delete('/todo/:id', wrapError(async (req, res) => {
+    const deletedTodo = await todoMongoDBManager.removeTodo(req.userId, req.params.id);
     res.status(200).send(deletedTodo);  
 }));
 
-app.get('/todos', wrapError((req, res) => {
-    const todos = todoInMemoryDBManager.getAllTodos(req.userId);
+app.get('/todos', wrapError(async (req, res) => {
+    const todos = await todoMongoDBManager.getAllTodos(req.userId);
     res.status(200).send(todos);  
 }));
 
