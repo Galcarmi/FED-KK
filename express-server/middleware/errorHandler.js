@@ -2,8 +2,13 @@ const { ServerError } = require('../errors/ServerError');
 const { logger } = require('../logger/logger.js');
 const { HTTPStatuses } = require('../constants/HTTPStatus.js');
 
-exports.wrapError = (fn) => (req, res, next) => {
-    Promise.resolve(fn(req, res, next)).catch(next)
+exports.wrapError = (fn) => async (req, res, next) => {
+  try{
+    await fn(req, res, next);
+  }
+  catch(err){
+    next(err);
+  }
 };
 
 exports.errorMiddleware = (err, req, res, next) => {
