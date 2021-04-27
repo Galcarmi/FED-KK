@@ -19,6 +19,6 @@ exports.errorMiddleware = (err, req, res, next) => {
     logger.error(`internal server error: ${err.message}`);
     res
       .status(HTTPStatuses.INTERNAL_SERVER_ERROR)
-      .send('internal server error');
+      .send(err);
   }
 };
