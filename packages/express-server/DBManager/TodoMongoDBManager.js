@@ -4,7 +4,6 @@ import { IdNotFoundError } from '../errors/IdNotFoundError.js';
 import { MissingFieldsError } from '../errors/MissingFieldsError.js';
 import TodosModel from './models/TodosModel.js';
 
-const DBURI = `mongodb+srv://admin:${process.env.DBPassword}@cluster0.5zncg.mongodb.net/todoapp?retryWrites=true&w=majority`;
 export class TodoMongoDBManager extends TodoDBManager {
 
   async addTodo(userId, todo) {
@@ -47,10 +46,11 @@ export class TodoMongoDBManager extends TodoDBManager {
   }
 
   async getAllTodos(userId) {
-    return TodosModel.find({userId});;
+    return TodosModel.find({userId});
   }
 
-  async connectToMongoServer(){
+  async connectToMongoServer(DBPassword){
+    const DBURI = `mongodb+srv://admin:${DBPassword}@cluster0.5zncg.mongodb.net/todoapp?retryWrites=true&w=majority`;
     mongoose.connect(DBURI, {useNewUrlParser:true, useUnifiedTopology:true});
   }
 }

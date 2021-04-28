@@ -15,6 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const parentFolder = path.join(process.cwd(), '../')
 const todoMongoDBManager = new TodoMongoDBManager();
+todoMongoDBManager.connectToMongoServer(process.env.DBPassword);
 const app = express();
 const port = process.env.PORT || 8000;
 
