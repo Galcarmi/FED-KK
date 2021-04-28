@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { TodoDBManager } from './TodoDBManager.js';
 import { IdNotFoundError } from '../errors/IdNotFoundError.js';
 import { MissingFieldsError } from '../errors/MissingFieldsError.js';
-import Todo from './models/Todo.js';
+import TodosModel from './models/TodosModel.js';
 
 const DBURI = `mongodb+srv://admin:${process.env.DBPassword}@cluster0.5zncg.mongodb.net/todoapp?retryWrites=true&w=majority`;
 export class TodoMongoDBManager extends TodoDBManager {
@@ -12,10 +12,9 @@ export class TodoMongoDBManager extends TodoDBManager {
       throw new MissingFieldsError('content');
     }
     
-    const todoToInsert = new Todo({ content: todo.content, userId, isDone: false });
-    const insertedTodo = await todoToInsert.save()
+    const todoToInsert = new TodosModel({ content: todo.content, userId, isDone: false });
 
-    return insertedTodo;
+    return todoToInsert.save();
   }
 
   async removeTodo(userId, _id) {
@@ -23,7 +22,7 @@ export class TodoMongoDBManager extends TodoDBManager {
       throw new MissingFieldsError('id');
     }
     
-    const deletedTodo  = await Todo.findOneAndRemove({_id, userId})
+    const deletedTodo  = await TodosModel.findOneAndRemove({_id, userId})
 
     if(!deletedTodo){
         throw new IdNotFoundError(_id);
@@ -37,7 +36,7 @@ export class TodoMongoDBManager extends TodoDBManager {
       throw new MissingFieldsError('id');
     }
 
-    let updatedTodo = await Todo.findOneAndUpdate({_id:todo._id, userId}, {...todo});
+    let updatedTodo = await TodosModel.findOneAndUpdate({_id:todo._id, userId}, {...todo});
 
     if(!updatedTodo){
         throw new IdNotFoundError(todo._id);
@@ -48,9 +47,7 @@ export class TodoMongoDBManager extends TodoDBManager {
   }
 
   async getAllTodos(userId) {
-    const todos = await Todo.find({userId});
-
-    return todos;
+    return TodosModel.find({userId});;
   }
 
   async connectToMongoServer(){
