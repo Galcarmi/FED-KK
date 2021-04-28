@@ -7,7 +7,7 @@
     "client-start": "cd packages/4-todo-express-client && npm start",
     "client-build": "cd packages/4-todo-express-client && npm run build",
     "server-start": "cd packages/express-server && npm start",
-    "start": "npm run server",
+    "start": "npm run server-start",
     "dev": "concurrently \"npm run client-start\" \"npm run server-start\"",
     "build": "npm run client-build",
     "bootstrap": "lerna bootstrap",
