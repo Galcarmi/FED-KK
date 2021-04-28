@@ -4,13 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client": "cd packages/4-todo-express-client && npm start",
+    "client-start": "cd packages/4-todo-express-client && npm start",
     "client-build": "cd packages/4-todo-express-client && npm run build",
-    "client-install": "cd packages/4-todo-express-client && npm install",
-    "server": "cd packages/express-server && npm start",
-    "server-install": "cd packages/express-server && npm install",
+    "server-start": "cd packages/express-server && npm start",
     "start": "npm run server",
-    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "dev": "concurrently \"npm run client-start\" \"npm run server-start\"",
     "build": "npm run client-build",
     "bootstrap": "lerna bootstrap",
     "postinstall": "npm run bootstrap"
