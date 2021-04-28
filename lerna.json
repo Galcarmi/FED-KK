@@ -1,7 +1,5 @@
 {
-    "packages": [
-        "/express-server"
-    ],
+    "packages": ["packages/*"],
     "npmClient": "npm",
     "useWorkspaces": true,
     "version": "0.0.0"
