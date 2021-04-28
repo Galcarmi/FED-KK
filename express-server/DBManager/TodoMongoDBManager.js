@@ -1,12 +1,11 @@
+import mongoose from 'mongoose';
 import { TodoDBManager } from './TodoDBManager.js';
 import { IdNotFoundError } from '../errors/IdNotFoundError.js';
 import { MissingFieldsError } from '../errors/MissingFieldsError.js';
 import Todo from './models/Todo.js';
 
+const DBURI = `mongodb+srv://admin:${process.env.DBPassword}@cluster0.5zncg.mongodb.net/todoapp?retryWrites=true&w=majority`;
 export class TodoMongoDBManager extends TodoDBManager {
-  constructor() {
-    super();
-  }
 
   async addTodo(userId, todo) {
     if (!todo.content) {
@@ -52,5 +51,9 @@ export class TodoMongoDBManager extends TodoDBManager {
     const todos = await Todo.find({userId});
 
     return todos;
+  }
+
+  async connectToMongoServer(){
+    mongoose.connect(DBURI, {useNewUrlParser:true, useUnifiedTopology:true});
   }
 }
