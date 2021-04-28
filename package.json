@@ -1,0 +1,34 @@
+{
+  "name": "fed-todo-journey",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd 4-todo-express-client && npm start",
+    "client-build": "cd 4-todo-express-client && npm run build",
+    "client-install": "cd 4-todo-express-client && npm install",
+    "server": "cd express-server && npm start",
+    "server-install": "cd express-server && npm install",
+    "start": "npm run server",
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "build": "npm run client-build",
+    "postinstall": "lerna bootstrap"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Galcarmi/FED-TODO-Journey.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Galcarmi/FED-TODO-Journey/issues"
+  },
+  "homepage": "https://github.com/Galcarmi/FED-TODO-Journey#readme",
+  "devDependencies": {
+    "concurrently": "^6.0.2",
+    "lerna": "^4.0.0"
+  },
+  "workspaces": [
+    "/*"
+  ]
+}
