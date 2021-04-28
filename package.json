@@ -4,15 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client": "cd 4-todo-express-client && npm start",
-    "client-build": "cd 4-todo-express-client && npm run build",
-    "client-install": "cd 4-todo-express-client && npm install",
-    "server": "cd express-server && npm start",
-    "server-install": "cd express-server && npm install",
+    "client": "cd packages/4-todo-express-client && npm start",
+    "client-build": "cd packages/4-todo-express-client && npm run build",
+    "client-install": "cd packages/4-todo-express-client && npm install",
+    "server": "cd packages/express-server && npm start",
+    "server-install": "cd packages/express-server && npm install",
     "start": "npm run server",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
     "build": "npm run client-build",
-    "postinstall": "lerna bootstrap"
+    "bootstrap": "lerna bootstrap",
+    "postinstall": "npm run bootstrap"
   },
   "repository": {
     "type": "git",
