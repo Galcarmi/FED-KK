@@ -6,10 +6,10 @@ const devTool = developmentMode ? 'eval' : 'source-map';
 module.exports = {
     mode:'development',
     entry:{
-        bundle:'./src/js/index.js',
+        bundle:'./src/index.js',
     },
     output:{
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../express-server/public'),
         filename: 'bundle.js',
     },
     devServer: {
@@ -31,7 +31,12 @@ module.exports = {
                 use:[
                     'html-loader'
                 ]
-            }
+            },
+            {
+                test: /\.js$/,
+                enforce: 'pre',
+                use: ['source-map-loader'],
+              },
         ]
     },
     plugins:[

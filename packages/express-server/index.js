@@ -2,7 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { TodoMongoDBManager } from './DBManager/TodoMongoDBManager.js';
 import { logger } from './logger/logger.js';
@@ -19,9 +18,6 @@ const todoMongoDBManager = new TodoMongoDBManager();
 const app = express();
 const port = process.env.PORT || 8000;
 
-const DBURI = `mongodb+srv://admin:${process.env.DBPassword}@cluster0.5zncg.mongodb.net/todoapp?retryWrites=true&w=majority`;
-
-mongoose.connect(DBURI, {useNewUrlParser:true, useUnifiedTopology:true});
 app.use(bodyParser.json());
 app.use(express.static(parentFolder + eClientLocations.PRODUCTION));
 app.use(cookieParser())
