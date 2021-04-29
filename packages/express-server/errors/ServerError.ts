@@ -1,5 +1,6 @@
 export class ServerError extends Error {
-  constructor(HTTPStatus, clientErrorMessage) {
+  HTTPStatus:number;
+  constructor(HTTPStatus:number, clientErrorMessage:string) {
     super(
       `server error ${HTTPStatus}: ${clientErrorMessage || 'internal error'}`
     );

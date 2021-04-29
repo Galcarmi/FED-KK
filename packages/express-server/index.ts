@@ -13,42 +13,60 @@ if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
 }
 
-const parentFolder = path.join(process.cwd(), '../')
+const parentFolder: string = path.join(process.cwd(), '../');
 const todoMongoDBManager = new TodoMongoDBManager();
 todoMongoDBManager.connectToMongoServer(process.env.DBPassword);
-const app = express();
-const port = process.env.PORT || 8000;
+const app: express.Express = express();
+const port: number | string = process.env.PORT || 8000;
 
 app.use(bodyParser.json());
 app.use(express.static(parentFolder + eClientLocations.PRODUCTION));
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(userIdMiddleware);
 
-app.get('/', wrapError((req, res) => {
-  res.sendFile(`${eClientLocations.PRODUCTION}/index.html`, {
-    root: parentFolder,
-  });
-}));
+app.get(
+  '/',
+  wrapError((req: express.Request, res: express.Response) => {
+    res.sendFile(`${eClientLocations.PRODUCTION}/index.html`, {
+      root: parentFolder,
+    });
+  })
+);
 
-app.post('/todo', wrapError(async (req, res) => {
+app.post(
+  '/todo',
+  wrapError(async (req: express.Request, res: express.Response) => {
     const addedTodo = await todoMongoDBManager.addTodo(req.userId, req.body);
     res.status(200).send(addedTodo);
-}));
+  })
+);
 
-app.put('/todo', wrapError(async (req, res) => {
+app.put(
+  '/todo',
+  wrapError(async (req: express.Request, res: express.Response) => {
     const editedTodo = await todoMongoDBManager.editTodo(req.userId, req.body);
     res.status(200).send(editedTodo);
-}));
+  })
+);
 
-app.delete('/todo/:id', wrapError(async (req, res) => {
-    const deletedTodo = await todoMongoDBManager.removeTodo(req.userId, req.params.id);
-    res.status(200).send(deletedTodo);  
-}));
+app.delete(
+  '/todo/:id',
+  wrapError(async (req: express.Request, res: express.Response) => {
+    const deletedTodo = await todoMongoDBManager.removeTodo(
+      req.userId,
+      req.params.id
+    );
+    res.status(200).send(deletedTodo);
+  })
+);
 
-app.get('/todos', wrapError(async (req, res) => {
+app.get(
+  '/todos',
+  wrapError(async (req: express.Request, res: express.Response) => {
     const todos = await todoMongoDBManager.getAllTodos(req.userId);
-    res.status(200).send(todos);  
-}));
+    res.status(200).send(todos);
+  })
+);
 
 app.use(errorMiddleware);
 

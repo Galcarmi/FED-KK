@@ -1,8 +1,8 @@
 import { ServerError } from './ServerError.js';
-import { HTTPStatuses } from '../constants/HTTPStatus.js';
+import { HTTPStatuses } from '../constants/HTTPStatus';
 
 export class MissingFieldsError extends ServerError {
-  constructor(missingFields) {
+  constructor(missingFields:string) {
     super(HTTPStatuses.BAD_REQUEST, `missing fields: ${missingFields}`);
   }
 }
