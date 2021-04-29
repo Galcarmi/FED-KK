@@ -37,7 +37,7 @@ app.get(
 app.post(
   '/todo',
   wrapError(async (req: IDigestedRequest, res: express.Response) => {
-    const addedTodo = await todoMongoDBManager.addTodo(req.userId, req.body);
+    const addedTodo = await todoMongoDBManager.addTodo(req.cookies.userId, req.body);
     res.status(200).send(addedTodo);
   })
 );
@@ -45,7 +45,7 @@ app.post(
 app.put(
   '/todo',
   wrapError(async (req: IDigestedRequest, res: express.Response) => {
-    const editedTodo = await todoMongoDBManager.editTodo(req.userId, req.body);
+    const editedTodo = await todoMongoDBManager.editTodo(req.cookies.userId, req.body);
     res.status(200).send(editedTodo);
   })
 );
@@ -54,7 +54,7 @@ app.delete(
   '/todo/:id',
   wrapError(async (req: IDigestedRequest, res: express.Response) => {
     const deletedTodo = await todoMongoDBManager.removeTodo(
-      req.userId,
+      req.cookies.userId,
       req.params.id
     );
     res.status(200).send(deletedTodo);
@@ -64,7 +64,7 @@ app.delete(
 app.get(
   '/todos',
   wrapError(async (req: IDigestedRequest, res: express.Response) => {
-    const todos = await todoMongoDBManager.getAllTodos(req.userId);
+    const todos = await todoMongoDBManager.getAllTodos(req.cookies.userId);
     res.status(200).send(todos);
   })
 );
