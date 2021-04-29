@@ -6,8 +6,8 @@ export const userIdMiddleware = (req:express.Request, res:express.Response, next
   if (!userId) {
     userId = v4();
     res.cookie('userId', userId);
+    req.cookies.userId = userId;
   }
 
-  req.userId = userId;
   next();
 };

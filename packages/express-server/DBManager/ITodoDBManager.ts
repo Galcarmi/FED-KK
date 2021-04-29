@@ -1,8 +1,8 @@
-export interface TodoDBManager {
-  addTodo(todo:any):any;
+import { ITodo } from './ITodo';
 
-  removeTodo(id:string):any;
-  editTodo(todo:any):any;
-  getAllTodos():any;
-  getTodoIndexById(id:string):any;
+export interface TodoDBManager {
+  addTodo(userId:string, todo:ITodo):Promise<ITodo>;
+  removeTodo(userId:string, _id:string):Promise<ITodo>;
+  editTodo(userId:string, todo:ITodo):Promise<ITodo>;
+  getAllTodos(userId:string):Promise<ITodo[]>;
 }

@@ -8,6 +8,7 @@ import { logger } from './logger/logger.js';
 import { eClientLocations } from './constants/clientLocations.js';
 import { errorMiddleware, wrapError } from './middleware/errorHandler.js';
 import { userIdMiddleware } from './middleware/userIdMiddleware.js';
+import { IDigestedRequest } from './types/IDigestedRequest.js';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
@@ -26,7 +27,7 @@ app.use(userIdMiddleware);
 
 app.get(
   '/',
-  wrapError((req: express.Request, res: express.Response) => {
+  wrapError((req: IDigestedRequest, res: express.Response) => {
     res.sendFile(`${eClientLocations.PRODUCTION}/index.html`, {
       root: parentFolder,
     });
@@ -35,7 +36,7 @@ app.get(
 
 app.post(
   '/todo',
-  wrapError(async (req: express.Request, res: express.Response) => {
+  wrapError(async (req: IDigestedRequest, res: express.Response) => {
     const addedTodo = await todoMongoDBManager.addTodo(req.userId, req.body);
     res.status(200).send(addedTodo);
   })
@@ -43,7 +44,7 @@ app.post(
 
 app.put(
   '/todo',
-  wrapError(async (req: express.Request, res: express.Response) => {
+  wrapError(async (req: IDigestedRequest, res: express.Response) => {
     const editedTodo = await todoMongoDBManager.editTodo(req.userId, req.body);
     res.status(200).send(editedTodo);
   })
@@ -51,7 +52,7 @@ app.put(
 
 app.delete(
   '/todo/:id',
-  wrapError(async (req: express.Request, res: express.Response) => {
+  wrapError(async (req: IDigestedRequest, res: express.Response) => {
     const deletedTodo = await todoMongoDBManager.removeTodo(
       req.userId,
       req.params.id
@@ -62,7 +63,7 @@ app.delete(
 
 app.get(
   '/todos',
-  wrapError(async (req: express.Request, res: express.Response) => {
+  wrapError(async (req: IDigestedRequest, res: express.Response) => {
     const todos = await todoMongoDBManager.getAllTodos(req.userId);
     res.status(200).send(todos);
   })

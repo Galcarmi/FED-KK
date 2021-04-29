@@ -1,22 +1,25 @@
 import mongoose from 'mongoose';
-import { TodoDBManager } from './TodoDBManager.js';
-import { IdNotFoundError } from '../errors/IdNotFoundError.js';
-import { MissingFieldsError } from '../errors/MissingFieldsError.js';
-import TodosModel from './models/TodosModel.js';
+import { TodoDBManager } from './ITodoDBManager';
+import { IdNotFoundError } from '../errors/IdNotFoundError';
+import { MissingFieldsError } from '../errors/MissingFieldsError';
+import TodosModel from './models/TodosModel';
+import { ITodo } from './ITodo';
 
-export class TodoMongoDBManager extends TodoDBManager {
+export class TodoMongoDBManager implements TodoDBManager {
 
-  async addTodo(userId, todo) {
+  async addTodo(userId:string, todo:ITodo) {
     if (!todo.content) {
       throw new MissingFieldsError('content');
     }
     
     const todoToInsert = new TodosModel({ content: todo.content, userId, isDone: false });
-
+    const lala = await todoToInsert.save();
+    lala.
+    const aa = lala.toObject()
     return todoToInsert.save();
   }
 
-  async removeTodo(userId, _id) {
+  async removeTodo(userId:string, _id:string) {
     if (!_id) {
       throw new MissingFieldsError('id');
     }
@@ -49,7 +52,7 @@ export class TodoMongoDBManager extends TodoDBManager {
     return TodosModel.find({userId});
   }
 
-  async connectToMongoServer(DBPassword){
+  async connectToMongoServer(DBPassword: string){
     const DBURI = `mongodb+srv://admin:${DBPassword}@cluster0.5zncg.mongodb.net/todoapp?retryWrites=true&w=majority`;
     mongoose.connect(DBURI, {useNewUrlParser:true, useUnifiedTopology:true});
   }
