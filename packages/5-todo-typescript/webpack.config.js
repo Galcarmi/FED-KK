@@ -21,6 +21,9 @@ module.exports = {
     },
   },
   devtool: devTool,
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
   module: {
     rules: [
       {
@@ -35,6 +38,11 @@ module.exports = {
         test: /\.js$/,
         enforce: 'pre',
         use: ['source-map-loader'],
+      },
+      {
+        test: /\.tsx?/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
     ],
   },
