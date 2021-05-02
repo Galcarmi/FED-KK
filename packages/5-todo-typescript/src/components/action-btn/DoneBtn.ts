@@ -3,7 +3,7 @@ import { jss } from '../../styles/jss';
 
 export const getDoneBtn = (): string => {
   return `<svg
-    class=${classes.todoApp__list__item__actions__done}
+    class=${classes.doneBtn}
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
@@ -15,7 +15,7 @@ export const getDoneBtn = (): string => {
 };
 
 const styles = {
-  todoApp__list__item__actions__done: {
+  doneBtn: {
     ...commonStyles.RLMarginXS,
     cursor: 'pointer',
     fill: colors.green,
@@ -23,3 +23,4 @@ const styles = {
 };
 
 const { classes } = jss.createStyleSheet(styles).attach();
+export const s = classes;

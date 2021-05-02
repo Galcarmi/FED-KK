@@ -14,12 +14,12 @@ interface TodoItemPropse extends IProps {
 
 export const getTodoItem = (props: TodoItemPropse) => {
   return `
-    <div class="${s.todoApp__list__item}" id="${props._id}">
-        <input type="text" class="${s.todoApp__list__item__editInput}">
-        <div class="${s.todoApp__list__item__content} ${
+    <div class="${s.todoItem}" id="${props._id}">
+        <input type="text" class="${s.todoItem__editInput}">
+        <div class="${s.todoItem__content} ${
     props.isDone && commonClasses.crossedContent
   }">${props.content}</div>
-        <div class="${s['todo-app__list__item__actions']}">
+        <div class="${s.todoItem__actions}">
           ${getEditBtn()}
           ${getDeleteBtn()}
           ${getDoneBtn()}
@@ -28,7 +28,7 @@ export const getTodoItem = (props: TodoItemPropse) => {
 };
 
 const styles = {
-  todoApp__list__item: {
+  todoItem: {
     ...commonStyles.minTodoItemHeight,
     ...commonStyles.RLMarginS,
     ...commonStyles.roundedBorderS,
@@ -39,7 +39,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    '&:hover $todo-app__list__item__actions': {
+    '&:hover $todoItem__actions': {
       opacity: 1,
       display: 'flex',
       justifyContent: 'center',
@@ -48,7 +48,7 @@ const styles = {
       right: 0,
     },
   },
-  'todo-app__list__item__actions': {
+  todoItem__actions: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -57,7 +57,7 @@ const styles = {
     opacity: 0,
     transition: 'all 0.5s ease',
   },
-  todoApp__list__item__content: {
+  todoItem__content: {
     ...commonStyles.fontS,
     width: '55%',
     overflowWrap: 'break-word',
@@ -66,7 +66,7 @@ const styles = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
   },
-  todoApp__list__item__editInput: {
+  todoItem__editInput: {
     ...commonStyles.fontS,
     position: 'absolute',
     top: '50%',
@@ -76,14 +76,6 @@ const styles = {
     border: 'none',
     textAlign: 'center',
     display: 'none',
-  },
-  todoApp__list__emptyState: {
-    ...commonStyles.fontM,
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
-    opacity: 0,
   },
 };
 
