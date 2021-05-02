@@ -1,5 +1,5 @@
 {
-  "name": "5-todo-typescript",
+  "name": "fed-todo-journey_todo-typescript",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -23,6 +23,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "jss": "^10.6.0",
     "jss-plugin-camel-case": "^10.6.0",
     "jss-plugin-nested": "^10.6.0"

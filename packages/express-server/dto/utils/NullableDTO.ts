@@ -1,1 +1,0 @@
-export type NullableDTO<T> = T | null;
