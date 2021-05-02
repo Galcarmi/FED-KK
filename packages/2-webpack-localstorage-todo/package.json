@@ -21,5 +21,6 @@
   },
   "dependencies": {
     "uuid": "^8.3.2"
-  }
+  },
+  "gitHead": "79e041d17ed89e8ecfdb56808207b91cc523fc39"
 }

@@ -30,5 +30,6 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "publishConfig":{"registry":"https://registry.npmjs.org"}
 }

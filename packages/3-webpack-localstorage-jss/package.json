@@ -25,5 +25,6 @@
     "jss-plugin-nested": "^10.6.0",
     "source-map-loader": "^2.0.1",
     "uuid": "^8.3.2"
-  }
+  },
+  "gitHead": "79e041d17ed89e8ecfdb56808207b91cc523fc39"
 }
