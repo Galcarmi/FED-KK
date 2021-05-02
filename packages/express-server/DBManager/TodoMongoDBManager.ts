@@ -2,33 +2,24 @@ import mongoose from 'mongoose';
 import { TodoDBManager } from './ITodoDBManager';
 import { IdNotFoundError } from '../errors/IdNotFoundError';
 import { MissingFieldsError } from '../errors/MissingFieldsError';
-import TodosModel from './models/TodosModel';
-import { ITodoDTO } from './ITodo';
-import { ITodoModel } from './models/ITodoModel';
+import { ITodoDTO } from '../dto/todo/ITodoDTO';
 import { todoDAO } from '../dao/TodoDAO';
 
 export class TodoMongoDBManager implements TodoDBManager {
-  async addTodo(userId: string, todo: ITodoDTO) {
+  async addTodo(userId: string, todo: ITodoDTO): Promise<ITodoDTO> {
     if (!todo.content) {
       throw new MissingFieldsError('content');
     }
 
-    const todoToInsert = new TodosModel({
-      content: todo.content,
-      userId,
-      isDone: false,
-    });
-
-    const insertedTodo = await todoToInsert.save();
-    return todoDAO.extractItem(insertedTodo);
+    return todoDAO.addItem({ content: todo.content, userId, isDone: false });
   }
 
-  async removeTodo(userId: string, _id: string) {
+  async removeTodo(userId: string, _id: string): Promise<ITodoDTO> {
     if (!_id) {
       throw new MissingFieldsError('id');
     }
 
-    const deletedTodo = await TodosModel.findOneAndRemove({ _id, userId });
+    const deletedTodo = await todoDAO.removeItem({ userId, _id });
 
     if (!deletedTodo) {
       throw new IdNotFoundError(_id);
@@ -37,26 +28,22 @@ export class TodoMongoDBManager implements TodoDBManager {
     return deletedTodo;
   }
 
-  async editTodo(userId: string, todo: ITodoDTO): Promise<ITodoModel> {
+  async editTodo(userId: string, todo: ITodoDTO): Promise<ITodoDTO> {
     if (!todo._id) {
       throw new MissingFieldsError('id');
     }
 
-    const foundTodo = await TodosModel.findOneAndUpdate(
-      { _id: todo._id, userId },
-      { ...todo }
-    );
+    const updatedTodo = await todoDAO.editItem({ userId, _id: todo._id }, todo);
 
-    if (!foundTodo) {
+    if (!updatedTodo) {
       throw new IdNotFoundError(todo._id);
     }
 
-    const updatedTodo = { ...foundTodo, ...todo };
     return updatedTodo;
   }
 
   async getAllTodos(userId: string) {
-    return TodosModel.find({ userId });
+    return todoDAO.findItems({ userId });
   }
 
   async connectToMongoServer(DBPassword?: string): Promise<void> {
