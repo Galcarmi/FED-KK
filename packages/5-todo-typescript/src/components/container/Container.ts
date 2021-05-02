@@ -12,16 +12,16 @@ export const getContainer = (props: IProps): string => {
 const styles: JSSStyles = {
   container: {
     height: '100vh',
-    ...commonStyles.sidesMarginBigPercent,
+    ...commonStyles.RLMarginLPercent,
   },
   '@media only screen and (max-width: 600px)': {
     container: {
-      ...commonStyles.sidesMarginMediumPercent,
+      ...commonStyles.RLMarginMPercent,
     },
   },
   '@media only screen and (max-width: 400px)': {
     container: {
-      ...commonStyles.sidesMarginSmallPercent,
+      ...commonStyles.RLMarginSPercent,
     },
   },
 };

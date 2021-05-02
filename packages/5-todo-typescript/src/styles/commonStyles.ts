@@ -1,4 +1,4 @@
-export const colors: { [key: string]: string } = {
+export const colors = {
   softBlue: 'rgba(82, 153, 229, 1)',
   blue: 'rgb(0, 123, 255)',
   softYellow: 'rgb(177, 177, 41)',
@@ -7,7 +7,7 @@ export const colors: { [key: string]: string } = {
   green: 'green',
 };
 
-export const commonStyles: { [key: string]: { [key: string]: string } } = {
+export const commonStyles = {
   RLMarginLPercent: {
     marginLeft: '10%',
     marginRight: '10%',
@@ -43,7 +43,7 @@ export const commonStyles: { [key: string]: { [key: string]: string } } = {
   RMarginS: {
     marginRight: '5px',
   },
-  RoundedBorderS: {
+  roundedBorderS: {
     borderRadius: '25px',
   },
   fontS: {
