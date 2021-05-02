@@ -1,4 +1,4 @@
-import { Nullable } from '../dto/utils/NullableDTO';
+import { Nullable } from 'fed-todo-journey_todo-common';
 export interface IDAO<T> {
   findItem(identifier: Object): Promise<Nullable<T>>;
   editItem(

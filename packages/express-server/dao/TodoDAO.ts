@@ -1,8 +1,8 @@
-import { ITodoDTO } from '../dto/todo/ITodoDTO';
-import { Nullable } from '../dto/utils/NullableDTO';
+import { ITodoDTO } from 'fed-todo-journey_todo-common';
+import { Nullable } from 'fed-todo-journey_todo-common';
 import { IDAO } from './IDAO';
 import TodosModel from '../models/TodosModel';
-import { ITodoIdentifier } from '../dto/todo/ITodoIdentifier';
+import { ITodoIdentifier } from 'fed-todo-journey_todo-common';
 
 export class TodoDAO implements IDAO<ITodoDTO> {
   public async findItems(identifier: Partial<ITodoDTO>): Promise<ITodoDTO[]> {
