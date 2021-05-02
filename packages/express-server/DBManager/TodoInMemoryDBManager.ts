@@ -1,14 +1,17 @@
 import { v4 } from 'uuid';
-import { TodoDBManager } from './TodoDBManager.js';
+import { ITodoDBManager } from './ITodoDBManager.js';
 import { IdNotFoundError } from '../errors/IdNotFoundError.js';
 import { MissingFieldsError } from '../errors/MissingFieldsError.js';
+import { ITodoDTO } from '../dto/todo/ITodoDTO.js';
 
-export class TodoInMemoryDBManager extends TodoDBManager {
+export class TodoInMemoryDBManager implements ITodoDBManager {
+  private todos:ITodoDTO[];
+
   constructor() {
-    super();
     this.todos = {};
   }
-  addTodo(userId, todo) {
+
+  public async addTodo(userId, todo) {
     if (!todo.content) {
       throw new MissingFieldsError('content');
     }
@@ -19,7 +22,7 @@ export class TodoInMemoryDBManager extends TodoDBManager {
     return toInsertTodo;
   }
 
-  removeTodo(userId, id) {
+  public async removeTodo(userId, id) {
     if (!id) {
       throw new MissingFieldsError('id');
     }
@@ -32,7 +35,7 @@ export class TodoInMemoryDBManager extends TodoDBManager {
     return deletedTodo;
   }
 
-  editTodo(userId, todo) {
+  public async editTodo(userId, todo) {
     if (!todo.id) {
       throw new MissingFieldsError('id');
     }
@@ -44,18 +47,18 @@ export class TodoInMemoryDBManager extends TodoDBManager {
     return this.todos[userId][todo.id];
   }
 
-  getAllTodos(userId) {
+  public async getAllTodos(userId) {
     this._createEmptyTodosIfUserIdNotExists(userId);
     return this.todos[userId];
   }
 
-  _throwIfTodoIdNotExists(userId, id){
+  private _throwIfTodoIdNotExists(userId, id){
     if(!this.todos[userId][id]){
       throw new IdNotFoundError(id)
     }
   }
 
-  _createEmptyTodosIfUserIdNotExists(userId){
+  private _createEmptyTodosIfUserIdNotExists(userId){
     if(!this.todos[userId]){
       this.todos[userId] = {}; 
     }

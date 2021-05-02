@@ -15,4 +15,3 @@ function createLogger(): winston.Logger {
 }
 
 export const logger: winston.Logger = createLogger();
-
