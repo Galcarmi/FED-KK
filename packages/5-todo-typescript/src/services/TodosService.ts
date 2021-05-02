@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 class TodosService {
-  constructor() {}
-
   async addTodo(todo: ITodoDTO): Promise<ITodoDTO> {
     const res = await axios.post<ITodoDTO>(`/todo`, todo);
     return res.data;

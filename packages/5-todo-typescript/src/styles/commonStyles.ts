@@ -8,57 +8,57 @@ export const colors: { [key: string]: string } = {
 };
 
 export const commonStyles: { [key: string]: { [key: string]: string } } = {
-  sidesMarginBigPercent: {
+  RLMarginLPercent: {
     marginLeft: '10%',
     marginRight: '10%',
   },
-  sidesMarginMediumPercent: {
+  RLMarginMPercent: {
     marginLeft: '5%',
     marginRight: '5%',
   },
-  sidesMarginSmallPercent: {
+  RLMarginSPercent: {
     marginLeft: '2%',
     marginRight: '2%',
   },
-  sidesPaddingS: {
+  RLPaddingS: {
     paddingLeft: '10px',
     paddingRight: '10px',
   },
-  paddingTopBottomS: {
+  TPpaddingS: {
     paddingTop: '5px',
     paddingBottom: '5px',
   },
-  marginTopBottomMedium: {
+  TPmarginM: {
     marginTop: '7px',
     marginBottom: '7px',
   },
-  sidesMarginXS: {
+  RLMarginXS: {
     marginLeft: '3px',
     marginRight: '3px',
   },
-  sidesMarginS: {
+  RLMarginS: {
     marginLeft: '5px',
     marginRight: '5px',
   },
-  marginRightS: {
+  RMarginS: {
     marginRight: '5px',
   },
-  smallRoundedBorder: {
+  RoundedBorderS: {
     borderRadius: '25px',
   },
-  fontSmall: {
+  fontS: {
     fontSize: '1.2em',
   },
-  fontMedium: {
+  fontM: {
     fontSize: '1.4em',
   },
   minTodoItemHeight: {
     minHeight: '35px',
   },
-  mediumSizeShadow: {
+  SizeShadowM: {
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
   },
-  greyTopBorder: {
+  TGreyBorder: {
     borderTop: 'solid 3px rgb(177, 184, 189)',
   },
   blackBorder: {
