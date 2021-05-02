@@ -5,62 +5,68 @@ import { MissingFieldsError } from '../errors/MissingFieldsError.js';
 import { ITodoDTO } from '../dto/todo/ITodoDTO.js';
 
 export class TodoInMemoryDBManager implements ITodoDBManager {
-  private todos:ITodoDTO[];
+  private todos: { [key: string]: { [key: string]: ITodoDTO } };
 
   constructor() {
     this.todos = {};
   }
 
-  public async addTodo(userId, todo) {
+  public async addTodo(userId: string, todo: ITodoDTO): Promise<ITodoDTO> {
     if (!todo.content) {
       throw new MissingFieldsError('content');
     }
     this._createEmptyTodosIfUserIdNotExists(userId);
-    const toInsertTodo = { content: todo.content, id: v4(), isDone: false };
-    this.todos[userId][toInsertTodo.id] = toInsertTodo;
+    const toInsertTodo = {
+      content: todo.content,
+      _id: v4(),
+      isDone: false,
+      userId,
+    };
+    this.todos[userId][toInsertTodo._id] = toInsertTodo;
 
     return toInsertTodo;
   }
 
-  public async removeTodo(userId, id) {
-    if (!id) {
+  public async removeTodo(userId: string, _id: string): Promise<ITodoDTO> {
+    if (!_id) {
       throw new MissingFieldsError('id');
     }
-    
+
     this._createEmptyTodosIfUserIdNotExists(userId);
-    this._throwIfTodoIdNotExists(userId, id);
-    const deletedTodo = this.todos[userId][id];
-    delete this.todos[userId][id]
+    this._throwIfTodoIdNotExists(userId, _id);
+    const deletedTodo = this.todos[userId][_id];
+    delete this.todos[userId][_id];
 
     return deletedTodo;
   }
 
-  public async editTodo(userId, todo) {
-    if (!todo.id) {
+  public async editTodo(userId: string, todo: ITodoDTO): Promise<ITodoDTO> {
+    if (!todo._id) {
       throw new MissingFieldsError('id');
     }
     this._createEmptyTodosIfUserIdNotExists(userId);
-    this._throwIfTodoIdNotExists(userId, todo.id);
+    this._throwIfTodoIdNotExists(userId, todo._id);
 
-    this.todos[userId][todo.id] = {...this.todos[userId][todo.id], ...todo}
+    this.todos[userId][todo._id] = { ...this.todos[userId][todo._id], ...todo };
 
-    return this.todos[userId][todo.id];
+    return this.todos[userId][todo._id];
   }
 
-  public async getAllTodos(userId) {
+  public async getAllTodos(userId: string): Promise<ITodoDTO[]> {
     this._createEmptyTodosIfUserIdNotExists(userId);
-    return this.todos[userId];
+
+    return Object.values(this.todos[userId]);
   }
 
-  private _throwIfTodoIdNotExists(userId, id){
-    if(!this.todos[userId][id]){
-      throw new IdNotFoundError(id)
+  private _throwIfTodoIdNotExists(userId: string, _id: string): void {
+    if (!this.todos[userId][_id]) {
+      throw new IdNotFoundError(_id);
     }
   }
 
-  private _createEmptyTodosIfUserIdNotExists(userId){
-    if(!this.todos[userId]){
-      this.todos[userId] = {}; 
+  private _createEmptyTodosIfUserIdNotExists(userId: string): void {
+    if (!this.todos[userId]) {
+      this.todos[userId] = {};
     }
   }
 }
