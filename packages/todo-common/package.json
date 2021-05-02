@@ -1,6 +1,6 @@
 {
   "name": "fed-todo-journey_todo-common",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.ts",
   "scripts": {
@@ -9,5 +9,7 @@
   "author": "",
   "license": "ISC",
   "gitHead": "1224953a240225a6830f17a05d33120d485058a8",
-  "publishConfig":{"registry":"https://registry.npmjs.org"}
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  }
 }
