@@ -26,7 +26,7 @@
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2"
   },
-  "gitHead": "1224953a240225a6830f17a05d33120d485058a8",
+  "gitHead": "73b7d9e4c86e825c32e204e6467e1dcba4d0542c",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   }
