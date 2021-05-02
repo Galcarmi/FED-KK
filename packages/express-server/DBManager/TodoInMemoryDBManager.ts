@@ -1,8 +1,8 @@
 import { v4 } from 'uuid';
-import { ITodoDBManager } from './ITodoDBManager.js';
-import { IdNotFoundError } from '../errors/IdNotFoundError.js';
-import { MissingFieldsError } from '../errors/MissingFieldsError.js';
-import { ITodoDTO } from '../dto/todo/ITodoDTO.js';
+import { ITodoDBManager } from './ITodoDBManager';
+import { IdNotFoundError } from '../errors/IdNotFoundError';
+import { MissingFieldsError } from '../errors/MissingFieldsError';
+import { ITodoDTO } from '../dto/todo/ITodoDTO';
 
 export class TodoInMemoryDBManager implements ITodoDBManager {
   private todos: { [key: string]: { [key: string]: ITodoDTO } };

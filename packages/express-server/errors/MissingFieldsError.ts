@@ -1,4 +1,4 @@
-import { ServerError } from './ServerError.js';
+import { ServerError } from './ServerError';
 import { HTTPStatuses } from '../constants/HTTPStatus';
 
 export class MissingFieldsError extends ServerError {

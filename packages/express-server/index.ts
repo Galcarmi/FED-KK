@@ -3,12 +3,12 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import { TodoMongoDBManager } from './DBManager/TodoMongoDBManager.js';
-import { logger } from './logger/logger.js';
-import { eClientLocations } from './constants/clientLocations.js';
-import { errorMiddleware, wrapError } from './middleware/errorHandler.js';
-import { userIdMiddleware } from './middleware/userIdMiddleware.js';
-import { IDigestedRequest } from './types/IDigestedRequest.js';
+import { TodoMongoDBManager } from './DBManager/TodoMongoDBManager';
+import { logger } from './logger/logger';
+import { eClientLocations } from './constants/clientLocations';
+import { errorMiddleware, wrapError } from './middleware/errorHandler';
+import { userIdMiddleware } from './middleware/userIdMiddleware';
+import { IDigestedRequest } from './types/IDigestedRequest';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
