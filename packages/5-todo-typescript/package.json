@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "fed-todo-journey_todo-common": "^1.0.3",
     "jss": "^10.6.0",
     "jss-plugin-camel-case": "^10.6.0",
     "jss-plugin-nested": "^10.6.0"
