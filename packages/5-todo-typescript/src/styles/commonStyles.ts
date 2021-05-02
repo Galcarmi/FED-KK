@@ -55,7 +55,7 @@ export const commonStyles: { [key: string]: { [key: string]: string } } = {
   minTodoItemHeight: {
     minHeight: '35px',
   },
-  SizeShadowM: {
+  boxShadowM: {
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
   },
   TGreyBorder: {
