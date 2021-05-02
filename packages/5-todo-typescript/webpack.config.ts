@@ -1,6 +1,6 @@
-const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const { isTestEnv } = require('./utils/cmdUtils.js');
+import path from 'path';
+import HTMLWebpackPlugin from 'html-webpack-plugin';
+import { isTestEnv } from './utils/cmdUtils';
 
 const devTool = isTestEnv() ? 'eval' : 'source-map';
 
@@ -22,7 +22,7 @@ module.exports = {
   },
   devtool: devTool,
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.tsx', '.js'],
   },
   module: {
     rules: [
@@ -42,7 +42,6 @@ module.exports = {
       {
         test: /\.tsx?/,
         use: 'ts-loader',
-        exclude: /node_modules/,
       },
     ],
   },

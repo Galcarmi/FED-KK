@@ -1,4 +1,4 @@
-const isTestEnv = () => {
+export const isTestEnv = (): boolean => {
   process.argv.forEach((arg) => {
     if (arg === 'serve') {
       return true;
@@ -7,5 +7,3 @@ const isTestEnv = () => {
 
   return false;
 };
-
-module.exports = { isTestEnv };
