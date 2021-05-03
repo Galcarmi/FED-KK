@@ -1,0 +1,15 @@
+{
+  "name": "fed-todo-journey_todo-common",
+  "version": "1.0.3",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "gitHead": "73b7d9e4c86e825c32e204e6467e1dcba4d0542c",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  }
+}

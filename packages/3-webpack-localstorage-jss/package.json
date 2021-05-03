@@ -1,6 +1,6 @@
 {
-  "name": "webpack-localstorage-jss",
-  "version": "1.0.0",
+  "name": "fed-todo-journey_webpack-localstorage-jss",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -25,5 +25,9 @@
     "jss-plugin-nested": "^10.6.0",
     "source-map-loader": "^2.0.1",
     "uuid": "^8.3.2"
+  },
+  "gitHead": "73b7d9e4c86e825c32e204e6467e1dcba4d0542c",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   }
 }
