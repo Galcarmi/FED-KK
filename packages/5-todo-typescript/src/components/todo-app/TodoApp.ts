@@ -17,6 +17,7 @@ export const getTodoApp = (props: IProps): string => {
 
 const styles = {
   todoApp: {
+    ...commonStyles.TpaddingXXS,
     ...commonStyles.boxShadowM,
     backgroundColor: colors.white,
     minHeight: '100%',

@@ -28,6 +28,15 @@ export const commonStyles = {
     paddingTop: '5px',
     paddingBottom: '5px',
   },
+  TpaddingM:{
+    paddingTop: '7px',
+  },
+  TpaddingS:{
+    paddingTop: '5px',
+  },
+  TpaddingXXS:{
+    paddingTop: '1px',
+  },
   TPmarginM: {
     marginTop: '7px',
     marginBottom: '7px',
