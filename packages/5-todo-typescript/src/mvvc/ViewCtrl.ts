@@ -92,7 +92,11 @@ export class ViewCtrl {
     );
     DOMSelectors.getEditInputElementOfTodoById(_id).addEventListener(
       'keypress',
-      this.onTodoEdit.bind(this, _id)
+      (e: KeyboardEvent) => {
+        if (e.key === 'Enter') {
+          this.onTodoEdit(_id);
+        }
+      }
     );
     DOMSelectors.getEditInputElementOfTodoById(_id).addEventListener(
       'focusout',
@@ -124,6 +128,7 @@ export class ViewCtrl {
       const updatedTodo: ITodoDTO = { ...oldTodo, content: updatedTodoContent };
       await todosService.editTodo(updatedTodo);
       this.model.getTodos()[_id].content = updatedTodoContent;
+      this.reRenderTodo(updatedTodo);
     }
     this.hideEditInput(_id);
   }
@@ -144,7 +149,7 @@ export class ViewCtrl {
     }
   }
 
-  private removeRenderedTodo(_id:string):void{
+  private removeRenderedTodo(_id: string): void {
     const todoList = DOMSelectors.todoList();
     const todoItem = DOMSelectors.getTodoItemById(_id);
     todoList.removeChild(todoItem);
