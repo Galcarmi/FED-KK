@@ -1,4 +1,4 @@
-import { jss } from './jss.js';
+import { jss } from './jss';
 
 const styles = {
   crossedContent: {

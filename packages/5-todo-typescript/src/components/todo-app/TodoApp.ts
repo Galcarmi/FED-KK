@@ -1,6 +1,6 @@
 import { jss } from '../../styles/jss';
 import { colors, commonStyles } from '../../styles/commonStyles';
-import { IProps } from '../../types/IProps.js';
+import { IProps } from '../../types/IProps';
 
 export const getTodoApp = (props: IProps): string => {
   return `<div class="${s.todoApp}">

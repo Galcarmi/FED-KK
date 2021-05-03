@@ -4,53 +4,55 @@ import { s as doneBtnClasses } from '../components/action-btn/DoneBtn';
 import { s as editBtnClasses } from '../components/action-btn/EditBtn';
 import { s as deleteBtnClasses } from '../components/action-btn/DeleteBtn';
 
-export const elementSelectors = {
-  todoList: () => document.querySelector(`.${todoAppClasses.todoApp__list}`),
-  actionTodoBtn: () =>
-    document.querySelector(
-      `.${todoAppClasses.todoApp__inputContainer__addBtn}`
+export const DOMSelectors = {
+  todoList: (): Element =>
+    <Element>document.querySelector(`.${todoAppClasses.todoApp__list}`),
+  todoAddBtn: (): Element =>
+    <Element>(
+      document.querySelector(
+        `.${todoAppClasses.todoApp__inputContainer__addBtn}`
+      )
     ),
-  todoTxtInput: () =>
-    document.querySelector(
-      `.${todoAppClasses.todoApp__inputContainer__textInput}`
+  todoTxtInput: (): HTMLInputElement =>
+    <HTMLInputElement>(
+      document.querySelector(
+        `.${todoAppClasses.todoApp__inputContainer__textInput}`
+      )
     ),
-  getTodoItemById: (_id: string) => document.querySelector(`[id='${_id}']`),
-  todoEmptyState: () =>
-    document.querySelector(`.${todoAppClasses.todoApp__list__emptyState}`),
-  getTodoContentElementById: (_id: string) => {
-    const todoItem = elementSelectors.getTodoItemById(_id);
-    return todoItem?.querySelector(
-      `.${todoItemClasses.todoItem__content}`
+  getTodoItemById: (_id: string): Element =>
+    <Element>document.querySelector(`[id='${_id}']`),
+  todoEmptyState: (): Element =>
+    <Element>(
+      document.querySelector(`.${todoAppClasses.todoApp__list__emptyState}`)
+    ),
+  getTodoContentElementById: (_id: string): Element => {
+    const todoItem = DOMSelectors.getTodoItemById(_id);
+    return <Element>(
+      todoItem.querySelector(`.${todoItemClasses.todoItem__content}`)
     );
   },
-  getDoneSVGElementOfTodoById: (_id: string) => {
-    const todoItem = elementSelectors.getTodoItemById(_id);
-    return todoItem?.querySelector(
-      `.${doneBtnClasses.doneBtn}`
+  getDoneSVGElementOfTodoById: (_id: string): Element => {
+    const todoItem = DOMSelectors.getTodoItemById(_id);
+    return <Element>todoItem.querySelector(`.${doneBtnClasses.doneBtn}`);
+  },
+  getDeleteSVGElementOfTodoById: (_id: string): Element => {
+    const todoItem = DOMSelectors.getTodoItemById(_id);
+    return <Element>todoItem.querySelector(`.${deleteBtnClasses.deleteBtn}`);
+  },
+  getEditSVGElementOfTodoById: (_id: string): Element => {
+    const todoItem = DOMSelectors.getTodoItemById(_id);
+    return <Element>todoItem.querySelector(`.${editBtnClasses.editBtn}`);
+  },
+  getEditInputElementOfTodoById: (_id: string): Element => {
+    const todoItem = DOMSelectors.getTodoItemById(_id);
+    return <Element>(
+      todoItem.querySelector(`.${todoItemClasses.todoItem__editInput}`)
     );
   },
-  getDeleteSVGElementOfTodoById: (_id: string) => {
-    const todoItem = elementSelectors.getTodoItemById(_id);
-    return todoItem?.querySelector(
-      `.${deleteBtnClasses.deleteBtn}`
-    );
-  },
-  getEditSVGElementOfTodoById: (_id: string) => {
-    const todoItem = elementSelectors.getTodoItemById(_id);
-    return todoItem?.querySelector(
-      `.${editBtnClasses.editBtn}`
-    );
-  },
-  getEditInputElementOfTodoById: (_id: string) => {
-    const todoItem = elementSelectors.getTodoItemById(_id);
-    return todoItem?.querySelector(
-      `.${todoItemClasses.todoItem__editInput}`
-    );
-  },
-  getActionsContainerElementOfTodoById: (_id: string) => {
-    const todoItem = elementSelectors.getTodoItemById(_id);
-    return todoItem?.querySelector(
-      `.${todoItemClasses.todoItem__actions}`
+  getActionsContainerElementOfTodoById: (_id: string): Element => {
+    const todoItem = DOMSelectors.getTodoItemById(_id);
+    return <Element>(
+      todoItem.querySelector(`.${todoItemClasses['todo-item__actions']}`)
     );
   },
 };

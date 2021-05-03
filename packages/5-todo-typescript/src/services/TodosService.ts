@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
+import { ITodoClietDTO } from '../mvvc/ITodoClientDTO';
 class TodosService {
-  async addTodo(todo: ITodoDTO): Promise<ITodoDTO> {
+  async addTodo(todo: ITodoClietDTO): Promise<ITodoDTO> {
     const res = await axios.post<ITodoDTO>(`/todo`, todo);
     return res.data;
   }

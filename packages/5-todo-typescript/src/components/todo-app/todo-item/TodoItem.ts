@@ -1,16 +1,13 @@
-import { jss } from '../../../styles/jss.js';
+import { jss } from '../../../styles/jss';
 import { commonStyles } from '../../../styles/commonStyles';
 import { commonClasses } from '../../../styles/commonClasses';
 import { getDeleteBtn } from '../../action-btn/DeleteBtn';
 import { getEditBtn } from '../../action-btn/EditBtn';
 import { getDoneBtn } from '../../action-btn/DoneBtn';
-import { IProps } from '../../../types/IProps.js';
+import { IProps } from '../../../types/IProps';
+import { ITodoClietDTO } from '../../../mvvc/ITodoClientDTO';
 
-interface TodoItemPropse extends IProps {
-  _id: string;
-  isDone: boolean;
-  content: string;
-}
+interface TodoItemPropse extends IProps, ITodoClietDTO {}
 
 export const getTodoItem = (props: TodoItemPropse) => {
   return `
@@ -19,7 +16,7 @@ export const getTodoItem = (props: TodoItemPropse) => {
         <div class="${s.todoItem__content} ${
     props.isDone && commonClasses.crossedContent
   }">${props.content}</div>
-        <div class="${s.todoItem__actions}">
+        <div class="${s['todo-item__actions']}">
           ${getEditBtn()}
           ${getDeleteBtn()}
           ${getDoneBtn()}
@@ -39,7 +36,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    '&:hover $todoItem__actions': {
+    '&:hover $todo-item__actions': {
       opacity: 1,
       display: 'flex',
       justifyContent: 'center',
@@ -48,7 +45,7 @@ const styles = {
       right: 0,
     },
   },
-  todoItem__actions: {
+  'todo-item__actions': {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

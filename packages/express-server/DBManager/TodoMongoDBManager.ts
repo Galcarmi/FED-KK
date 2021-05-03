@@ -4,6 +4,7 @@ import { ITodoDBManager } from './ITodoDBManager';
 import { IdNotFoundError } from '../errors/IdNotFoundError';
 import { MissingFieldsError } from '../errors/MissingFieldsError';
 import { todoDAO } from '../dao/TodoDAO';
+import { isTestEnv } from '../utils/cmdUtils';
 
 export class TodoMongoDBManager implements ITodoDBManager {
   public async addTodo(userId: string, todo: ITodoDTO): Promise<ITodoDTO> {
@@ -48,9 +49,17 @@ export class TodoMongoDBManager implements ITodoDBManager {
 
   public async connectToMongoServer(DBPassword?: string): Promise<void> {
     const DBURI = `mongodb+srv://admin:${DBPassword}@cluster0.5zncg.mongodb.net/todoapp?retryWrites=true&w=majority`;
-    mongoose.connect(DBURI, {
+    await mongoose.connect(DBURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
+
+    if(isTestEnv()){
+      this.deleteAllTodos();
+    }
+  }
+
+  public deleteAllTodos():void{
+    todoDAO.deleteAllTodos();
   }
 }

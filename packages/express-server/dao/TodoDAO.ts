@@ -53,6 +53,10 @@ export class TodoDAO implements IDAO<ITodoDTO> {
     return this.extractNullableItem(deletedTodo);
   }
 
+  public async deleteAllTodos():Promise<void>{
+    await TodosModel.deleteMany({});
+  }
+
   private extractNullableItem(
     item: Nullable<ITodoDTO>
   ): Nullable<ITodoDTO> {
