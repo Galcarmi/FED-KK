@@ -26,5 +26,7 @@ const styles: JSSStyles = {
   },
 };
 
-const { classes } : { classes : JSSClasses}= jss.createStyleSheet(styles).attach();
-export const s : JSSClasses = classes;
+const { classes }: { classes: JSSClasses } = jss
+  .createStyleSheet(styles)
+  .attach();
+export const s: JSSClasses = classes;

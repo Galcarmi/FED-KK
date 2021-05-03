@@ -16,7 +16,6 @@ export class ViewCtrl {
 
   public initializeApp(): void {
     renderTodoHP({});
-    this.initEventListeners();
   }
 
   public async initPersistedTodos(): Promise<void> {
@@ -26,28 +25,28 @@ export class ViewCtrl {
     this.updateEmptyState();
   }
 
-  private updateEmptyState(): void {
-    const todos = Object.values(this.model.getTodos()); //todo ask ofir
-    if (todos.length > 0) {
-      DOMSelectors.todoEmptyState().classList.remove(commonClasses.visible);
-    } else {
-      DOMSelectors.todoEmptyState().classList.add(commonClasses.visible);
-    }
-  }
-
-  private initEventListeners(): void {
+  public initEventListeners(): void {
     DOMSelectors.todoAddBtn().addEventListener(
       'click',
       this.onAddTodo.bind(this)
     );
     DOMSelectors.todoTxtInput().addEventListener(
       'keypress',
-      (e: KeyboardEvent) => {
+      (e: KeyboardEvent): void => {
         if (e.key === 'Enter') {
           this.onAddTodo();
         }
       }
     );
+  }
+
+  private updateEmptyState(): void {
+    const todos: ITodoDTO[] = Object.values(this.model.getTodos()); //todo ask ofir
+    if (todos.length > 0) {
+      DOMSelectors.todoEmptyState().classList.remove(commonClasses.visible);
+    } else {
+      DOMSelectors.todoEmptyState().classList.add(commonClasses.visible);
+    }
   }
 
   private onAddTodo(): void {
@@ -67,7 +66,7 @@ export class ViewCtrl {
 
   private renderTodo(todo: ITodoDTO): void {
     if (todo._id) {
-      const todoItemTemplate = getTodoItem(todo);
+      const todoItemTemplate: string = getTodoItem(todo);
       DOMSelectors.todoList().insertAdjacentHTML('beforeend', todoItemTemplate);
       this.addEventListenersForTodoElement(todo._id);
     }
@@ -92,7 +91,7 @@ export class ViewCtrl {
     );
     DOMSelectors.getEditInputElementOfTodoById(_id).addEventListener(
       'keypress',
-      (e: KeyboardEvent) => {
+      (e: KeyboardEvent): void => {
         if (e.key === 'Enter') {
           this.onTodoEdit(_id);
         }
@@ -105,7 +104,7 @@ export class ViewCtrl {
   }
 
   private async onTodoDone(_id: string): Promise<void> {
-    const oldTodo = this.model.getTodos()[_id];
+    const oldTodo: ITodoDTO = this.model.getTodos()[_id];
     const updatedTodo: ITodoDTO = { ...oldTodo, isDone: !oldTodo.isDone };
     await todosService.editTodo(updatedTodo);
     this.model.editTodo(updatedTodo);
@@ -124,7 +123,7 @@ export class ViewCtrl {
     const updatedTodoContent = DOMSelectors.getEditInputElementOfTodoById(_id)
       .value;
     if (updatedTodoContent) {
-      const oldTodo = this.model.getTodos()[_id];
+      const oldTodo: ITodoDTO = this.model.getTodos()[_id];
       const updatedTodo: ITodoDTO = { ...oldTodo, content: updatedTodoContent };
       await todosService.editTodo(updatedTodo);
       this.model.getTodos()[_id].content = updatedTodoContent;
@@ -150,8 +149,8 @@ export class ViewCtrl {
   }
 
   private removeRenderedTodo(_id: string): void {
-    const todoList = DOMSelectors.todoList();
-    const todoItem = DOMSelectors.getTodoItemById(_id);
+    const todoList: Element = DOMSelectors.todoList();
+    const todoItem: Element = DOMSelectors.getTodoItemById(_id);
     todoList.removeChild(todoItem);
   }
 

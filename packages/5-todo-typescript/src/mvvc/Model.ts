@@ -21,19 +21,19 @@ export class Model {
     return this.todos;
   }
 
-  public addTodo(todo: ITodoDTO):void {
+  public addTodo(todo: ITodoDTO): void {
     if (todo._id) {
       this.todos[todo._id] = todo;
     }
   }
 
-  public removeTodo(_id:string){
-      delete this.todos[_id];
+  public removeTodo(_id: string): void {
+    delete this.todos[_id];
   }
 
-  public editTodo(todo:Partial<ITodoDTO>):void{
-      if(todo._id){
-          this.todos[todo._id] = {...this.todos[todo._id], ...todo};
-      }
+  public editTodo(todo: Partial<ITodoDTO>): void {
+    if (todo._id) {
+      this.todos[todo._id] = { ...this.todos[todo._id], ...todo };
+    }
   }
 }

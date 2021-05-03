@@ -3,7 +3,9 @@ import { getContainer } from '../components/container/Container';
 import { getTodoApp } from '../components/todo-app/TodoApp';
 
 export const renderTodoHP = (props: IProps): void => {
-    const todoHP = `${getContainer({children:getTodoApp({})})}`;
-    const body = <HTMLBodyElement>document.querySelector('body');
-    body.innerHTML = todoHP;
-}
+  const todoHPTemplate: string = `${getContainer({
+    children: getTodoApp({}),
+  })}`;
+  const body: HTMLBodyElement = <HTMLBodyElement>document.querySelector('body');
+  body.innerHTML = todoHPTemplate;
+};

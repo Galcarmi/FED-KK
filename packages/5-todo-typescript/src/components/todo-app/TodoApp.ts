@@ -106,8 +106,5 @@ const styles = {
   },
 };
 
-const { classes } = jss
-  .createStyleSheet(styles)
-  .attach();
+const { classes } = jss.createStyleSheet(styles).attach();
 export const s = classes;
-

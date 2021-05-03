@@ -9,7 +9,7 @@ import { ITodoClietDTO } from '../../../mvvc/ITodoClientDTO';
 
 interface TodoItemPropse extends IProps, ITodoClietDTO {}
 
-export const getTodoItem = (props: TodoItemPropse) => {
+export const getTodoItem = (props: TodoItemPropse): string => {
   return `
     <div class="${s.todoItem}" id="${props._id}">
         <input type="text" class="${s.todoItem__editInput}">

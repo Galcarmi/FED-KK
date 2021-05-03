@@ -37,7 +37,9 @@ export const DOMSelectors = {
   },
   getDeleteSVGElementOfTodoById: (_id: string): SVGAElement => {
     const todoItem = DOMSelectors.getTodoItemById(_id);
-    return <SVGAElement>todoItem.querySelector(`.${deleteBtnClasses.deleteBtn}`);
+    return <SVGAElement>(
+      todoItem.querySelector(`.${deleteBtnClasses.deleteBtn}`)
+    );
   },
   getEditSVGElementOfTodoById: (_id: string): SVGAElement => {
     const todoItem = DOMSelectors.getTodoItemById(_id);
