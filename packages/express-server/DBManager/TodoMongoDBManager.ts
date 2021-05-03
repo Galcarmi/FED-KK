@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
+import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { ITodoDBManager } from './ITodoDBManager';
 import { IdNotFoundError } from '../errors/IdNotFoundError';
 import { MissingFieldsError } from '../errors/MissingFieldsError';
-import { ITodoDTO } from '../dto/todo/ITodoDTO';
 import { todoDAO } from '../dao/TodoDAO';
 
 export class TodoMongoDBManager implements ITodoDBManager {
