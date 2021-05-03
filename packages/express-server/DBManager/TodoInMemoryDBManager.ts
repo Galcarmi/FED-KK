@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 import { ITodoDBManager } from './ITodoDBManager';
 import { IdNotFoundError } from '../errors/IdNotFoundError';
 import { MissingFieldsError } from '../errors/MissingFieldsError';
-import { ITodoDTO } from '../dto/todo/ITodoDTO';
+import { ITodoDTO } from 'fed-todo-journey_todo-common';
 
 export class TodoInMemoryDBManager implements ITodoDBManager {
   private todos: { [key: string]: { [key: string]: ITodoDTO } };
@@ -34,7 +34,7 @@ export class TodoInMemoryDBManager implements ITodoDBManager {
 
     this._createEmptyTodosIfUserIdNotExists(userId);
     this._throwIfTodoIdNotExists(userId, _id);
-    const deletedTodo = this.todos[userId][_id];
+    const deletedTodo: ITodoDTO = this.todos[userId][_id];
     delete this.todos[userId][_id];
 
     return deletedTodo;

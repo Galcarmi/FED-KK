@@ -3,23 +3,24 @@ import { Nullable } from 'fed-todo-journey_todo-common';
 import { IDAO } from './IDAO';
 import TodosModel from '../models/TodosModel';
 import { ITodoIdentifier } from 'fed-todo-journey_todo-common';
+import { ITodoModel } from '../models/ITodoModel';
 
 export class TodoDAO implements IDAO<ITodoDTO> {
   public async findItems(identifier: Partial<ITodoDTO>): Promise<ITodoDTO[]> {
-    const todos = await TodosModel.find(identifier);
-    const todosToReturn = todos.map(this.extractItem.bind(this));
+    const todos: ITodoModel[] = await TodosModel.find(identifier);
+    const todosToReturn: ITodoDTO[] = todos.map(this.extractItem.bind(this));
 
     return todosToReturn;
   }
 
   public async addItem(todo: ITodoDTO): Promise<ITodoDTO> {
-    const todoToInsert = new TodosModel({
+    const todoToInsert: ITodoModel = new TodosModel({
       content: todo.content,
       userId: todo.userId,
       isDone: todo.isDone,
     });
-    
-    const insertedTodo = await todoToInsert.save();
+
+    const insertedTodo: ITodoModel = await todoToInsert.save();
 
     return this.extractItem(insertedTodo);
   }
@@ -27,7 +28,7 @@ export class TodoDAO implements IDAO<ITodoDTO> {
   public async findItem(
     identifier: ITodoIdentifier
   ): Promise<Nullable<ITodoDTO>> {
-    const todo = await TodosModel.findOne(identifier);
+    const todo: Nullable<ITodoModel> = await TodosModel.findOne(identifier);
 
     return this.extractNullableItem(todo);
   }
@@ -37,9 +38,12 @@ export class TodoDAO implements IDAO<ITodoDTO> {
     todoToUpdate: Partial<ITodoDTO>
   ): Promise<Nullable<ITodoDTO>> {
     let updatedTodo = null;
-    const foundTodo = await TodosModel.findOneAndUpdate(identifier, {
-      ...todoToUpdate,
-    });
+    const foundTodo: Nullable<ITodoModel> = await TodosModel.findOneAndUpdate(
+      identifier,
+      {
+        ...todoToUpdate,
+      }
+    );
     if (foundTodo) {
       updatedTodo = { ...foundTodo, ...todoToUpdate };
     }
@@ -49,20 +53,18 @@ export class TodoDAO implements IDAO<ITodoDTO> {
   public async removeItem(
     identifier: ITodoIdentifier
   ): Promise<Nullable<ITodoDTO>> {
-    const deletedTodo = await TodosModel.findOneAndRemove(identifier);
+    const deletedTodo: Nullable<ITodoModel> = await TodosModel.findOneAndRemove(
+      identifier
+    );
     return this.extractNullableItem(deletedTodo);
   }
 
-  public async deleteAllTodos():Promise<void>{
+  public async deleteAllTodos(): Promise<void> {
     await TodosModel.deleteMany({});
   }
 
-  private extractNullableItem(
-    item: Nullable<ITodoDTO>
-  ): Nullable<ITodoDTO> {
-    const extractedItem = item ? this.extractItem(item) : null;
-
-    return extractedItem;
+  private extractNullableItem(item: Nullable<ITodoDTO>): Nullable<ITodoDTO> {
+    return item ? this.extractItem(item) : null;
   }
 
   private extractItem(item: ITodoDTO): ITodoDTO {

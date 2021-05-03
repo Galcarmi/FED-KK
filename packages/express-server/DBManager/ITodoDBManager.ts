@@ -1,4 +1,4 @@
-import { ITodoDTO } from '../dto/todo/ITodoDTO';
+import { ITodoDTO } from 'fed-todo-journey_todo-common';
 
 export interface ITodoDBManager {
   addTodo(userId: string, todo: ITodoDTO): Promise<ITodoDTO>;

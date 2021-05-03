@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ITodoDTO } from 'fed-todo-journey_todo-common';
+import { ITodoDTO, Nullable } from 'fed-todo-journey_todo-common';
 import { ITodoDBManager } from './ITodoDBManager';
 import { IdNotFoundError } from '../errors/IdNotFoundError';
 import { MissingFieldsError } from '../errors/MissingFieldsError';
@@ -20,7 +20,10 @@ export class TodoMongoDBManager implements ITodoDBManager {
       throw new MissingFieldsError('id');
     }
 
-    const deletedTodo = await todoDAO.removeItem({ userId, _id });
+    const deletedTodo: Nullable<ITodoDTO> = await todoDAO.removeItem({
+      userId,
+      _id,
+    });
 
     if (!deletedTodo) {
       throw new IdNotFoundError(_id);
@@ -34,7 +37,10 @@ export class TodoMongoDBManager implements ITodoDBManager {
       throw new MissingFieldsError('id');
     }
 
-    const updatedTodo = await todoDAO.editItem({ userId, _id: todo._id }, todo);
+    const updatedTodo: Nullable<ITodoDTO> = await todoDAO.editItem(
+      { userId, _id: todo._id },
+      todo
+    );
 
     if (!updatedTodo) {
       throw new IdNotFoundError(todo._id);
@@ -48,18 +54,18 @@ export class TodoMongoDBManager implements ITodoDBManager {
   }
 
   public async connectToMongoServer(DBPassword?: string): Promise<void> {
-    const DBURI = `mongodb+srv://admin:${DBPassword}@cluster0.5zncg.mongodb.net/todoapp?retryWrites=true&w=majority`;
+    const DBURI: string = `mongodb+srv://admin:${DBPassword}@cluster0.5zncg.mongodb.net/todoapp?retryWrites=true&w=majority`;
     await mongoose.connect(DBURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
 
-    if(isTestEnv()){
+    if (isTestEnv()) {
       this.deleteAllTodos();
     }
   }
 
-  public deleteAllTodos():void{
+  public deleteAllTodos(): void {
     todoDAO.deleteAllTodos();
   }
 }

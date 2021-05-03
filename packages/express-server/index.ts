@@ -9,13 +9,14 @@ import { eClientLocations } from './constants/clientLocations';
 import { errorMiddleware, wrapError } from './middleware/errorHandler';
 import { userIdMiddleware } from './middleware/userIdMiddleware';
 import { IDigestedRequest } from './types/IDigestedRequest';
+import { ITodoDTO } from 'fed-todo-journey_todo-common';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
 }
 
 const parentFolder: string = path.join(process.cwd(), '../');
-const todoMongoDBManager = new TodoMongoDBManager();
+const todoMongoDBManager: TodoMongoDBManager = new TodoMongoDBManager();
 todoMongoDBManager.connectToMongoServer(process.env.DBPassword);
 const app: express.Express = express();
 const port: number | string = process.env.PORT || 8000;
@@ -37,7 +38,7 @@ app.get(
 app.post(
   '/todo',
   wrapError(async (req: IDigestedRequest, res: express.Response) => {
-    const addedTodo = await todoMongoDBManager.addTodo(
+    const addedTodo: ITodoDTO = await todoMongoDBManager.addTodo(
       req.cookies.userId,
       req.body
     );
@@ -48,7 +49,7 @@ app.post(
 app.put(
   '/todo',
   wrapError(async (req: IDigestedRequest, res: express.Response) => {
-    const editedTodo = await todoMongoDBManager.editTodo(
+    const editedTodo: ITodoDTO = await todoMongoDBManager.editTodo(
       req.cookies.userId,
       req.body
     );
@@ -59,7 +60,7 @@ app.put(
 app.delete(
   '/todo/:id',
   wrapError(async (req: IDigestedRequest, res: express.Response) => {
-    const deletedTodo = await todoMongoDBManager.removeTodo(
+    const deletedTodo: ITodoDTO = await todoMongoDBManager.removeTodo(
       req.cookies.userId,
       req.params.id
     );
@@ -70,7 +71,9 @@ app.delete(
 app.get(
   '/todos',
   wrapError(async (req: IDigestedRequest, res: express.Response) => {
-    const todos = await todoMongoDBManager.getAllTodos(req.cookies.userId);
+    const todos: ITodoDTO[] = await todoMongoDBManager.getAllTodos(
+      req.cookies.userId
+    );
     res.status(200).send(todos);
   })
 );

@@ -1,7 +1,7 @@
 import winston from 'winston';
 
 function createLogger(): winston.Logger {
-  const loggerInstance = winston.createLogger({
+  const loggerInstance: winston.Logger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),
     defaultMeta: { service: 'todos-service' },
