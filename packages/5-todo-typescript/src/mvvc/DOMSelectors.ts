@@ -31,21 +31,21 @@ export const DOMSelectors = {
       todoItem.querySelector(`.${todoItemClasses.todoItem__content}`)
     );
   },
-  getDoneSVGElementOfTodoById: (_id: string): Element => {
+  getDoneSVGElementOfTodoById: (_id: string): SVGAElement => {
     const todoItem = DOMSelectors.getTodoItemById(_id);
-    return <Element>todoItem.querySelector(`.${doneBtnClasses.doneBtn}`);
+    return <SVGAElement>todoItem.querySelector(`.${doneBtnClasses.doneBtn}`);
   },
-  getDeleteSVGElementOfTodoById: (_id: string): Element => {
+  getDeleteSVGElementOfTodoById: (_id: string): SVGAElement => {
     const todoItem = DOMSelectors.getTodoItemById(_id);
-    return <Element>todoItem.querySelector(`.${deleteBtnClasses.deleteBtn}`);
+    return <SVGAElement>todoItem.querySelector(`.${deleteBtnClasses.deleteBtn}`);
   },
-  getEditSVGElementOfTodoById: (_id: string): Element => {
+  getEditSVGElementOfTodoById: (_id: string): SVGAElement => {
     const todoItem = DOMSelectors.getTodoItemById(_id);
-    return <Element>todoItem.querySelector(`.${editBtnClasses.editBtn}`);
+    return <SVGAElement>todoItem.querySelector(`.${editBtnClasses.editBtn}`);
   },
-  getEditInputElementOfTodoById: (_id: string): Element => {
+  getEditInputElementOfTodoById: (_id: string): HTMLInputElement => {
     const todoItem = DOMSelectors.getTodoItemById(_id);
-    return <Element>(
+    return <HTMLInputElement>(
       todoItem.querySelector(`.${todoItemClasses.todoItem__editInput}`)
     );
   },
