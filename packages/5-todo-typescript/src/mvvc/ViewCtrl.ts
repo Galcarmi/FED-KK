@@ -67,9 +67,8 @@ export class ViewCtrl {
 
   private renderTodo(todo: ITodoDTO): void {
     if (todo._id) {
-      const todoElement: Element = document.createElement('div');
-      todoElement.innerHTML = getTodoItem(todo);
-      DOMSelectors.todoList().insertAdjacentElement('beforeend', todoElement);
+      const todoItemTemplate = getTodoItem(todo);
+      DOMSelectors.todoList().insertAdjacentHTML('beforeend', todoItemTemplate);
       this.addEventListenersForTodoElement(todo._id);
     }
   }
@@ -85,11 +84,19 @@ export class ViewCtrl {
     );
     DOMSelectors.getEditSVGElementOfTodoById(_id).addEventListener(
       'click',
-      this.onTodoEdit.bind(this, _id)
+      this.onTodoEditClick.bind(this, _id)
     );
     DOMSelectors.getDoneSVGElementOfTodoById(_id).addEventListener(
       'click',
       this.onTodoDone.bind(this, _id)
+    );
+    DOMSelectors.getEditInputElementOfTodoById(_id).addEventListener(
+      'keypress',
+      this.onTodoEdit.bind(this, _id)
+    );
+    DOMSelectors.getEditInputElementOfTodoById(_id).addEventListener(
+      'focusout',
+      this.onTodoEdit.bind(this, _id)
     );
   }
 
@@ -101,9 +108,31 @@ export class ViewCtrl {
     this.reRenderTodo(updatedTodo);
   }
 
-  private async onTodoEdit(): Promise<void> {}
+  private async onTodoEditClick(_id: string): Promise<void> {
+    if (this.isEditInputVisible(_id)) {
+      this.onTodoEdit(_id);
+    } else {
+      this.showEditInput(_id);
+    }
+  }
 
-  private async onTodoDelete(): Promise<void> {}
+  private async onTodoEdit(_id: string): Promise<void> {
+    const updatedTodoContent = DOMSelectors.getEditInputElementOfTodoById(_id)
+      .value;
+    if (updatedTodoContent) {
+      const oldTodo = this.model.getTodos()[_id];
+      const updatedTodo: ITodoDTO = { ...oldTodo, content: updatedTodoContent };
+      await todosService.editTodo(updatedTodo);
+      this.model.getTodos()[_id].content = updatedTodoContent;
+    }
+    this.hideEditInput(_id);
+  }
+
+  private async onTodoDelete(_id: string): Promise<void> {
+    await todosService.deleteTodo(_id);
+    this.model.removeTodo(_id);
+    this.removeRenderedTodo(_id);
+  }
 
   private reRenderTodo(todo: ITodoDTO): void {
     if (todo._id) {
@@ -115,6 +144,12 @@ export class ViewCtrl {
     }
   }
 
+  private removeRenderedTodo(_id:string):void{
+    const todoList = DOMSelectors.todoList();
+    const todoItem = DOMSelectors.getTodoItemById(_id);
+    todoList.removeChild(todoItem);
+  }
+
   private updateDoneStateForTodoElement(
     todoElement: Element,
     isDone: boolean
@@ -124,5 +159,27 @@ export class ViewCtrl {
     } else {
       todoElement.classList.remove(commonClasses.crossedContent);
     }
+  }
+
+  private showEditInput(_id: string): void {
+    const editInput: HTMLInputElement = DOMSelectors.getEditInputElementOfTodoById(
+      _id
+    );
+    editInput.value = this.model.getTodos()[_id].content;
+    editInput.classList.add(commonClasses.displayBlock);
+    editInput.focus();
+  }
+
+  private hideEditInput(_id: string): void {
+    const editInput: HTMLInputElement = DOMSelectors.getEditInputElementOfTodoById(
+      _id
+    );
+    editInput.classList.remove(commonClasses.displayBlock);
+  }
+
+  private isEditInputVisible(_id: string): boolean {
+    return DOMSelectors.getEditInputElementOfTodoById(_id).classList.contains(
+      commonClasses.displayBlock
+    );
   }
 }
