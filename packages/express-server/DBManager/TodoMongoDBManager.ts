@@ -4,7 +4,7 @@ import { ITodoDBManager } from './ITodoDBManager';
 import { IdNotFoundError } from '../errors/IdNotFoundError';
 import { MissingFieldsError } from '../errors/MissingFieldsError';
 import { todoDAO } from '../dao/TodoDAO';
-import { isTestEnv } from '../utils/cmdUtils';
+import { utils } from 'fed-todo-journey_todo-common';
 
 export class TodoMongoDBManager implements ITodoDBManager {
   public async addTodo(userId: string, todo: ITodoDTO): Promise<ITodoDTO> {
@@ -49,7 +49,7 @@ export class TodoMongoDBManager implements ITodoDBManager {
     return updatedTodo;
   }
 
-  public async getAllTodos(userId: string) {
+  public async getAllTodos(userId: string): Promise<{[key:string]:ITodoDTO}> {
     const todos = await todoDAO.findItems({ userId });
     const todosMap : {[key:string]:ITodoDTO} = {};
     todos.forEach((todo) => {
@@ -68,7 +68,7 @@ export class TodoMongoDBManager implements ITodoDBManager {
       useUnifiedTopology: true,
     });
 
-    if (isTestEnv()) {
+    if (utils.isTestEnv()) {
       this.deleteAllTodos();
     }
   }
