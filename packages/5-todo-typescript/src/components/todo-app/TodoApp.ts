@@ -1,12 +1,10 @@
 import { jss } from '../../styles/jss';
 import { colors, commonStyles } from '../../styles/commonStyles';
-import { IProps } from '../../types/IProps';
 
-export const getTodoApp = (props: IProps): string => {
+export const getTodoApp = (): string => {
   return `<div class="${s.todoApp}">
     <div class="${s.todoApp__list}">
       <div class="${s.todoApp__list__emptyState}">Add your first TODO !</div>
-      ${props.children || ''}
     </div>
     <div class="${s.todoApp__inputContainer}">
       <input type="text" class="${s.todoApp__inputContainer__textInput}"/>
