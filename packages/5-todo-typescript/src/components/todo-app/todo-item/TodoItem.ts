@@ -5,11 +5,11 @@ import { getDeleteBtn } from '../../action-btn/DeleteBtn';
 import { getEditBtn } from '../../action-btn/EditBtn';
 import { getDoneBtn } from '../../action-btn/DoneBtn';
 import { IProps } from '../../../types/IProps';
-import { ITodoClietDTO } from '../../../mvvc/ITodoClientDTO';
+import { ITodoPartialDTO } from '../../../mvvc/ITodoPartialDTO';
 
-interface TodoItemPropse extends IProps, ITodoClietDTO {}
+interface TodoItemProps extends ITodoPartialDTO {}
 
-export const getTodoItem = (props: TodoItemPropse): string => {
+export const getTodoItem = (props: TodoItemProps): string => {
   return `
     <div class="${s.todoItem}" id="${props._id}">
         <input type="text" class="${s.todoItem__editInput}">
