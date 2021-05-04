@@ -1,3 +1,1 @@
-export const isTestEnv = () : boolean =>{
-    return process.env.production === 'false';
-}
+export const isTestEnv = () : boolean => !process.env.production

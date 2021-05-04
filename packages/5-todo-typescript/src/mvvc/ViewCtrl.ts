@@ -2,15 +2,15 @@ import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { renderTodoHP } from '../views/todoHP';
 import { todosService } from '../services/TodosService';
 import { DOMSelectors } from './DOMSelectors';
-import { Model } from './Model';
+import { TodosViewModel } from './TodosViewModel';
 import { s as commonClasses } from '../styles/commonClasses';
 import { ITodoPartialDTO } from './ITodoPartialDTO';
 import { getTodoItem } from '../components/todo-app/todo-item/TodoItem';
 
 export class ViewCtrl {
-  private model: Model;
+  private model: TodosViewModel;
 
-  constructor(model: Model) {
+  constructor(model: TodosViewModel) {
     this.model = model;
   }
 

@@ -1,7 +1,7 @@
 import './index.css';
-import { Model } from './mvvc/Model';
+import { TodosViewModel } from './mvvc/TodosViewModel';
 import { ViewCtrl } from './mvvc/ViewCtrl';
 
-const app = new ViewCtrl(new Model());
+const app = new ViewCtrl(new TodosViewModel());
 app.initializeApp();
 

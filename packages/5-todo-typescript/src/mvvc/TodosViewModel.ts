@@ -2,7 +2,7 @@ import { ITodoDTO } from 'fed-todo-journey_todo-common';
 
 type TodosMap = { [key: string]: ITodoDTO };
 
-export class Model {
+export class TodosViewModel {
   private todos: TodosMap;
 
   constructor() {
