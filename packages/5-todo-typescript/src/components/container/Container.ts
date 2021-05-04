@@ -5,7 +5,7 @@ import { JSSStyles, JSSClasses } from '../../types/Styles';
 
 export const getContainer = (props: IProps): string => {
   return `<div class="${s.container}">${
-    props.children ? props.children : ''
+    props.additionalHtmlTemplate || ''
   }</div>`;
 };
 
