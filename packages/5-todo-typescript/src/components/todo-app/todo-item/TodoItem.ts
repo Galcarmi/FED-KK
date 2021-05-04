@@ -1,6 +1,6 @@
 import { jss } from '../../../styles/jss';
 import { commonStyles } from '../../../styles/commonStyles';
-import { commonClasses } from '../../../styles/commonClasses';
+import { s as commonClasses } from '../../../styles/commonClasses';
 import { getDeleteBtn } from '../../action-btn/DeleteBtn';
 import { getEditBtn } from '../../action-btn/EditBtn';
 import { getDoneBtn } from '../../action-btn/DoneBtn';
@@ -76,5 +76,4 @@ const styles = {
   },
 };
 
-const { classes } = jss.createStyleSheet(styles).attach();
-export const s = classes;
+export const s = jss.createStyleSheet(styles).attach().classes;

@@ -3,7 +3,7 @@ import { renderTodoHP } from '../views/todoHP';
 import { todosService } from '../services/TodosService';
 import { DOMSelectors } from './DOMSelectors';
 import { Model } from './Model';
-import { commonClasses } from '../styles/commonClasses';
+import { s as commonClasses } from '../styles/commonClasses';
 import { ITodoClietDTO } from './ITodoClientDTO';
 import { getTodoItem } from '../components/todo-app/todo-item/TodoItem';
 
