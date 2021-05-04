@@ -14,8 +14,10 @@ export class ViewCtrl {
     this.model = model;
   }
 
-  public initializeApp(): void {
+  public async initializeApp(): Promise<void> {
     renderTodoHP({});
+    await this.initPersistedTodos();
+    this.initEventListeners();
   }
 
   public async initPersistedTodos(): Promise<void> {
