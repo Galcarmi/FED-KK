@@ -71,7 +71,7 @@ app.delete(
 app.get(
   '/todos',
   wrapError(async (req: IDigestedRequest, res: express.Response) => {
-    const todos: ITodoDTO[] = await todoMongoDBManager.getAllTodos(
+    const todos: {[key:string]:ITodoDTO} = await todoMongoDBManager.getAllTodos(
       req.cookies.userId
     );
     res.status(200).send(todos);
