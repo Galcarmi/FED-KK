@@ -4,7 +4,7 @@ import { todosService } from '../services/TodosService';
 import { DOMSelectors } from './DOMSelectors';
 import { Model } from './Model';
 import { s as commonClasses } from '../styles/commonClasses';
-import { ITodoClietDTO } from './ITodoClientDTO';
+import { ITodoPartialDTO } from './ITodoPartialDTO';
 import { getTodoItem } from '../components/todo-app/todo-item/TodoItem';
 
 export class ViewCtrl {
@@ -56,7 +56,7 @@ export class ViewCtrl {
     }
   }
 
-  private async addTodo(todoToInsert: ITodoClietDTO): Promise<void> {
+  private async addTodo(todoToInsert: ITodoPartialDTO): Promise<void> {
     const todo: ITodoDTO = await todosService.addTodo(todoToInsert);
     this.clearTodoInput();
     this.model.addTodo(todo);
