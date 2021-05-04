@@ -2,10 +2,10 @@ import axios, { AxiosResponse } from 'axios';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { ITodoPartialDTO } from '../mvvc/ITodoPartialDTO';
 class TodosService {
-  async addTodo(todo: ITodoPartialDTO): Promise<ITodoDTO> {
+  async addTodo(content: string): Promise<ITodoDTO> {
     const res: AxiosResponse<ITodoDTO> = await axios.post<ITodoDTO>(
       `/todo`,
-      todo
+      {content}
     );
     return res.data;
   }

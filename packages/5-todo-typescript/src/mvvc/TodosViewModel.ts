@@ -18,9 +18,7 @@ export class TodosViewModel {
   }
 
   public addTodo(todo: ITodoDTO): void {
-    if (todo._id) {
       this.todos[todo._id] = todo;
-    }
   }
 
   public removeTodo(_id: string): void {
@@ -30,6 +28,9 @@ export class TodosViewModel {
   public editTodo(todo: Partial<ITodoDTO>): void {
     if (todo._id) {
       this.todos[todo._id] = { ...this.todos[todo._id], ...todo };
+    }
+    else{
+      throw new Error('missing property _id')
     }
   }
 }

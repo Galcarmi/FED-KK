@@ -45,12 +45,13 @@ export class TodoDAO implements IDAO<ITodoDTO> {
       }
     );
     if (foundTodo) {
+      //todo ask ofir
       updatedTodo = <ITodoModel>{ ...foundTodo, ...todoToUpdate };
     }
 
     return this.extractNullableItem(updatedTodo);
   }
-  
+
   public async removeItem(
     identifier: ITodoIdentifier
   ): Promise<Nullable<ITodoDTO>> {

@@ -21,7 +21,7 @@ export class ViewCtrl {
   }
 
   public async fetchTodos(): Promise<void> {
-    const todos: {[key:string]:ITodoDTO} = await todosService.getAllTodos();
+    const todos: { [key: string]: ITodoDTO } = await todosService.getAllTodos();
     this.model.setTodos(todos);
     Object.values(todos).forEach(this.renderTodo.bind(this));
     this.updateEmptyState();
@@ -54,12 +54,12 @@ export class ViewCtrl {
   private onAddTodo(): void {
     const todoInputContent: string = DOMSelectors.todoTxtInput().value;
     if (todoInputContent) {
-      this.addTodo({ content: todoInputContent, isDone: false });
+      this.addTodo(todoInputContent);
     }
   }
 
-  private async addTodo(todoToInsert: ITodoPartialDTO): Promise<void> {
-    const todo: ITodoDTO = await todosService.addTodo(todoToInsert);
+  private async addTodo(content: string): Promise<void> {
+    const todo: ITodoDTO = await todosService.addTodo(content);
     this.clearTodoInput();
     this.model.addTodo(todo);
     this.renderTodo(todo);
@@ -67,11 +67,9 @@ export class ViewCtrl {
   }
 
   private renderTodo(todo: ITodoDTO): void {
-    if (todo._id) {
-      const todoItemTemplate: string = getTodoItem(todo);
-      DOMSelectors.todoList().insertAdjacentHTML('beforeend', todoItemTemplate);
-      this.addEventListenersForTodoElement(todo._id);
-    }
+    const todoItemTemplate: string = getTodoItem(todo);
+    DOMSelectors.todoList().insertAdjacentHTML('beforeend', todoItemTemplate);
+    this.addEventListenersForTodoElement(todo._id);
   }
 
   private clearTodoInput(): void {
@@ -141,13 +139,11 @@ export class ViewCtrl {
   }
 
   private reRenderTodo(todo: ITodoDTO): void {
-    if (todo._id) {
-      const todoElement: Element = DOMSelectors.getTodoContentElementById(
-        todo._id
-      );
-      todoElement.innerHTML = todo.content;
-      this.updateDoneStateForTodoElement(todoElement, todo.isDone);
-    }
+    const todoElement: Element = DOMSelectors.getTodoContentElementById(
+      todo._id
+    );
+    todoElement.innerHTML = todo.content;
+    this.updateDoneStateForTodoElement(todoElement, todo.isDone);
   }
 
   private removeRenderedTodo(_id: string): void {
