@@ -6,7 +6,7 @@ export const getTodoApp = (props: IProps): string => {
   return `<div class="${s.todoApp}">
     <div class="${s.todoApp__list}">
       <div class="${s.todoApp__list__emptyState}">Add your first TODO !</div>
-      ${props.children ? props.children : ''}
+      ${props.children || ''}
     </div>
     <div class="${s.todoApp__inputContainer}">
       <input type="text" class="${s.todoApp__inputContainer__textInput}"/>
@@ -106,4 +106,4 @@ const styles = {
   },
 };
 
-export const s = jss.createStyleSheet(styles).attach().classes
+export const s = jss.createStyleSheet(styles).attach().classes;
