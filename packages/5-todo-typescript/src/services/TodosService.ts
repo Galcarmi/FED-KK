@@ -25,10 +25,10 @@ class TodosService {
     return res.data;
   }
 
-  async getAllTodos(): Promise<ITodoDTO[]> {
-    const res: AxiosResponse<ITodoDTO[]> = await axios.get<ITodoDTO[]>(
-      `/todos`
-    );
+  async getAllTodos(): Promise<{ [key: string]: ITodoDTO }> {
+    const res: AxiosResponse<{ [key: string]: ITodoDTO }> = await axios.get<{
+      [key: string]: ITodoDTO;
+    }>(`/todos`);
     return res.data;
   }
 }

@@ -9,12 +9,8 @@ export class TodosViewModel {
     this.todos = {};
   }
 
-  public setTodos(todos: ITodoDTO[]): void {
-    todos.forEach((todo) => {
-      if (todo._id) {
-        this.todos[todo._id] = todo;
-      }
-    });
+  public setTodos(todos: {[key:string]:ITodoDTO}): void {
+    this.todos = todos;
   }
 
   public getTodos(): TodosMap {

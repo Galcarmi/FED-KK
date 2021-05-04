@@ -21,9 +21,9 @@ export class ViewCtrl {
   }
 
   public async fetchTodos(): Promise<void> {
-    const todos: ITodoDTO[] = await todosService.getAllTodos();
+    const todos: {[key:string]:ITodoDTO} = await todosService.getAllTodos();
     this.model.setTodos(todos);
-    todos.forEach(this.renderTodo.bind(this));
+    Object.values(todos).forEach(this.renderTodo.bind(this));
     this.updateEmptyState();
   }
 

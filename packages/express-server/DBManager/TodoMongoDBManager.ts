@@ -50,7 +50,15 @@ export class TodoMongoDBManager implements ITodoDBManager {
   }
 
   public async getAllTodos(userId: string) {
-    return todoDAO.findItems({ userId });
+    const todos = await todoDAO.findItems({ userId });
+    const todosMap : {[key:string]:ITodoDTO} = {};
+    todos.forEach((todo) => {
+      if (todo._id) {
+        todosMap[todo._id] = todo;
+      }
+    });
+
+    return todosMap;
   }
 
   public async connectToMongoServer(DBPassword?: string): Promise<void> {
