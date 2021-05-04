@@ -16,11 +16,11 @@ export class ViewCtrl {
 
   public async initializeApp(): Promise<void> {
     renderTodoHP({});
-    await this.initPersistedTodos();
+    await this.fetchTodos();
     this.initEventListeners();
   }
 
-  public async initPersistedTodos(): Promise<void> {
+  public async fetchTodos(): Promise<void> {
     const todos: ITodoDTO[] = await todosService.getAllTodos();
     this.model.setTodos(todos);
     todos.forEach(this.renderTodo.bind(this));
