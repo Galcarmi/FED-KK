@@ -24,56 +24,56 @@ export const getTodoItem = (props: TodoItemProps): string => {
       </div>`;
 };
 
-const styles = {
-  todoItem: {
-    ...commonStyles.minTodoItemHeight,
-    ...commonStyles.RLMarginS,
-    ...commonStyles.roundedBorderS,
-    ...commonStyles.blackBorder,
-    ...commonStyles.TPmarginM,
-    textAlign: 'center',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    '&:hover $todo-item__actions': {
-      opacity: 1,
+export const s = jss
+  .createStyleSheet({
+    todoItem: {
+      ...commonStyles.minTodoItemHeight,
+      ...commonStyles.RLMarginS,
+      ...commonStyles.roundedBorderS,
+      ...commonStyles.blackBorder,
+      ...commonStyles.TPmarginM,
+      textAlign: 'center',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+      '&:hover $todo-item__actions': {
+        opacity: 1,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        right: 0,
+      },
+    },
+    'todo-item__actions': {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       position: 'absolute',
       right: 0,
+      opacity: 0,
+      transition: 'all 0.5s ease',
     },
-  },
-  'todo-item__actions': {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    right: 0,
-    opacity: 0,
-    transition: 'all 0.5s ease',
-  },
-  todoItem__content: {
-    ...commonStyles.fontS,
-    width: '55%',
-    overflowWrap: 'break-word',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-  },
-  todoItem__editInput: {
-    ...commonStyles.fontS,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    zIndex: '400',
-    border: 'none',
-    textAlign: 'center',
-    display: 'none',
-  },
-};
-
-export const s = jss.createStyleSheet(styles).attach().classes;
+    todoItem__content: {
+      ...commonStyles.fontS,
+      width: '55%',
+      overflowWrap: 'break-word',
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+    },
+    todoItem__editInput: {
+      ...commonStyles.fontS,
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      zIndex: '400',
+      border: 'none',
+      textAlign: 'center',
+      display: 'none',
+    },
+  })
+  .attach().classes;

@@ -14,12 +14,12 @@ export const getDeleteBtn = (): string => {
   </svg>`;
 };
 
-const styles = {
-  deleteBtn: {
-    ...commonStyles.RLMarginXS,
-    cursor: 'pointer',
-    fill: colors.red,
-  },
-};
-
-export const s = jss.createStyleSheet(styles).attach().classes;
+export const s = jss
+  .createStyleSheet({
+    deleteBtn: {
+      ...commonStyles.RLMarginXS,
+      cursor: 'pointer',
+      fill: colors.red,
+    },
+  })
+  .attach().classes;

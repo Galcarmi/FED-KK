@@ -14,12 +14,12 @@ export const getDoneBtn = (): string => {
   </svg>`;
 };
 
-const styles = {
-  doneBtn: {
-    ...commonStyles.RLMarginXS,
-    cursor: 'pointer',
-    fill: colors.green,
-  },
-};
-
-export const s = jss.createStyleSheet(styles).attach().classes
+export const s = jss
+  .createStyleSheet({
+    doneBtn: {
+      ...commonStyles.RLMarginXS,
+      cursor: 'pointer',
+      fill: colors.green,
+    },
+  })
+  .attach().classes;

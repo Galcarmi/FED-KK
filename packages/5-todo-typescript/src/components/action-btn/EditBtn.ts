@@ -14,12 +14,12 @@ export const getEditBtn = (): string => {
   </svg>`;
 };
 
-const styles = {
-  editBtn: {
-    ...commonStyles.RLMarginXS,
-    cursor: 'pointer',
-    fill: colors.softYellow,
-  },
-};
-
-export const s = jss.createStyleSheet(styles).attach().classes
+export const s = jss
+  .createStyleSheet({
+    editBtn: {
+      ...commonStyles.RLMarginXS,
+      cursor: 'pointer',
+      fill: colors.softYellow,
+    },
+  })
+  .attach().classes;

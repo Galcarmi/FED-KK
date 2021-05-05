@@ -9,21 +9,21 @@ export const getContainer = (props: IProps): string => {
   }</div>`;
 };
 
-const styles: JSSStyles = {
-  container: {
-    height: '100vh',
-    ...commonStyles.RLMarginLPercent,
-  },
-  '@media only screen and (max-width: 600px)': {
+export const s = jss
+  .createStyleSheet({
     container: {
-      ...commonStyles.RLMarginMPercent,
+      height: '100vh',
+      ...commonStyles.RLMarginLPercent,
     },
-  },
-  '@media only screen and (max-width: 400px)': {
-    container: {
-      ...commonStyles.RLMarginSPercent,
+    '@media only screen and (max-width: 600px)': {
+      container: {
+        ...commonStyles.RLMarginMPercent,
+      },
     },
-  },
-};
-
-export const s = jss.createStyleSheet(styles).attach().classes;
+    '@media only screen and (max-width: 400px)': {
+      container: {
+        ...commonStyles.RLMarginSPercent,
+      },
+    },
+  })
+  .attach().classes;
