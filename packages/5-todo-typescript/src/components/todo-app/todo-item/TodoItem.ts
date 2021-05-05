@@ -1,15 +1,15 @@
 import { jss } from '../../../styles/jss';
 import { commonStyles } from '../../../styles/commonStyles';
-import { commonClasses } from '../../../styles/commonClasses';
+import { s as commonClasses } from '../../../styles/commonClasses';
 import { getDeleteBtn } from '../../action-btn/DeleteBtn';
 import { getEditBtn } from '../../action-btn/EditBtn';
 import { getDoneBtn } from '../../action-btn/DoneBtn';
 import { IProps } from '../../../types/IProps';
-import { ITodoClietDTO } from '../../../mvvc/ITodoClientDTO';
+import { ITodoPartialDTO } from '../../../mvvc/ITodoPartialDTO';
 
-interface TodoItemPropse extends IProps, ITodoClietDTO {}
+interface TodoItemProps extends ITodoPartialDTO {}
 
-export const getTodoItem = (props: TodoItemPropse): string => {
+export const getTodoItem = (props: TodoItemProps): string => {
   return `
     <div class="${s.todoItem}" id="${props._id}">
         <input type="text" class="${s.todoItem__editInput}">
@@ -76,5 +76,4 @@ const styles = {
   },
 };
 
-const { classes } = jss.createStyleSheet(styles).attach();
-export const s = classes;
+export const s = jss.createStyleSheet(styles).attach().classes;

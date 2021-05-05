@@ -1,5 +1,6 @@
 import express from 'express';
 import { v4 } from 'uuid';
+import { IDigestedRequest } from '../types/IDigestedRequest';
 
 export const userIdMiddleware = (
   req: express.Request,
@@ -10,8 +11,8 @@ export const userIdMiddleware = (
   if (!userId) {
     userId = v4();
     res.cookie('userId', userId);
-    req.cookies.userId = userId;
   }
 
+  (<IDigestedRequest>req).userId = userId;
   next();
 };

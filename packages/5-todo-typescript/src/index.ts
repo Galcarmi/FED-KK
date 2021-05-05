@@ -1,10 +1,7 @@
 import './index.css';
-import { Model } from './mvvc/Model';
+import { TodosViewModel } from './mvvc/TodosViewModel';
 import { ViewCtrl } from './mvvc/ViewCtrl';
 
-(async () => {
-  const app = new ViewCtrl(new Model());
-  app.initializeApp();
-  await app.initPersistedTodos();
-  app.initEventListeners();
-})();
+const app = new ViewCtrl(new TodosViewModel());
+app.initializeApp();
+

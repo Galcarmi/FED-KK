@@ -2,26 +2,28 @@ import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { renderTodoHP } from '../views/todoHP';
 import { todosService } from '../services/TodosService';
 import { DOMSelectors } from './DOMSelectors';
-import { Model } from './Model';
-import { commonClasses } from '../styles/commonClasses';
-import { ITodoClietDTO } from './ITodoClientDTO';
+import { TodosViewModel } from './TodosViewModel';
+import { s as commonClasses } from '../styles/commonClasses';
+import { ITodoPartialDTO } from './ITodoPartialDTO';
 import { getTodoItem } from '../components/todo-app/todo-item/TodoItem';
 
 export class ViewCtrl {
-  private model: Model;
+  private model: TodosViewModel;
 
-  constructor(model: Model) {
+  constructor(model: TodosViewModel) {
     this.model = model;
   }
 
-  public initializeApp(): void {
+  public async initializeApp(): Promise<void> {
     renderTodoHP({});
+    await this.fetchTodos();
+    this.initEventListeners();
   }
 
-  public async initPersistedTodos(): Promise<void> {
-    const todos: ITodoDTO[] = await todosService.getAllTodos();
+  public async fetchTodos(): Promise<void> {
+    const todos: { [key: string]: ITodoDTO } = await todosService.getAllTodos();
     this.model.setTodos(todos);
-    todos.forEach(this.renderTodo.bind(this));
+    Object.values(todos).forEach(this.renderTodo.bind(this));
     this.updateEmptyState();
   }
 
@@ -41,8 +43,7 @@ export class ViewCtrl {
   }
 
   private updateEmptyState(): void {
-    const todos: ITodoDTO[] = Object.values(this.model.getTodos()); //todo ask ofir
-    if (todos.length > 0) {
+    if (this.model.getTodosCount() > 0) {
       DOMSelectors.todoEmptyState().classList.remove(commonClasses.visible);
     } else {
       DOMSelectors.todoEmptyState().classList.add(commonClasses.visible);
@@ -52,12 +53,12 @@ export class ViewCtrl {
   private onAddTodo(): void {
     const todoInputContent: string = DOMSelectors.todoTxtInput().value;
     if (todoInputContent) {
-      this.addTodo({ content: todoInputContent, isDone: false });
+      this.addTodo(todoInputContent);
     }
   }
 
-  private async addTodo(todoToInsert: ITodoClietDTO): Promise<void> {
-    const todo: ITodoDTO = await todosService.addTodo(todoToInsert);
+  private async addTodo(content: string): Promise<void> {
+    const todo: ITodoDTO = await todosService.addTodo(content);
     this.clearTodoInput();
     this.model.addTodo(todo);
     this.renderTodo(todo);
@@ -65,11 +66,9 @@ export class ViewCtrl {
   }
 
   private renderTodo(todo: ITodoDTO): void {
-    if (todo._id) {
-      const todoItemTemplate: string = getTodoItem(todo);
-      DOMSelectors.todoList().insertAdjacentHTML('beforeend', todoItemTemplate);
-      this.addEventListenersForTodoElement(todo._id);
-    }
+    const todoItemTemplate: string = getTodoItem(todo);
+    DOMSelectors.todoList().insertAdjacentHTML('beforeend', todoItemTemplate);
+    this.addEventListenersForTodoElement(todo._id);
   }
 
   private clearTodoInput(): void {
@@ -139,13 +138,11 @@ export class ViewCtrl {
   }
 
   private reRenderTodo(todo: ITodoDTO): void {
-    if (todo._id) {
-      const todoElement: Element = DOMSelectors.getTodoContentElementById(
-        todo._id
-      );
-      todoElement.innerHTML = todo.content;
-      this.updateDoneStateForTodoElement(todoElement, todo.isDone);
-    }
+    const todoElement: Element = DOMSelectors.getTodoContentElementById(
+      todo._id
+    );
+    todoElement.innerHTML = todo.content;
+    this.updateDoneStateForTodoElement(todoElement, todo.isDone);
   }
 
   private removeRenderedTodo(_id: string): void {

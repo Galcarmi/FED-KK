@@ -52,10 +52,10 @@ export class TodoInMemoryDBManager implements ITodoDBManager {
     return this.todos[userId][todo._id];
   }
 
-  public async getAllTodos(userId: string): Promise<ITodoDTO[]> {
+  public async getAllTodos(userId: string): Promise<{[key:string]:ITodoDTO}> {
     this._createEmptyTodosIfUserIdNotExists(userId);
 
-    return Object.values(this.todos[userId]);
+    return this.todos[userId];
   }
 
   private _throwIfTodoIdNotExists(userId: string, _id: string): void {

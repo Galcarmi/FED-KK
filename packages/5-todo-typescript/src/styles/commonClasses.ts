@@ -15,5 +15,4 @@ const styles = {
   },
 };
 
-const { classes } = jss.createStyleSheet(styles).attach();
-export const commonClasses = classes;
+export const s = jss.createStyleSheet(styles).attach().classes;

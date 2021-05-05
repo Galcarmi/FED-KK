@@ -2,7 +2,7 @@ import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { Nullable } from 'fed-todo-journey_todo-common';
 import { IDAO } from './IDAO';
 import TodosModel from '../models/TodosModel';
-import { ITodoIdentifier } from 'fed-todo-journey_todo-common';
+import { ITodoIdentifier, PartialBy } from 'fed-todo-journey_todo-common';
 import { ITodoModel } from '../models/ITodoModel';
 
 export class TodoDAO implements IDAO<ITodoDTO> {
@@ -13,7 +13,7 @@ export class TodoDAO implements IDAO<ITodoDTO> {
     return todosToReturn;
   }
 
-  public async addItem(todo: ITodoDTO): Promise<ITodoDTO> {
+  public async addItem(todo: PartialBy<ITodoDTO, '_id'>): Promise<ITodoDTO> {
     const todoToInsert: ITodoModel = new TodosModel({
       content: todo.content,
       userId: todo.userId,
@@ -37,7 +37,7 @@ export class TodoDAO implements IDAO<ITodoDTO> {
     identifier: ITodoIdentifier,
     todoToUpdate: Partial<ITodoDTO>
   ): Promise<Nullable<ITodoDTO>> {
-    let updatedTodo = null;
+    let updatedTodo : Nullable<ITodoModel> = null;
     const foundTodo: Nullable<ITodoModel> = await TodosModel.findOneAndUpdate(
       identifier,
       {
@@ -45,11 +45,13 @@ export class TodoDAO implements IDAO<ITodoDTO> {
       }
     );
     if (foundTodo) {
-      updatedTodo = { ...foundTodo, ...todoToUpdate };
+      //todo ask ofir
+      updatedTodo = <ITodoModel>{ ...foundTodo, ...todoToUpdate };
     }
 
     return this.extractNullableItem(updatedTodo);
   }
+
   public async removeItem(
     identifier: ITodoIdentifier
   ): Promise<Nullable<ITodoDTO>> {
@@ -63,11 +65,11 @@ export class TodoDAO implements IDAO<ITodoDTO> {
     await TodosModel.deleteMany({});
   }
 
-  private extractNullableItem(item: Nullable<ITodoDTO>): Nullable<ITodoDTO> {
+  private extractNullableItem(item: Nullable<ITodoModel>): Nullable<ITodoDTO> {
     return item ? this.extractItem(item) : null;
   }
 
-  private extractItem(item: ITodoDTO): ITodoDTO {
+  private extractItem(item: ITodoModel): ITodoDTO {
     return {
       content: item.content,
       _id: item._id,

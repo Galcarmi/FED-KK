@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
-import { ITodoClietDTO } from '../mvvc/ITodoClientDTO';
+import { ITodoPartialDTO } from '../mvvc/ITodoPartialDTO';
 class TodosService {
-  async addTodo(todo: ITodoClietDTO): Promise<ITodoDTO> {
+  async addTodo(content: string): Promise<ITodoDTO> {
     const res: AxiosResponse<ITodoDTO> = await axios.post<ITodoDTO>(
       `/todo`,
-      todo
+      {content}
     );
     return res.data;
   }
@@ -25,10 +25,10 @@ class TodosService {
     return res.data;
   }
 
-  async getAllTodos(): Promise<ITodoDTO[]> {
-    const res: AxiosResponse<ITodoDTO[]> = await axios.get<ITodoDTO[]>(
-      `/todos`
-    );
+  async getAllTodos(): Promise<{ [key: string]: ITodoDTO }> {
+    const res: AxiosResponse<{ [key: string]: ITodoDTO }> = await axios.get<{
+      [key: string]: ITodoDTO;
+    }>(`/todos`);
     return res.data;
   }
 }
