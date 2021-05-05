@@ -1,6 +1,6 @@
 {
   "name": "fed-todo-journey_todo-typescript",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "fed-todo-journey_todo-common": "^1.0.3",
+    "fed-todo-journey_todo-common": "^2.0.0",
     "jss": "^10.6.0",
     "jss-plugin-camel-case": "^10.6.0",
     "jss-plugin-nested": "^10.6.0"
