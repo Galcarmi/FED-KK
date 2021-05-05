@@ -9,7 +9,7 @@ export const getContainer = (props: IProps): string => {
   }</div>`;
 };
 
-export const s = jss
+const s = jss
   .createStyleSheet({
     container: {
       height: '100vh',
