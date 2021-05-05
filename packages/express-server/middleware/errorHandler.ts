@@ -21,6 +21,7 @@ export const errorMiddleware = (
   res: express.Response,
   next: Function
 ): void => {
+  //todo ask ofir not work when unauthenticated
   if (err instanceof ServerError) {
     logger.error(`custom server error: ${err.message}`);
     res.status(err.HTTPStatus).send(err.message);
