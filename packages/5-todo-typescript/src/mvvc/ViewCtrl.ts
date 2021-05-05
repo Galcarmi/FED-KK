@@ -43,8 +43,7 @@ export class ViewCtrl {
   }
 
   private updateEmptyState(): void {
-    const todos: ITodoDTO[] = Object.values(this.model.getTodos()); //todo ask ofir
-    if (todos.length > 0) {
+    if (this.model.getTodosCount() > 0) {
       DOMSelectors.todoEmptyState().classList.remove(commonClasses.visible);
     } else {
       DOMSelectors.todoEmptyState().classList.add(commonClasses.visible);
