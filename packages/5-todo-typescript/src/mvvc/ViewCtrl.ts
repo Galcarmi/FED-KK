@@ -30,10 +30,7 @@ export class ViewCtrl {
   }
 
   public initEventListeners(): void {
-    DOMSelectors.todoAddBtn().addEventListener(
-      'click',
-      this.onAddTodo
-    );
+    DOMSelectors.todoAddBtn().addEventListener('click', this.onAddTodo);
     DOMSelectors.todoTxtInput().addEventListener(
       'keypress',
       (e: KeyboardEvent): void => {
@@ -45,10 +42,10 @@ export class ViewCtrl {
   }
 
   private updateEmptyState(): void {
-    if (this.model.getTodosCount() > 0) {
-      DOMSelectors.todoEmptyState().classList.remove(commonClasses.visible);
-    } else {
+    if (this.model.isEmpty()) {
       DOMSelectors.todoEmptyState().classList.add(commonClasses.visible);
+    } else {
+      DOMSelectors.todoEmptyState().classList.remove(commonClasses.visible);
     }
   }
 
