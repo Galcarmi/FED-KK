@@ -7,6 +7,7 @@
     "html-webpack-plugin": "^5.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-jss": "^10.6.0",
     "source-map-loader": "^2.0.1",
     "style-loader": "^2.0.0",
     "ts-loader": "^9.1.1",
@@ -21,7 +22,10 @@
     "fed-todo-journey_todo-common": "^2.0.0",
     "@types/node": "^12.20.12",
     "@types/react": "^17.0.5",
-    "@types/react-dom": "^17.0.3"
+    "@types/react-dom": "^17.0.3",
+    "jss": "^10.6.0",
+    "jss-plugin-camel-case": "^10.6.0",
+    "jss-plugin-nested": "^10.6.0"
   },
   "scripts": {
     "start": "webpack serve"

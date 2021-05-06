@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
+import { TodoApp } from './components/todo-app/TodoApp'
 
-function App() {
+const App: FC = (): ReactElement => {
   return (
-    <div className="App">
-      asdk
-    </div>
+    <TodoApp />
   );
 }
 
