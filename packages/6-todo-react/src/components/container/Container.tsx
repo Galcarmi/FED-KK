@@ -2,7 +2,7 @@ import { jss } from '../../styles/jss';
 import { commonStyles } from '../../styles/commonStyles';
 import { FC, ReactElement } from 'react';
 
-export const getContainer: FC = (props): ReactElement => {
+export const Container: FC = (props): ReactElement => {
   return (<div className={s.container}>
     {props.children}
   </div>);
