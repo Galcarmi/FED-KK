@@ -1,6 +1,5 @@
 export enum TodosActions{
     SET_TODOS,
-    ADD_TODO,
+    ADD_EDIT_TODO,
     REMOVE_TODO,
-    EDIT_TODO
 }

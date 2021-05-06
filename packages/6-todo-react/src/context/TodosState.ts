@@ -1,5 +1,5 @@
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 
-export interface TodosPayload {
+export interface TodosState {
   todos: { [key: string]: ITodoDTO };
 }

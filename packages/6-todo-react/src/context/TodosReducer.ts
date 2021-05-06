@@ -1,32 +1,38 @@
-import { ITodoDTO } from 'fed-todo-journey_todo-common';
+import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
 import { TodosActions } from './TodosActions';
-import { TodosPayload } from './TodosPayload';
+import { TodosState } from './TodosState';
 
-const TodosReducer = (state:ITodoDTO, action: TodosActions) :TodosPayload=> {
-  switch (action) {
-    case TodosActions.ADD_TODO:
+const TodosReducer = (
+  state: { todos: ITodoMap },
+  action: { type: TodosActions; payload: ITodoMap | ITodoDTO }
+): TodosState => {
+  switch (action.type) {
+    case TodosActions.ADD_EDIT_TODO: {
+      const todoToAddEdit: ITodoDTO = <ITodoDTO>action.payload;
+      state.todos[todoToAddEdit._id] = todoToAddEdit;
       return {
         ...state,
-        todos: action.payload,
+        todos: { ...state.todos },
       };
-    case TodosActions.EDIT_TODO:
+    }
+    case TodosActions.REMOVE_TODO: {
+      const todoToDelete: ITodoDTO = <ITodoDTO>action.payload;
+      delete state.todos[todoToDelete._id];
       return {
         ...state,
-        todos: state.posts.concat(action.payload),
+        todos: { ...state.todos },
       };
-    case TodosActions.REMOVE_TODO:
+    }
+    case TodosActions.SET_TODOS: {
+      const todosToSet: ITodoMap = <ITodoMap>action.payload;
       return {
         ...state,
-        todos: state.posts.filter((post) => post.id !== action.payload),
+        todos: { ...todosToSet },
       };
-    case TodosActions.SET_TODOS:
-        return {
-            ...state,
-            todos: state.posts.concat(action.payload),
-          };
+    }
     default:
       return state;
   }
 };
 
-export default Reducer;
+export default TodosReducer;
