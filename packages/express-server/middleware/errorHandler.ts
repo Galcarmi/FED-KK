@@ -2,6 +2,7 @@ import express from 'express';
 import { ServerError } from '../errors/ServerError';
 import { logger } from '../logger/logger';
 import { HTTPStatuses } from '../constants/HTTPStatus';
+import { UnAuthenticatedError } from '../errors/UnAuthenticatedError';
 
 export const wrapError = (fn: Function) => async (
   req: express.Request,
@@ -21,10 +22,9 @@ export const errorMiddleware = (
   res: express.Response,
   next: Function
 ): void => {
-  //todo ask ofir not work when unauthenticated
-  if (err instanceof ServerError) {
+  if ((<ServerError>err).HTTPStatus) {
     logger.error(`custom server error: ${err.message}`);
-    res.status(err.HTTPStatus).send(err.message);
+    res.status((<ServerError>err).HTTPStatus).send(err.message);
   } else {
     logger.error(`internal server error: ${err.message}`);
     res.status(HTTPStatuses.INTERNAL_SERVER_ERROR).send(err);
