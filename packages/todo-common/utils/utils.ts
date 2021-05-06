@@ -1,3 +1,1 @@
-import {isTestEnv } from './cmdUtils';
-
-export const utils = {isTestEnv}
+export const isTestEnv = () : boolean => !process.env.production

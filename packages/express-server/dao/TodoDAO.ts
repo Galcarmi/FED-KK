@@ -6,9 +6,13 @@ import { ITodoIdentifier, PartialBy } from 'fed-todo-journey_todo-common';
 import { ITodoModel } from '../models/ITodoModel';
 
 export class TodoDAO implements IDAO<ITodoDTO> {
+
+  constructor(){
+    this.extractItem = this.extractItem.bind(this);
+  }
   public async findItems(identifier: Partial<ITodoDTO>): Promise<ITodoDTO[]> {
     const todos: ITodoModel[] = await TodosModel.find(identifier);
-    const todosToReturn: ITodoDTO[] = todos.map(this.extractItem.bind(this));
+    const todosToReturn: ITodoDTO[] = todos.map(this.extractItem);
 
     return todosToReturn;
   }

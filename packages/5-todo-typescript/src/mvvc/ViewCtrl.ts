@@ -12,6 +12,8 @@ export class ViewCtrl {
 
   constructor(model: TodosViewModel) {
     this.model = model;
+    this.renderTodo = this.renderTodo.bind(this);
+    this.onAddTodo = this.onAddTodo.bind(this);
   }
 
   public async initializeApp(): Promise<void> {
@@ -23,15 +25,12 @@ export class ViewCtrl {
   public async fetchTodos(): Promise<void> {
     const todos: { [key: string]: ITodoDTO } = await todosService.getAllTodos();
     this.model.setTodos(todos);
-    Object.values(todos).forEach(this.renderTodo.bind(this));
+    Object.values(todos).forEach(this.renderTodo);
     this.updateEmptyState();
   }
 
   public initEventListeners(): void {
-    DOMSelectors.todoAddBtn().addEventListener(
-      'click',
-      this.onAddTodo.bind(this)
-    );
+    DOMSelectors.todoAddBtn().addEventListener('click', this.onAddTodo);
     DOMSelectors.todoTxtInput().addEventListener(
       'keypress',
       (e: KeyboardEvent): void => {
@@ -43,10 +42,10 @@ export class ViewCtrl {
   }
 
   private updateEmptyState(): void {
-    if (this.model.getTodosCount() > 0) {
-      DOMSelectors.todoEmptyState().classList.remove(commonClasses.visible);
-    } else {
+    if (this.model.isEmpty()) {
       DOMSelectors.todoEmptyState().classList.add(commonClasses.visible);
+    } else {
+      DOMSelectors.todoEmptyState().classList.remove(commonClasses.visible);
     }
   }
 

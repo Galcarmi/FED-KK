@@ -21,9 +21,9 @@ export const errorMiddleware = (
   res: express.Response,
   next: Function
 ): void => {
-  if (err instanceof ServerError) {
+  if ((<ServerError>err).HTTPStatus) {
     logger.error(`custom server error: ${err.message}`);
-    res.status(err.HTTPStatus).send(err.message);
+    res.status((<ServerError>err).HTTPStatus).send(err.message);
   } else {
     logger.error(`internal server error: ${err.message}`);
     res.status(HTTPStatuses.INTERNAL_SERVER_ERROR).send(err);
