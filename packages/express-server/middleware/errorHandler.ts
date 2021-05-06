@@ -2,7 +2,6 @@ import express from 'express';
 import { ServerError } from '../errors/ServerError';
 import { logger } from '../logger/logger';
 import { HTTPStatuses } from '../constants/HTTPStatus';
-import { UnAuthenticatedError } from '../errors/UnAuthenticatedError';
 
 export const wrapError = (fn: Function) => async (
   req: express.Request,
