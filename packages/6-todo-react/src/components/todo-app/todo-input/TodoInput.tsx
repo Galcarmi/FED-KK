@@ -6,7 +6,7 @@ import { TodosActionTypes } from '../../../context/TodosActions';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { todosService } from '../../../services/TodosService';
 
-export const TodoInput: FC = (): ReactElement => {
+export const TodoInput: FC<{}> = (): ReactElement => {
     const { dispatch } = useContext(Context);
     const [todoInput, setTodoInput] = useState<string>('')
 

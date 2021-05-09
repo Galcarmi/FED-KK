@@ -3,7 +3,7 @@ import { commonStyles, colors } from '../../styles/commonStyles';
 import { jss } from '../../styles/jss';
 import { BtnProps } from './types';
 
-export const EditBtn: FC<BtnProps> = (props): ReactElement => {
+export const EditBtn: FC<BtnProps> = (props: BtnProps): ReactElement => {
   return (<svg
     onClick={props.btnHandler}
     className={s.editBtn}

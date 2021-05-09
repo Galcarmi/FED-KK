@@ -1,8 +1,8 @@
 import { jss } from '../../styles/jss';
 import { commonStyles } from '../../styles/commonStyles';
-import { FC, ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 
-export const Container: FC = (props): ReactElement => {
+export const Container: FC<{}> = (props:React.PropsWithChildren<{}>): ReactElement => {
   return (<div className={s.container}>
     {props.children}
   </div>);

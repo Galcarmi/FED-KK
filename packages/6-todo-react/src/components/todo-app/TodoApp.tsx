@@ -8,7 +8,7 @@ import { TodoInput } from './todo-input/TodoInput';
 import { todosService } from '../../services/TodosService';
 import { TodosActionTypes } from '../../context/TodosActions';
 
-export const TodoApp: FC = (): ReactElement => {
+export const TodoApp: FC<{}> = (): ReactElement => {
   const { state, dispatch } = useContext(Context);
   const todosAsArray: ITodoDTO[] = Object.values(state.todos);
 
