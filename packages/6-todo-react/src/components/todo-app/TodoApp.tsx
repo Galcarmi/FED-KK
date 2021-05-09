@@ -1,19 +1,27 @@
-import React, { FC, ReactElement, useContext } from 'react';
+import React, { FC, ReactElement, useContext, useEffect } from 'react';
 import { jss } from '../../styles/jss';
 import { colors, commonStyles } from '../../styles/commonStyles';
 import { Context } from '../../context/Store';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { TodoItem } from './todo-item/TodoItem';
 import { TodoInput } from './todo-input/TodoInput';
+import { todosService } from '../../services/TodosService';
+import { TodosActions } from '../../context/TodosActions';
 
 export const TodoApp: FC = (): ReactElement => {
-  const { state } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
 
   const todosAsArray: ITodoDTO[] = Object.values(state.todos);
 
   const getTodoItem = (todoItem: ITodoDTO) => <TodoItem todo={todoItem} key={todoItem._id} />
   const getEmptyState = () => <div className={s.todoApp__list__emptyState}>Add your first TODO !</div>;
 
+  useEffect(() => {
+    todosService.getAllTodos().then(todos => {
+      dispatch({ type: TodosActions.SET_TODOS, payload: todos })
+    })
+  }, [])
+  
   return (<div className={s.todoApp}>
     <div className={s.todoApp__list}>
       {todosAsArray.length ? todosAsArray.map(todo => getTodoItem(todo)) : getEmptyState()}

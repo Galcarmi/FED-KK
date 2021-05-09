@@ -33,7 +33,7 @@ export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement 
   return (
     <div className={s.todoItem} id={props.todo._id}>
       <input type="text" className={s.todoItem__editInput} />
-      <div className={contentClass} >${props.todo.content}</div>
+      <div className={contentClass} >{props.todo.content}</div>
       <div className={s['todo-item__actions']}>
         <Btns.EditBtn btnHandler={handleEdit} />
         <Btns.DeleteBtn btnHandler={handleRemove} />
