@@ -1,8 +1,8 @@
 import path from 'path';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
-// import { utils } from 'fed-todo-journey_todo-common';
+import { utils } from 'fed-todo-journey_todo-common';
 
-const devTool = true ? 'eval' : 'source-map';
+const devTool = utils.isTestEnv() ? 'eval' : 'source-map';
 
 module.exports = {
   mode: 'development',
