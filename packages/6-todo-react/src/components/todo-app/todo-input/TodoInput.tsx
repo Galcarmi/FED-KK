@@ -1,4 +1,4 @@
-import React, { FC, KeyboardEvent, ReactElement, useContext, useState } from 'react';
+import React, { FC, ReactElement, useContext, useState } from 'react';
 import { jss } from '../../../styles/jss';
 import { colors, commonStyles } from '../../../styles/commonStyles';
 import { Context } from '../../../context/Store';
