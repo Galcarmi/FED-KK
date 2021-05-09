@@ -11,7 +11,10 @@ export const TodoApp: FC = (): ReactElement => {
 
   const todosAsArray: ITodoDTO[] = Object.values(state.todos);
 
-  const getTodoItem = (todoItem: ITodoDTO) => <TodoItem content={todoItem.content} isDone={todoItem.isDone} _id={todoItem._id} />
+  const getTodoItem = (todoItem: ITodoDTO) => <TodoItem content={todoItem.content}
+    isDone={todoItem.isDone}
+    _id={todoItem._id}
+    key={todoItem._id} />
   const getEmptyState = () => <div className={s.todoApp__list__emptyState}>Add your first TODO !</div>;
 
   return (<div className={s.todoApp}>
