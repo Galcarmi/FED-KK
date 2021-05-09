@@ -1,13 +1,13 @@
 import React, { FC, ReactElement, useContext, useState } from 'react';
 import { jss } from '../../../styles/jss';
 import { colors, commonStyles } from '../../../styles/commonStyles';
-import { Context } from '../../../context/Store';
+import { Context, GlobalContext } from '../../../context/Store';
 import { TodosActionTypes } from '../../../context/TodosActions';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { todosService } from '../../../services/TodosService';
 
 export const TodoInput: FC<{}> = (): ReactElement => {
-    const { dispatch } = useContext(Context);
+    const { dispatch } = useContext<GlobalContext>(Context);
     const [todoInput, setTodoInput] = useState<string>('')
 
     const handleAddTodo = async () :Promise<void> => {

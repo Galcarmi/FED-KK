@@ -5,7 +5,7 @@ import { s as commonClasses } from '../../../styles/commonClasses';
 import { Btns } from '../../action-btn/Btns';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { todosService } from '../../../services/TodosService';
-import { Context } from '../../../context/Store';
+import { Context, GlobalContext } from '../../../context/Store';
 import { TodosActionTypes } from '../../../context/TodosActions';
 
 interface TodoItemProps {
@@ -13,7 +13,7 @@ interface TodoItemProps {
 }
 
 export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement => {
-  const { dispatch } = useContext(Context);
+  const { dispatch } = useContext<GlobalContext>(Context);
   const [editInputVisible, setEditInputVisible] = useState<boolean>(false);
   const [editInputValue, setEditInputValue] = useState<string>('');
   const editInput: React.RefObject<HTMLInputElement> = createRef<HTMLInputElement>();
@@ -26,7 +26,7 @@ export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement 
     dispatch({ type: TodosActionTypes.REMOVE_TODO, payload: props.todo });
   }
   const handleDone = async (): Promise<void> => {
-    const updatedTodo = { ...props.todo, isDone: !props.todo.isDone };
+    const updatedTodo: ITodoDTO = { ...props.todo, isDone: !props.todo.isDone };
     await todosService.editTodo(updatedTodo);
     dispatch({ type: TodosActionTypes.ADD_EDIT_TODO, payload: updatedTodo });
   }

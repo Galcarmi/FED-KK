@@ -1,7 +1,7 @@
 import React, { FC, ReactElement, useContext, useEffect } from 'react';
 import { jss } from '../../styles/jss';
 import { colors, commonStyles } from '../../styles/commonStyles';
-import { Context } from '../../context/Store';
+import { Context, GlobalContext } from '../../context/Store';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { TodoItem } from './todo-item/TodoItem';
 import { TodoInput } from './todo-input/TodoInput';
@@ -9,7 +9,7 @@ import { todosService } from '../../services/TodosService';
 import { TodosActionTypes } from '../../context/TodosActions';
 
 export const TodoApp: FC<{}> = (): ReactElement => {
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch } = useContext<GlobalContext>(Context);
   const todosAsArray: ITodoDTO[] = Object.values(state.todos);
 
   const getTodoItem = (todoItem: ITodoDTO): JSX.Element => <TodoItem todo={todoItem} key={todoItem._id} />
