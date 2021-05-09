@@ -17,10 +17,10 @@ export enum TodosActionTypes {
   REMOVE_TODO,
 }
 
-type TodoPayload = {
+type TodoActions = {
   [TodosActionTypes.ADD_EDIT_TODO]: ITodoDTO;
   [TodosActionTypes.REMOVE_TODO]: ITodoDTO;
   [TodosActionTypes.SET_TODOS]: { [key: string]: ITodoDTO };
 };
 
-export type TodosActions = ActionMap<TodoPayload>[keyof ActionMap<TodoPayload>];
+export type TodosActions = ActionMap<TodoActions>[keyof ActionMap<TodoActions>];
