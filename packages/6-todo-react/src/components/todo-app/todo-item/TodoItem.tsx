@@ -3,16 +3,18 @@ import { jss } from '../../../styles/jss';
 import { commonStyles } from '../../../styles/commonStyles';
 import { s as commonClasses } from '../../../styles/commonClasses';
 import { Btns } from '../../action-btn/Btns';
-import { ITodoPartialDTO } from '../../../types/ITodoPartialDTO';
+import { ITodoDTO } from 'fed-todo-journey_todo-common';
 
-interface TodoItemProps extends ITodoPartialDTO { }
+interface TodoItemProps {
+  todo: ITodoDTO
+}
 
 export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement => {
-  const contentClass = props.isDone ? [commonClasses.crossedContent, s.todoItem__content].join(' ') : s.todoItem__content;
+  const contentClass = props.todo.isDone ? [commonClasses.crossedContent, s.todoItem__content].join(' ') : s.todoItem__content;
   return (
-    <div className={s.todoItem} id={props._id}>
+    <div className={s.todoItem} id={props.todo._id}>
       <input type="text" className={s.todoItem__editInput} />
-      <div className={contentClass} >${props.content}</div>
+      <div className={contentClass} >${props.todo.content}</div>
       <div className={s['todo-item__actions']}>
         <Btns.EditBtn />
         <Btns.DeleteBtn />
