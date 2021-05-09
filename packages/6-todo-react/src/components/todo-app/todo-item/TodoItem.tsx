@@ -14,29 +14,29 @@ interface TodoItemProps {
 
 export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement => {
   const { dispatch } = useContext(Context);
-  const [editInputVisible, setEditInputVisible] = useState(false);
-  const [editInputValue, setEditInputValue] = useState('');
-  const editInput = createRef<HTMLInputElement>();
+  const [editInputVisible, setEditInputVisible] = useState<boolean>(false);
+  const [editInputValue, setEditInputValue] = useState<string>('');
+  const editInput: React.RefObject<HTMLInputElement> = createRef<HTMLInputElement>();
 
-  const contentClass = props.todo.isDone ? [commonClasses.crossedContent, s.todoItem__content].join(' ') : s.todoItem__content;
-  const editInputClass = editInputVisible ? [commonClasses.displayBlock, s.todoItem__editInput].join(' ') : s.todoItem__editInput;
+  const contentClass: string = props.todo.isDone ? [commonClasses.crossedContent, s.todoItem__content].join(' ') : s.todoItem__content;
+  const editInputClass: string = editInputVisible ? [commonClasses.displayBlock, s.todoItem__editInput].join(' ') : s.todoItem__editInput;
 
-  const handleRemove = async () => {
+  const handleRemove = async (): Promise<void> => {
     await todosService.deleteTodo(props.todo._id);
     dispatch({ type: TodosActions.REMOVE_TODO, payload: props.todo });
   }
-  const handleDone = async () => {
+  const handleDone = async (): Promise<void> => {
     const updatedTodo = { ...props.todo, isDone: !props.todo.isDone };
     await todosService.editTodo(updatedTodo);
     dispatch({ type: TodosActions.ADD_EDIT_TODO, payload: updatedTodo });
   }
 
-  const handleEditClick = () => {
+  const handleEditClick = (): void => {
     setEditInputVisible(!editInputVisible);
     setEditInputValue(props.todo.content);
   }
 
-  const handleEdit = async () => {
+  const handleEdit = async (): Promise<void> => {
     if (editInputValue !== '' && editInputValue !== props.todo.content) {
       const updatedTodo: ITodoDTO = { ...props.todo, content: editInputValue };
       await todosService.editTodo(updatedTodo);

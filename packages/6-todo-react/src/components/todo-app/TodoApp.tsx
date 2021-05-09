@@ -13,15 +13,15 @@ export const TodoApp: FC = (): ReactElement => {
 
   const todosAsArray: ITodoDTO[] = Object.values(state.todos);
 
-  const getTodoItem = (todoItem: ITodoDTO) => <TodoItem todo={todoItem} key={todoItem._id} />
-  const getEmptyState = () => <div className={s.todoApp__list__emptyState}>Add your first TODO !</div>;
+  const getTodoItem = (todoItem: ITodoDTO): JSX.Element => <TodoItem todo={todoItem} key={todoItem._id} />
+  const getEmptyState = (): JSX.Element => <div className={s.todoApp__list__emptyState}>Add your first TODO !</div>;
 
   useEffect(() => {
     todosService.getAllTodos().then(todos => {
       dispatch({ type: TodosActions.SET_TODOS, payload: todos })
     })
   }, [])
-  
+
   return (<div className={s.todoApp}>
     <div className={s.todoApp__list}>
       {todosAsArray.length ? todosAsArray.map(todo => getTodoItem(todo)) : getEmptyState()}

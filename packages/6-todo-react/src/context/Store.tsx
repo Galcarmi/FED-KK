@@ -13,7 +13,7 @@ const initialState: TodosState = {
     todos: {}
 };
 
-export const Context = createContext<GlobalContext>({ state: initialState, dispatch: () => null });
+export const Context: React.Context<GlobalContext> = createContext<GlobalContext>({ state: initialState, dispatch: () => null });
 
 const Store: FC = ({ children }) => {
     const [state, dispatch] = useReducer(TodosReducer, initialState);

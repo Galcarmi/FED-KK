@@ -8,9 +8,9 @@ import { todosService } from '../../../services/TodosService';
 
 export const TodoInput: FC = (): ReactElement => {
     const { dispatch } = useContext(Context);
-    const [todoInput, setTodoInput] = useState('')
+    const [todoInput, setTodoInput] = useState<string>('')
 
-    const handleAddTodo = async () => {
+    const handleAddTodo = async () :Promise<void> => {
         if (todoInput.length) {
             const todo: ITodoDTO = await todosService.addTodo(todoInput);
             dispatch({ type: TodosActions.ADD_EDIT_TODO, payload: todo })
