@@ -23,9 +23,9 @@ export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement 
   const handleDone = async () => {
     const updatedTodo = { ...props.todo, isDone: !props.todo.isDone };
     await todosService.editTodo(updatedTodo);
-    dispatch({ type: TodosActions.REMOVE_TODO, payload: updatedTodo })
+    dispatch({ type: TodosActions.ADD_EDIT_TODO, payload: updatedTodo })
   }
-  
+
   const handleEdit = () => {
 
   }
