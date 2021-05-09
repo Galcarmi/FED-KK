@@ -1,27 +1,45 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useContext } from 'react';
 import { jss } from '../../../styles/jss';
 import { commonStyles } from '../../../styles/commonStyles';
 import { s as commonClasses } from '../../../styles/commonClasses';
 import { Btns } from '../../action-btn/Btns';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
+import { todosService } from '../../../services/TodosService';
+import { Context } from '../../../context/Store';
+import { TodosActions } from '../../../context/TodosActions';
 
 interface TodoItemProps {
   todo: ITodoDTO
 }
 
 export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement => {
+  const { dispatch } = useContext(Context);
   const contentClass = props.todo.isDone ? [commonClasses.crossedContent, s.todoItem__content].join(' ') : s.todoItem__content;
+
+  const handleRemove = async () => {
+    await todosService.deleteTodo(props.todo._id);
+    dispatch({ type: TodosActions.REMOVE_TODO, payload: props.todo })
+  }
+  const handleDone = async () => {
+    const updatedTodo = { ...props.todo, isDone: !props.todo.isDone };
+    await todosService.editTodo(updatedTodo);
+    dispatch({ type: TodosActions.REMOVE_TODO, payload: updatedTodo })
+  }
+  
+  const handleEdit = () => {
+
+  }
+
   return (
     <div className={s.todoItem} id={props.todo._id}>
       <input type="text" className={s.todoItem__editInput} />
       <div className={contentClass} >${props.todo.content}</div>
       <div className={s['todo-item__actions']}>
-        <Btns.EditBtn />
-        <Btns.DeleteBtn />
-        <Btns.DoneBtn />
+        <Btns.EditBtn btnHandler={handleEdit} />
+        <Btns.DeleteBtn btnHandler={handleRemove} />
+        <Btns.DoneBtn btnHandler={handleDone} />
       </div>
     </div>)
-
 };
 
 

@@ -2,7 +2,11 @@ import React, { FC, ReactElement } from 'react';
 import { commonStyles, colors } from '../../styles/commonStyles';
 import { jss } from '../../styles/jss';
 
-export const EditBtn: FC = (): ReactElement => {
+interface BtnProps {
+  btnHandler: Function
+}
+
+export const EditBtn: FC<BtnProps> = (): ReactElement => {
   return (<svg
     className={s.editBtn}
     xmlns="http://www.w3.org/2000/svg"

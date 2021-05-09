@@ -1,8 +1,10 @@
 import React, { FC, ReactElement } from 'react';
 import { commonStyles, colors } from '../../styles/commonStyles';
 import { jss } from '../../styles/jss';
+import { BtnProps } from './types';
 
-export const DeleteBtn: FC = (): ReactElement => {
+
+export const DeleteBtn: FC<BtnProps> = (): ReactElement => {
   return (<svg
     className={s.deleteBtn}
     xmlns="http://www.w3.org/2000/svg"
