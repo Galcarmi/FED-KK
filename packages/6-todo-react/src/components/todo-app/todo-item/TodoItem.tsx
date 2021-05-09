@@ -2,9 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import { jss } from '../../../styles/jss';
 import { commonStyles } from '../../../styles/commonStyles';
 import { s as commonClasses } from '../../../styles/commonClasses';
-import { DeleteBtn } from '../../action-btn/DeleteBtn';
-import { EditBtn } from '../../action-btn/EditBtn';
-import { DoneBtn } from '../../action-btn/DoneBtn';
+import { Btns } from '../../action-btn/Btns';
 import { ITodoPartialDTO } from '../../../types/ITodoPartialDTO';
 
 interface TodoItemProps extends ITodoPartialDTO { }
@@ -16,9 +14,9 @@ export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement 
       <input type="text" className={s.todoItem__editInput} />
       <div className={contentClass} >${props.content}</div>
       <div className={s['todo-item__actions']}>
-        <EditBtn />
-        <DeleteBtn />
-        <DoneBtn />
+        <Btns.EditBtn />
+        <Btns.DeleteBtn />
+        <Btns.DoneBtn />
       </div>
     </div>)
 
