@@ -4,8 +4,9 @@ import { jss } from '../../styles/jss';
 import { BtnProps } from './types';
 
 
-export const DeleteBtn: FC<BtnProps> = (): ReactElement => {
+export const DeleteBtn: FC<BtnProps> = (props): ReactElement => {
   return (<svg
+    onClick={props.btnHandler}
     className={s.deleteBtn}
     xmlns="http://www.w3.org/2000/svg"
     width="24"

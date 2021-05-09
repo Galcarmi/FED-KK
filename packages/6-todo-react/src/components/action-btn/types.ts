@@ -1,3 +1,5 @@
+import { MouseEventHandler } from 'react';
+
 export interface BtnProps{
-    btnHandler:Function
+    btnHandler:MouseEventHandler<SVGSVGElement>
 }

@@ -1,13 +1,11 @@
 import React, { FC, ReactElement } from 'react';
 import { commonStyles, colors } from '../../styles/commonStyles';
 import { jss } from '../../styles/jss';
+import { BtnProps } from './types';
 
-interface BtnProps {
-  btnHandler: Function
-}
-
-export const EditBtn: FC<BtnProps> = (): ReactElement => {
+export const EditBtn: FC<BtnProps> = (props): ReactElement => {
   return (<svg
+    onClick={props.btnHandler}
     className={s.editBtn}
     xmlns="http://www.w3.org/2000/svg"
     width="24"
