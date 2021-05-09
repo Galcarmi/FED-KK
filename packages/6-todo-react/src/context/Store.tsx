@@ -1,10 +1,11 @@
 
 import React, { createContext, FC, useReducer } from "react";
+import { TodosActions } from './TodosActions';
 import TodosReducer from './TodosReducer';
 import { TodosState } from './TodosState';
 interface GlobalContext {
     state: TodosState,
-    dispatch: React.Dispatch<any>;
+    dispatch: React.Dispatch<TodosActions>;
 }
 
 const initialState: TodosState = {

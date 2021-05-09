@@ -6,11 +6,10 @@ import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { TodoItem } from './todo-item/TodoItem';
 import { TodoInput } from './todo-input/TodoInput';
 import { todosService } from '../../services/TodosService';
-import { TodosActions } from '../../context/TodosActions';
+import { TodosActionTypes } from '../../context/TodosActions';
 
 export const TodoApp: FC = (): ReactElement => {
   const { state, dispatch } = useContext(Context);
-
   const todosAsArray: ITodoDTO[] = Object.values(state.todos);
 
   const getTodoItem = (todoItem: ITodoDTO): JSX.Element => <TodoItem todo={todoItem} key={todoItem._id} />
@@ -18,7 +17,7 @@ export const TodoApp: FC = (): ReactElement => {
 
   useEffect(() => {
     todosService.getAllTodos().then(todos => {
-      dispatch({ type: TodosActions.SET_TODOS, payload: todos })
+      dispatch({ type: TodosActionTypes.SET_TODOS, payload: todos })
     })
   }, [])
 

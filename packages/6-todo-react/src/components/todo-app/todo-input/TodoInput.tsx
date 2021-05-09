@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useContext, useState } from 'react';
 import { jss } from '../../../styles/jss';
 import { colors, commonStyles } from '../../../styles/commonStyles';
 import { Context } from '../../../context/Store';
-import { TodosActions } from '../../../context/TodosActions';
+import { TodosActionTypes } from '../../../context/TodosActions';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { todosService } from '../../../services/TodosService';
 
@@ -13,7 +13,7 @@ export const TodoInput: FC = (): ReactElement => {
     const handleAddTodo = async () :Promise<void> => {
         if (todoInput.length) {
             const todo: ITodoDTO = await todosService.addTodo(todoInput);
-            dispatch({ type: TodosActions.ADD_EDIT_TODO, payload: todo })
+            dispatch({ type: TodosActionTypes.ADD_EDIT_TODO, payload: todo })
             setTodoInput('');
         }
     }

@@ -6,7 +6,7 @@ import { Btns } from '../../action-btn/Btns';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { todosService } from '../../../services/TodosService';
 import { Context } from '../../../context/Store';
-import { TodosActions } from '../../../context/TodosActions';
+import { TodosActionTypes } from '../../../context/TodosActions';
 
 interface TodoItemProps {
   todo: ITodoDTO
@@ -23,12 +23,12 @@ export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement 
 
   const handleRemove = async (): Promise<void> => {
     await todosService.deleteTodo(props.todo._id);
-    dispatch({ type: TodosActions.REMOVE_TODO, payload: props.todo });
+    dispatch({ type: TodosActionTypes.REMOVE_TODO, payload: props.todo });
   }
   const handleDone = async (): Promise<void> => {
     const updatedTodo = { ...props.todo, isDone: !props.todo.isDone };
     await todosService.editTodo(updatedTodo);
-    dispatch({ type: TodosActions.ADD_EDIT_TODO, payload: updatedTodo });
+    dispatch({ type: TodosActionTypes.ADD_EDIT_TODO, payload: updatedTodo });
   }
 
   const handleEditClick = (): void => {
@@ -40,7 +40,7 @@ export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement 
     if (editInputValue !== '' && editInputValue !== props.todo.content) {
       const updatedTodo: ITodoDTO = { ...props.todo, content: editInputValue };
       await todosService.editTodo(updatedTodo);
-      dispatch({ type: TodosActions.ADD_EDIT_TODO, payload: updatedTodo });
+      dispatch({ type: TodosActionTypes.ADD_EDIT_TODO, payload: updatedTodo });
       setEditInputVisible(false);
     }
   }
