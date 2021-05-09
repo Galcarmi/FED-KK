@@ -64,7 +64,8 @@ export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement 
         value={editInputValue}
         onChange={(e) => setEditInputValue(e.target.value)}
         ref={editInput}
-        onKeyPress={handleEditInputEnter} />
+        onKeyPress={handleEditInputEnter}
+        onBlur={handleEdit} />
       <div className={contentClass} >{props.todo.content}</div>
       <div className={s['todo-item__actions']}>
         <Btns.EditBtn btnHandler={handleEditClick} />
