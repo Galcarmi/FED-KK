@@ -18,7 +18,7 @@ export const TodoInput: FC = (): ReactElement => {
         }
     }
 
-    const handleKeyPress = (e: KeyboardEvent): void => {
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
         if (e.key === 'Enter') {
             handleAddTodo();
         }
