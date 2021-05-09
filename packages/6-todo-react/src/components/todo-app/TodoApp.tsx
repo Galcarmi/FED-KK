@@ -1,16 +1,24 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useContext } from 'react';
 import { jss } from '../../styles/jss';
 import { colors, commonStyles } from '../../styles/commonStyles';
+import { Context } from '../../context/Store';
+import { ITodoDTO } from 'fed-todo-journey_todo-common';
+import { TodoItem } from './todo-item/TodoItem';
+import { TodoInput } from './todo-input/TodoInput';
 
 export const TodoApp: FC = (): ReactElement => {
+  const { state } = useContext(Context);
+
+  const todosAsArray: ITodoDTO[] = Object.values(state.todos);
+
+  const getTodoItem = (todoItem: ITodoDTO) => <TodoItem content={todoItem.content} isDone={todoItem.isDone} _id={todoItem._id} />
+  const getEmptyState = () => <div className={s.todoApp__list__emptyState}>Add your first TODO !</div>;
+
   return (<div className={s.todoApp}>
     <div className={s.todoApp__list}>
-      <div className={s.todoApp__list__emptyState}>Add your first TODO !</div>
+      {todosAsArray.length ? todosAsArray.map(todo => getTodoItem(todo)) : getEmptyState()}
     </div>
-    <div className={s.todoApp__inputContainer}>
-      <input type="text" className={s.todoApp__inputContainer__textInput} />
-      <button className={s.todoApp__inputContainer__addBtn}>Add</button>
-    </div>
+    <TodoInput />
   </div>);
 };
 
@@ -24,70 +32,6 @@ export const s = jss
       width: '100%',
       position: 'relative',
     },
-    todoApp__inputContainer: {
-      ...commonStyles.TPpaddingS,
-      ...commonStyles.TGreyBorder,
-      display: 'flex',
-      position: 'fixed',
-      width: `${100 - +commonStyles.RLMarginLPercent.marginLeft.split('%')[0] * 2
-        }%`,
-      bottom: 0,
-      zIndex: 1000,
-      backgroundColor: colors.white,
-    },
-    '@media only screen and (max-width: 600px)': {
-      todoApp__inputContainer: {
-        width: `${100 - +commonStyles.RLMarginMPercent.marginLeft.split('%')[0] * 2
-          }%`,
-      },
-    },
-    '@media only screen and (max-width: 400px)': {
-      todoApp__inputContainer: {
-        width: `${100 - +commonStyles.RLMarginSPercent.marginLeft.split('%')[0] * 2
-          }%`,
-      },
-    },
-    todoApp__inputContainer__textInput: {
-      flex: 1,
-      ...commonStyles.roundedBorderS,
-      ...commonStyles.RLPaddingS,
-      ...commonStyles.blackBorder,
-      ...commonStyles.fontS,
-      ...commonStyles.RLMarginS,
-      overflow: 'visible',
-      '&:focus': {
-        flex: 1,
-        ...commonStyles.roundedBorderS,
-        ...commonStyles.RLPaddingS,
-        ...commonStyles.focusedBlueBorder,
-        ...commonStyles.fontS,
-        ...commonStyles.RLMarginS,
-        overflow: 'visible',
-        outline: 'none',
-      },
-    },
-    todoApp__inputContainer__addBtn: {
-      ...commonStyles.RLMarginS,
-      ...commonStyles.roundedBorderS,
-      ...commonStyles.fontS,
-      width: '80px',
-      height: '30px',
-      backgroundColor: colors.softBlue,
-      color: colors.white,
-      cursor: 'pointer',
-      transition: 'all 0.2s',
-      outline: 'none',
-      border: 'none',
-      '&:active': {
-        ...commonStyles.RMarginS,
-        ...commonStyles.roundedBorderS,
-        ...commonStyles.fontS,
-        backgroundColor: colors.blue,
-        color: colors.white,
-        width: '80px',
-        cursor: 'pointer',
-      },
-    },
     todoApp__list: {
       paddingBottom: `${commonStyles.minTodoItemHeight.minHeight.split('px')[0]
         }px`,
@@ -98,7 +42,6 @@ export const s = jss
       left: '50%',
       top: '50%',
       transform: 'translate(-50%, -50%)',
-      opacity: 0,
     },
   })
   .attach().classes;
