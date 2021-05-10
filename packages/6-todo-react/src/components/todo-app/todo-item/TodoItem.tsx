@@ -69,9 +69,9 @@ export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement 
         onBlur={handleEdit} />
       <div className={contentClass} >{props.todo.content}</div>
       <div className={s['todo-item__actions']}>
-        <ActionBtn btnHandler={handleEditClick} svgIconPath={btnIcons.EditBtn} color={colors.softYellow} />
-        <ActionBtn btnHandler={handleRemove} svgIconPath={btnIcons.DeleteBtn} color={colors.red} />
-        <ActionBtn btnHandler={handleDone} svgIconPath={btnIcons.DoneBtn} color={colors.green} />
+        <ActionBtn onClick={handleEditClick} svgIconPath={btnIcons.EditBtn} color={colors.softYellow} />
+        <ActionBtn onClick={handleRemove} svgIconPath={btnIcons.DeleteBtn} color={colors.red} />
+        <ActionBtn onClick={handleDone} svgIconPath={btnIcons.DoneBtn} color={colors.green} />
       </div>
     </div>)
 };

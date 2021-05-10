@@ -3,7 +3,7 @@ import { commonStyles } from '../../styles/commonStyles';
 import { jss } from '../../styles/jss';
 
 interface BtnProps {
-  btnHandler: MouseEventHandler<SVGSVGElement>;
+  onClick: MouseEventHandler<SVGSVGElement>;
   color: string;
   svgIconPath: JSX.Element;
 }
@@ -26,7 +26,7 @@ export const ActionBtn: FC<BtnProps> = (props: BtnProps): ReactElement => {
   const s = getStyles(props.color);
 
   return (<svg
-    onClick={props.btnHandler}
+    onClick={props.onClick}
     className={s.actionBtn}
     xmlns="http://www.w3.org/2000/svg"
     width="24"
