@@ -1,8 +1,9 @@
 import React, { createRef, FC, ReactElement, useContext, useEffect, useState } from 'react';
 import { jss } from '../../../styles/jss';
-import { commonStyles } from '../../../styles/commonStyles';
+import { commonStyles, colors } from '../../../styles/commonStyles';
 import { s as commonClasses } from '../../../styles/commonClasses';
-import { Btns } from '../../action-btn/Btns';
+import { ActionBtn } from '../../action-btn/ActionBtn';
+import { btnIcons } from '../../action-btn/BtnIcons'
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { todosService } from '../../../services/TodosService';
 import { Context, GlobalContext } from '../../../context/Store';
@@ -68,9 +69,9 @@ export const TodoItem: FC<TodoItemProps> = (props: TodoItemProps): ReactElement 
         onBlur={handleEdit} />
       <div className={contentClass} >{props.todo.content}</div>
       <div className={s['todo-item__actions']}>
-        <Btns.EditBtn btnHandler={handleEditClick} />
-        <Btns.DeleteBtn btnHandler={handleRemove} />
-        <Btns.DoneBtn btnHandler={handleDone} />
+        <ActionBtn onClick={handleEditClick} svgIconPath={btnIcons.EditBtn} color={colors.softYellow} />
+        <ActionBtn onClick={handleRemove} svgIconPath={btnIcons.DeleteBtn} color={colors.red} />
+        <ActionBtn onClick={handleDone} svgIconPath={btnIcons.DoneBtn} color={colors.green} />
       </div>
     </div>)
 };
