@@ -7,7 +7,7 @@ const devTool = utils.isTestEnv() ? 'eval' : 'source-map';
 module.exports = {
   mode: 'development',
   entry: {
-    bundle: './src/index.tsx',
+    bundle: './src/components/root-components/index.tsx',
   },
   output: {
     path: path.resolve(__dirname, '../express-server/public'),
