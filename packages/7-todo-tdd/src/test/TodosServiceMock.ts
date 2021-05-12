@@ -6,17 +6,17 @@ const chance = new Chance();
 export class TodosServiceMock implements ITodosService {
   private todos: ITodoMap;
 
-  constructor() {
-    this.todos = {};
+  constructor(todos?: ITodoMap) {
+    this.todos = todos ? todos : {};
   }
 
   async addTodo(content: string): Promise<ITodoDTO> {
     const _id = chance.guid();
     const userId = chance.guid();
-    const todoToInsert = {content, _id, userId, isDone: false}; 
-    this.todos[_id] = todoToInsert ;
+    const todoToInsert = { content, _id, userId, isDone: false };
+    this.todos[_id] = todoToInsert;
 
-    return todoToInsert
+    return todoToInsert;
   }
 
   async deleteTodo(_id: string): Promise<ITodoDTO> {
@@ -27,11 +27,7 @@ export class TodosServiceMock implements ITodosService {
     throw new Error('Method not implemented.');
   }
 
-  async getAllTodos(): Promise<{ [key: string]: ITodoDTO }> {
+  async getAllTodos(): Promise<ITodoMap> {
     return this.todos;
-  }
-
-  public initTodos(todos: ITodoMap): void {
-    this.todos = todos;
   }
 }

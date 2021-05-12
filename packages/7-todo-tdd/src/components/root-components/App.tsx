@@ -1,5 +1,5 @@
 import { ITodoMap } from 'fed-todo-journey_todo-common';
-import React, { ChangeEvent, FC, ReactElement, useState } from 'react';
+import React, { ChangeEvent, FC, ReactElement, useEffect, useState } from 'react';
 import { ITodosService } from '../../services/ITodoService';
 import { jss } from '../../styles/config';
 
@@ -17,10 +17,15 @@ const App: FC<AppProps> = ({ todosService }): ReactElement => {
       setTodos({ ...todos, addedTodo });
     }
   }
+
+  useEffect(() => {
+    todosService.getAllTodos().then(todos => setTodos(todos))
+  }, [])
+
   return (
     <div className={s.todo}>
       <div className={s.todo__list}>
-        {Object.values(todos).map(todo => <div className={s.todo__list__item} key={todo._id}>{todo.content}</div>)}
+        {Object.values(todos).map(todo => <div id={todo._id} className={s.todo__list__item} key={todo._id}>{todo.content}</div>)}
       </div>
       <input type='text'
         className={s.todo__input}

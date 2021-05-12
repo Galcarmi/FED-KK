@@ -4,6 +4,8 @@ import { wrapperGenerator } from '../styles/utils';
 import { mount } from './config';
 import { TodosServiceMock } from './TodosServiceMock';
 import { act } from 'react-dom/test-utils';
+import { ITodoMap } from 'fed-todo-journey_todo-common';
+import { s as commonStyles } from '../styles/commonClasses';
 
 const h = wrapperGenerator('.');
 
@@ -11,8 +13,8 @@ export class TodoTestDriver {
   private app: ReactWrapper;
   private serviceMock: TodosServiceMock;
 
-  constructor() {
-    this.serviceMock = new TodosServiceMock();
+  constructor(todos?: ITodoMap) {
+    this.serviceMock = new TodosServiceMock(todos);
     this.app = mount(<App todosService={this.serviceMock} />);
   }
 
@@ -40,4 +42,16 @@ export class TodoTestDriver {
       this.app.update();
     });
   };
+
+  public getTodos(): ITodoMap {
+    const todos: ITodoMap = {};
+    this.app.find(h(s.todo__list__item)).forEach(todoElement => {
+      const _id: string = (todoElement.getDOMNode().getAttribute('id')) as string;
+      const content: string = todoElement.getDOMNode().innerHTML;
+      const isDone: boolean = todoElement.getDOMNode().classList.contains(commonStyles.crossedContent);
+      todos[_id] = { _id, content, isDone, userId: '' }
+    })
+
+    return todos;
+  }
 }
