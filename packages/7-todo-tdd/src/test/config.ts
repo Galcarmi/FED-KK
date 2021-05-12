@@ -3,4 +3,5 @@ import Adapter from 'enzyme-adapter-react-16';
 
 enzyme.configure({ adapter: new Adapter() });
 
-export {enzyme};
+export default enzyme;
+export const shallow = enzyme.shallow;
