@@ -37,10 +37,12 @@ export class TodoTestDriver {
   }
 
   public async waitForAppToUpdate(): Promise<void> {
-    await act(async () => {
-      await new Promise(resolve => setTimeout(resolve));
-      this.app.update();
-    });
+    // await act(async () => {
+    //   await new Promise(resolve => setTimeout(resolve));
+    //   this.app.update();
+    // });
+
+    return new Promise(res=>{setTimeout(res,2000)})
   };
 
   public getTodos(): ITodoMap {
