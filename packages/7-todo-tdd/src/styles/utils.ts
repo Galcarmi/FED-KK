@@ -1,0 +1,1 @@
+export const wrapperGenerator = (wrapper:string) => (word:string)=>`${wrapper}${word}`;
