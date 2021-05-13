@@ -84,9 +84,9 @@ describe('app should render fetched todos', () => {
     })
 
 
-    // it('should render the correct state of isDone', ()=>{
-    //     expect(appTestDriver.getTodos()[_id].isDone).toBe(isDone)
-    // })
+    it('should render the correct state of isDone', ()=>{
+        expect(appTestDriver.getTodos()[_id].isDone).toBe(isDone)
+    })
 })
 
 // describe('checks todo list item rendered properly', () => {

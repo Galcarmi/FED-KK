@@ -1,6 +1,7 @@
-import { ITodoMap } from 'fed-todo-journey_todo-common';
+import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
 import React, { ChangeEvent, FC, ReactElement, useEffect, useState } from 'react';
 import { ITodosService } from '../../services/ITodoService';
+import { s as commonStyles } from '../../styles/commonClasses';
 import { jss } from '../../styles/config';
 
 interface AppProps {
@@ -19,6 +20,12 @@ const App: FC<AppProps> = ({ todosService }): ReactElement => {
     }
   }
 
+  const renderTodo = (todo: ITodoDTO) =>
+    <div id={todo._id}
+      className={`${s.todo__list__item} ${todo.isDone && commonStyles.crossedContent}`}
+      key={todo._id}>{todo.content}</div>
+
+
   useEffect(() => {
     todosService.getAllTodos().then(todos => setTodos(todos))
   }, [])
@@ -26,7 +33,7 @@ const App: FC<AppProps> = ({ todosService }): ReactElement => {
   return (
     <div className={s.todo}>
       <div className={s.todo__list}>
-        {Object.values(todos).map(todo => <div id={todo._id} className={s.todo__list__item} key={todo._id}>{todo.content}</div>)}
+        {Object.values(todos).map(renderTodo)}
       </div>
       <input type='text'
         className={s.todo__input}
