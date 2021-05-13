@@ -6,16 +6,18 @@ import { TodoItem } from './TodoItem';
 import { s } from './TodoItem';
 import { wrapperGenerator } from '../../styles/utils';
 import { s as commonStyles } from '../../styles/commonClasses';
+import { ITodosService } from '../../services/ITodoService';
+import { TodosServiceMock } from '../../test/TodosServiceMock';
 
 const c = wrapperGenerator('.');
 
 export class TodoItemDriver {
-    private todo: ITodoDTO;
     private todoItem: ReactWrapper;
+    private serviceMock: TodosServiceMock;
 
     constructor(todo: ITodoDTO) {
-        this.todo = todo;
-        this.todoItem = mount(<TodoItem todo={todo} />)
+        this.serviceMock = new TodosServiceMock();
+        this.todoItem = mount(<TodoItem todosService={this.serviceMock} todo={todo} />)
     }
 
     public clickOnTodoDoneBtn() {

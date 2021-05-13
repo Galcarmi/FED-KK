@@ -20,11 +20,15 @@ export class TodosServiceMock implements ITodosService {
   }
 
   async deleteTodo(_id: string): Promise<ITodoDTO> {
-    throw new Error('Method not implemented.');
+    const foundTodo:ITodoDTO = this.todos[_id];
+    delete this.todos[_id];
+
+    return foundTodo;
   }
 
   async editTodo(todo: Partial<ITodoDTO>): Promise<ITodoDTO> {
-    throw new Error('Method not implemented.');
+    const foundTodo:ITodoDTO = this.todos[todo._id as string];
+    return {...foundTodo, ...todo}
   }
 
   async getAllTodos(): Promise<ITodoMap> {
