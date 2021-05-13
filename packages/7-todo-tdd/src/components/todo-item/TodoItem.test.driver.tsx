@@ -1,4 +1,5 @@
-import { mount, ReactWrapper } from 'enzyme';
+import { ReactWrapper } from 'enzyme';
+import { mount } from '../../test/config';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { act } from 'react-dom/test-utils';
 import { TodoItem } from './TodoItem';
@@ -17,7 +18,7 @@ export class TodoItemDriver {
         this.todoItem = mount(<TodoItem todo={todo} />)
     }
 
-    public clickOnTodoDoneBtn(todoId: string) {
+    public clickOnTodoDoneBtn() {
         console.log(this.todoItem.debug())
         this.todoItem.find(c(s.todo__list__item__actions__done)).simulate('click');
     }

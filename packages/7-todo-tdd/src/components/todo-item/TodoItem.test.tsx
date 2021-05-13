@@ -8,15 +8,14 @@ describe('checks todo list item - done functionality', () => {
     let todoItemDriver: TodoItemDriver;
     let _id: string;
 
-    beforeEach(async () => {
+    beforeEach(() => {
         _id = chance.guid();
         const todo: ITodoDTO = { content: chance.word(), _id, userId: chance.guid(), isDone: false };
         todoItemDriver = new TodoItemDriver(todo);
-        await todoItemDriver.waitForAppToUpdate()
     });
 
     it.only('text should be rendered with crossed content class if its done', async () => {
-        todoItemDriver.clickOnTodoDoneBtn(_id);
+        todoItemDriver.clickOnTodoDoneBtn();
         await todoItemDriver.waitForAppToUpdate();
         expect(todoItemDriver.getTodoItem().isDone).toBe(true);
     })

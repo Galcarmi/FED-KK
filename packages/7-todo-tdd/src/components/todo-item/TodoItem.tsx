@@ -11,6 +11,11 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
         className={s.todo__list__item}
         key={props.todo._id}>
         <div className={`${s.todo__list__item__content} ${props.todo.isDone && commonStyles.crossedContent}`}>{props.todo.content}</div>
+        <div className={s.todo__list__item__actions}>
+            <button className={s.todo__list__item__actions__edit}>edit</button>
+            <button className={s.todo__list__item__actions__delete}>delete</button>
+            <button className={s.todo__list__item__actions__done}>done</button>
+        </div>
     </div>);
 };
 
