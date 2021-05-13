@@ -14,7 +14,7 @@ describe('checks todo list item - done functionality', () => {
         todoItemDriver = new TodoItemDriver(todo);
     });
 
-    it.only('text should be rendered with crossed content class if its done', async () => {
+    it.only('todo item should be marked as done after clicking on done btn', async () => {
         todoItemDriver.clickOnTodoDoneBtn();
         await todoItemDriver.waitForAppToUpdate();
         expect(todoItemDriver.getTodoItem().isDone).toBe(true);
