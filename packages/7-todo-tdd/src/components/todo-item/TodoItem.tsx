@@ -1,17 +1,20 @@
 import { jss } from '../../styles/config';
-import React, { FC, ReactElement, PropsWithChildren } from 'react';
-import { ITodoDTO } from 'fed-todo-journey_todo-common';
+import React, { FC, ReactElement, PropsWithChildren, useContext, useState } from 'react';
+import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
-import { ITodosService } from '../../services/ITodoService';
+import { ITodoContext, TodoContext } from '../../context/TodoContext';
 
 interface TodoItemProps {
     todo: ITodoDTO;
-    todosService: ITodosService;
 }
 export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemProps>): ReactElement => {
+    const { todosService } = useContext<ITodoContext>(TodoContext);
+    const [todos, setTodos] = useState<ITodoMap>({});
 
     const onDoneClick = async (): Promise<void> => {
-        const updatedTodo = await props.todosService.editTodo({ ...props.todo, isDone: true });
+        const updatedTodo = await todosService.editTodo({ ...props.todo, isDone: true });
+        todos[updatedTodo._id] = updatedTodo;
+        setTodos({...todos});
     }
 
     return (<div id={props.todo._id}

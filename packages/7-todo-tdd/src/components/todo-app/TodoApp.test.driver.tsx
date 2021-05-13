@@ -7,16 +7,15 @@ import { TodosServiceMock } from '../../test/TodosServiceMock';
 import { act } from 'react-dom/test-utils';
 import { ITodoMap } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
+import { TodosState } from '../../context/TodoContext';
 
 const c = wrapperGenerator('.');
 
 export class TodoAppDriver {
   private app: ReactWrapper;
-  private serviceMock: TodosServiceMock;
 
-  constructor(todos?: ITodoMap) {
-    this.serviceMock = new TodosServiceMock(todos);
-    this.app = mount(<TodoApp todosService={this.serviceMock} />);
+  constructor() {
+    this.app = mount(<TodoApp />);
   }
 
   public todoInputInsertContent(content: string): void {

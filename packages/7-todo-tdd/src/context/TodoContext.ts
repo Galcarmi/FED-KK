@@ -2,8 +2,9 @@ import { ITodoMap } from 'fed-todo-journey_todo-common';
 import React from 'react';
 import { ITodosService } from '../services/ITodoService';
 import { TodosService } from '../services/TodoService';
+import { TodosServiceMock } from '../test/TodosServiceMock';
 
-interface ITodoContext {
+export interface ITodoContext {
   todos: ITodoMap;
   todosService: ITodosService;
   setTodosService(todosService: ITodosService): void;
@@ -13,8 +14,13 @@ interface ITodoContext {
 export class TodosState implements ITodoContext {
   public todosService: ITodosService;
 
-  constructor(public todos:ITodoMap, public setTodos:React.Dispatch<React.SetStateAction<ITodoMap>>) {
-    this.todosService = new TodosService();
+  constructor(
+    public todos: ITodoMap,
+    public setTodos: React.Dispatch<React.SetStateAction<ITodoMap>>
+  ) {
+    this.todosService = process.env.TEST
+      ? new TodosServiceMock()
+      : new TodosService();
   }
 
   public setTodosService(todosService: ITodosService): void {
@@ -22,4 +28,6 @@ export class TodosState implements ITodoContext {
   }
 }
 
-export const TodoContext = React.createContext<ITodoContext>(new TodosState({},()=>{}));
+export const TodoContext = React.createContext<ITodoContext>(
+  new TodosState({}, () => {})
+);

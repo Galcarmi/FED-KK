@@ -58,33 +58,26 @@ describe('checks todo list - add functionality', () => {
 })
 
 describe('app should render fetched todos properly', () => {
-    let _id: string;
     let content: string;
-    let isDone: boolean;
     let appTestDriver: TodoAppDriver;
 
     beforeAll(async () => {
-        _id = chance.guid();
         content = chance.word();
-        isDone = chance.bool();
-        const todos: ITodoMap = { [_id]: { content, _id, userId: chance.guid(), isDone } };
-        appTestDriver = new TodoAppDriver(todos);
-        await appTestDriver.waitForAppToUpdate();
-    })
-
-    it('should render fetched todos', async () => {
-        expect(appTestDriver.getTodosCount()).toBe(1);
+        appTestDriver = new TodoAppDriver();
+        appTestDriver.todoInputInsertContent(content);
+        appTestDriver.clickOnAddBtn();
+        await appTestDriver.waitForAppToUpdate()
     })
 
     it('should render the correct _id', () => {
-        expect(appTestDriver.getTodos()[_id]).not.toBeUndefined()
+        expect(Object.values(appTestDriver.getTodos())[0]).not.toBeUndefined()
     })
 
     it('should render the correct content', () => {
-        expect(appTestDriver.getTodos()[_id].content).toBe(content)
+        expect(Object.values(appTestDriver.getTodos())[0].content).toBe(content)
     })
 
     it('should render the correct state of isDone', () => {
-        expect(appTestDriver.getTodos()[_id].isDone).toBe(isDone)
+        expect(Object.values(appTestDriver.getTodos())[0].isDone).toBe(false)
     })
 })
