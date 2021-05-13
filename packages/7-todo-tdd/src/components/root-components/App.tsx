@@ -14,7 +14,8 @@ const App: FC<AppProps> = ({ todosService }): ReactElement => {
   const onAddClick = async (): Promise<void> => {
     if (todoInputValue) {
       const addedTodo = await todosService.addTodo(todoInputValue);
-      setTodos({ ...todos, addedTodo });
+      todos[addedTodo._id] = addedTodo;
+      setTodos({ ...todos });
     }
   }
 

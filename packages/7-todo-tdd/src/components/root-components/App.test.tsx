@@ -14,7 +14,7 @@ describe('app main components should be rendered', () => {
 
     beforeEach(async () => {
         const todosDriver = new TodoTestDriver();
-        todosDriver.waitForAppToUpdate();
+        await todosDriver.waitForAppToUpdate();
         app = todosDriver.getAppComponent();
     });
 
@@ -49,7 +49,7 @@ describe('checks todo list - add functionality', () => {
         expect(appTestDriver.getTodosCount()).toBe(0);
     });
 
-    it.only('should add todo item with content', async () => {
+    it('should add todo item with content', async () => {
         appTestDriver.todoInputInsertContent('example');
         appTestDriver.clickOnAddBtn();
         await appTestDriver.waitForAppToUpdate()
