@@ -1,12 +1,12 @@
 import { ReactWrapper } from 'enzyme';
-import App, { s as appStyles } from '../components/root-components/App';
-import { s as todoItemStyles } from '../components/todo-item/TodoItem';
-import { wrapperGenerator } from '../styles/utils';
-import { mount } from './config';
-import { TodosServiceMock } from './TodosServiceMock';
+import App, { s as appStyles } from './App';
+import { s as todoItemStyles } from '../todo-item/TodoItem';
+import { wrapperGenerator } from '../../styles/utils';
+import { mount } from '../../test/config';
+import { TodosServiceMock } from '../../test/TodosServiceMock';
 import { act } from 'react-dom/test-utils';
 import { ITodoMap } from 'fed-todo-journey_todo-common';
-import { s as commonStyles } from '../styles/commonClasses';
+import { s as commonStyles } from '../../styles/commonClasses';
 
 const c = wrapperGenerator('.');
 const i = wrapperGenerator('#');

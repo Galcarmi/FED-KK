@@ -1,6 +1,6 @@
 import { ReactWrapper } from 'enzyme';
 import { wrapperGenerator } from '../../styles/utils';
-import { TodoTestDriver } from '../../test/TodoTestDriver';
+import { TodoTestDriver } from './App.test.driver';
 import { s } from './App';
 import { Chance } from 'chance';
 import { ITodoMap } from 'fed-todo-journey_todo-common';
@@ -88,23 +88,3 @@ describe('app should render fetched todos properly', () => {
         expect(appTestDriver.getTodos()[_id].isDone).toBe(isDone)
     })
 })
-
-
-// describe('checks todo list item - done functionality', () => {
-//     let appTestDriver: TodoTestDriver;
-//     let _id: string;
-
-//     beforeEach(async () => {
-//         _id = chance.guid();
-//         const todos: ITodoMap = {};
-//         todos[_id] = { content: chance.word(), _id, userId: chance.guid(), isDone: false };
-//         appTestDriver = new TodoTestDriver(todos);
-//         await appTestDriver.waitForAppToUpdate()
-//     });
-
-//     it.only('text should be rendered with crossed content class if its done', async () => {
-//         appTestDriver.clickOnTodoDoneBtn(_id);
-//         await appTestDriver.waitForAppToUpdate();
-//         expect(appTestDriver.getTodos()[_id].isDone).toBe(true);
-//     })
-// })
