@@ -22,8 +22,10 @@ const App: FC<AppProps> = ({ todosService }): ReactElement => {
 
   const renderTodo = (todo: ITodoDTO) =>
     <div id={todo._id}
-      className={`${s.todo__list__item} ${todo.isDone && commonStyles.crossedContent}`}
-      key={todo._id}>{todo.content}</div>
+      className={s.todo__list__item}
+      key={todo._id}>
+      <div className={`${s.todo__list__item__content} ${todo.isDone && commonStyles.crossedContent}`}>{todo.content}</div>
+    </div>
 
 
   useEffect(() => {
@@ -55,12 +57,27 @@ export const s = jss
     todo__list__item: {
 
     },
+    todo__list__item__content: {
+
+    },
+    todo__list__item__actions: {
+
+    },
+    todo__list__item__actions__done: {
+
+    },
+    todo__list__item__actions__delete: {
+
+    },
+    todo__list__item__actions__edit: {
+
+    },
     todo__input: {
 
     },
     todo__addBtn: {
 
-    }
+    },
   })
   .attach().classes;
 

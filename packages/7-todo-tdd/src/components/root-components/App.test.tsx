@@ -57,7 +57,7 @@ describe('checks todo list - add functionality', () => {
     })
 })
 
-describe('app should render fetched todos', () => {
+describe('app should render fetched todos properly', () => {
     let _id: string;
     let content: string;
     let isDone: boolean;
@@ -89,43 +89,22 @@ describe('app should render fetched todos', () => {
     })
 })
 
-// describe('checks todo list item rendered properly', () => {
-//     let appTestDriver: TodoTestDriver;
-//     let _id: string;
-//     let isDone: boolean;
-//     let content: string;
-
-//     beforeEach(() => {
-//         _id = chance.guid();
-//         content = chance.word();
-//         isDone = chance.bool();
-
-//         const todos: ITodoMap = { [_id]: { content, _id, userId: chance.guid(), isDone } };
-//         appTestDriver.initTodos(todos);
-//         appTestDriver = new TodoTestDriver();
-//     });
-
-//     it('content should be rendered properly', () => {
-//         appTestDriver.getAppComponent()
-//     })
-// })
-
 
 // describe('checks todo list item - done functionality', () => {
 //     let appTestDriver: TodoTestDriver;
 //     let _id: string;
-//     let isDone: boolean;
 
-//     beforeEach(() => {
-//         appTestDriver = new TodoTestDriver();
-//     });
-
-//     it('text should be rendered with crossed content class if its done', () => {
+//     beforeEach(async () => {
 //         _id = chance.guid();
 //         const todos: ITodoMap = {};
-//         todos[_id] = { content: chance.word(), _id, userId: chance.guid(), isDone: true };
-//         appTestDriver.initTodos(todos);
+//         todos[_id] = { content: chance.word(), _id, userId: chance.guid(), isDone: false };
+//         appTestDriver = new TodoTestDriver(todos);
+//         await appTestDriver.waitForAppToUpdate()
+//     });
 
-//         appTestDriver.getAppComponent()
+//     it('text should be rendered with crossed content class if its done', async () => {
+//         appTestDriver.clickOnTodoDoneBtn(_id);
+//         await appTestDriver.waitForAppToUpdate();
+//         expect(appTestDriver.getTodos()[_id].isDone).toBe(true);
 //     })
 // })

@@ -7,8 +7,8 @@ import { act } from 'react-dom/test-utils';
 import { ITodoMap } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../styles/commonClasses';
 
-const h = wrapperGenerator('.');
-
+const c = wrapperGenerator('.');
+const i = wrapperGenerator('#');
 export class TodoTestDriver {
   private app: ReactWrapper;
   private serviceMock: TodosServiceMock;
@@ -20,16 +20,16 @@ export class TodoTestDriver {
 
   public todoInputInsertContent(content: string): void {
     this.app
-      .find(h(s.todo__input))
+      .find(c(s.todo__input))
       .simulate('change', { target: { value: content } });
   }
 
   public clickOnAddBtn(): void {
-    this.app.find(h(s.todo__addBtn)).simulate('click');
+    this.app.find(c(s.todo__addBtn)).simulate('click');
   }
 
   public getTodosCount(): number {
-    return this.app.find(h(s.todo__list__item)).length;
+    return this.app.find(c(s.todo__list__item)).length;
   }
 
   public getAppComponent(): ReactWrapper {
@@ -45,13 +45,18 @@ export class TodoTestDriver {
 
   public getTodos(): ITodoMap {
     const todos: ITodoMap = {};
-    this.app.find(h(s.todo__list__item)).forEach(todoElement => {
+    this.app.find(c(s.todo__list__item)).forEach(todoElement => {
       const _id: string = (todoElement.getDOMNode().getAttribute('id')) as string;
-      const content: string = todoElement.getDOMNode().innerHTML;
-      const isDone: boolean = todoElement.getDOMNode().classList.contains(commonStyles.crossedContent);
+      const contentElement = todoElement.find(c(s.todo__list__item__content));
+      const content: string = contentElement.getDOMNode().innerHTML;
+      const isDone: boolean = contentElement.getDOMNode().classList.contains(commonStyles.crossedContent);
       todos[_id] = { _id, content, isDone, userId: '' }
     })
 
     return todos;
+  }
+
+  public clickOnTodoDoneBtn(todoId: string) {
+    this.app.find(i(todoId)).find(i(s.todo__list__item__actions__done)).simulate('click');
   }
 }
