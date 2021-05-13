@@ -61,7 +61,8 @@ describe('app should render fetched todos properly', () => {
     let _id: string;
     let content: string;
     let isDone: boolean;
-    let appTestDriver: TodoTestDriver
+    let appTestDriver: TodoTestDriver;
+
     beforeAll(async () => {
         _id = chance.guid();
         content = chance.word();
@@ -75,16 +76,15 @@ describe('app should render fetched todos properly', () => {
         expect(appTestDriver.getTodosCount()).toBe(1);
     })
 
-    it('should render the correct _id', ()=>{
+    it('should render the correct _id', () => {
         expect(appTestDriver.getTodos()[_id]).not.toBeUndefined()
     })
 
-    it('should render the correct content', ()=>{
+    it('should render the correct content', () => {
         expect(appTestDriver.getTodos()[_id].content).toBe(content)
     })
 
-
-    it('should render the correct state of isDone', ()=>{
+    it('should render the correct state of isDone', () => {
         expect(appTestDriver.getTodos()[_id].isDone).toBe(isDone)
     })
 })
@@ -102,7 +102,7 @@ describe('app should render fetched todos properly', () => {
 //         await appTestDriver.waitForAppToUpdate()
 //     });
 
-//     it('text should be rendered with crossed content class if its done', async () => {
+//     it.only('text should be rendered with crossed content class if its done', async () => {
 //         appTestDriver.clickOnTodoDoneBtn(_id);
 //         await appTestDriver.waitForAppToUpdate();
 //         expect(appTestDriver.getTodos()[_id].isDone).toBe(true);
