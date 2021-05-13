@@ -1,18 +1,23 @@
+import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
+import { TodoItemDriver } from './TodoItem.test.driver'
+import { Chance } from 'chance';
+
+const chance = new Chance();
+
 describe('checks todo list item - done functionality', () => {
-    let appTestDriver: TodoTestDriver;
+    let todoItemDriver: TodoItemDriver;
     let _id: string;
 
     beforeEach(async () => {
         _id = chance.guid();
-        const todos: ITodoMap = {};
-        todos[_id] = { content: chance.word(), _id, userId: chance.guid(), isDone: false };
-        appTestDriver = new TodoTestDriver(todos);
-        await appTestDriver.waitForAppToUpdate()
+        const todo: ITodoDTO = { content: chance.word(), _id, userId: chance.guid(), isDone: false };
+        todoItemDriver = new TodoItemDriver(todo);
+        await todoItemDriver.waitForAppToUpdate()
     });
 
     it.only('text should be rendered with crossed content class if its done', async () => {
-        appTestDriver.clickOnTodoDoneBtn(_id);
-        await appTestDriver.waitForAppToUpdate();
-        expect(appTestDriver.getTodos()[_id].isDone).toBe(true);
+        todoItemDriver.clickOnTodoDoneBtn(_id);
+        await todoItemDriver.waitForAppToUpdate();
+        expect(todoItemDriver.getTodoItem().isDone).toBe(true);
     })
 })

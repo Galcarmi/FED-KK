@@ -9,8 +9,8 @@ import { ITodoMap } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
 
 const c = wrapperGenerator('.');
-const i = wrapperGenerator('#');
-export class TodoTestDriver {
+
+export class AppDriver {
   private app: ReactWrapper;
   private serviceMock: TodosServiceMock;
 
@@ -55,10 +55,5 @@ export class TodoTestDriver {
     })
 
     return todos;
-  }
-
-  public clickOnTodoDoneBtn(todoId: string) {
-    console.log(this.app.debug())
-    this.app.find(i('adasdasd')).find(i(todoItemStyles.todo__list__item__actions__done)).simulate('click');
   }
 }
