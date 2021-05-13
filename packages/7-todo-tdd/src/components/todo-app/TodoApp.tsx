@@ -1,14 +1,14 @@
-import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
+import { ITodoMap } from 'fed-todo-journey_todo-common';
 import React, { ChangeEvent, FC, ReactElement, useEffect, useState } from 'react';
 import { ITodosService } from '../../services/ITodoService';
 import { jss } from '../../styles/config';
 import { TodoItem } from '../todo-item/TodoItem';
 
-interface AppProps {
+interface TodosAppProps {
   todosService: ITodosService
 }
 
-const App: FC<AppProps> = ({ todosService }): ReactElement => {
+const TodoApp: FC<TodosAppProps> = ({ todosService }): ReactElement => {
   const [todos, setTodos] = useState<ITodoMap>({})
   const [todoInputValue, setTodoInputValue] = useState<string>('');
 
@@ -57,4 +57,4 @@ export const s = jss
   .attach().classes;
 
 
-export default App;
+export default TodoApp;

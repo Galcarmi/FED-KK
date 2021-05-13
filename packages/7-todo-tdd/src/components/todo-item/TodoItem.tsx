@@ -11,7 +11,8 @@ interface TodoItemProps {
 export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemProps>): ReactElement => {
 
     const onDoneClick = async (): Promise<void> => {
-        
+        const updatedTodo = await props.todosService.editTodo({ ...props.todo, isDone: true });
+
     }
 
     return (<div id={props.todo._id}

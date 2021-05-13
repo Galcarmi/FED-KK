@@ -1,5 +1,5 @@
 import { ReactWrapper } from 'enzyme';
-import App, { s as appStyles } from './App';
+import TodoApp, { s as appStyles } from './TodoApp';
 import { s as todoItemStyles } from '../todo-item/TodoItem';
 import { wrapperGenerator } from '../../styles/utils';
 import { mount } from '../../test/config';
@@ -10,13 +10,13 @@ import { s as commonStyles } from '../../styles/commonClasses';
 
 const c = wrapperGenerator('.');
 
-export class AppDriver {
+export class TodoAppDriver {
   private app: ReactWrapper;
   private serviceMock: TodosServiceMock;
 
   constructor(todos?: ITodoMap) {
     this.serviceMock = new TodosServiceMock(todos);
-    this.app = mount(<App todosService={this.serviceMock} />);
+    this.app = mount(<TodoApp todosService={this.serviceMock} />);
   }
 
   public todoInputInsertContent(content: string): void {

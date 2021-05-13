@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { TodosService } from '../../services/TodoService';
-import App from './App';
+import TodosApp from '../todo-app/TodosApp';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App todosService = {new TodosService()}/>
+    <TodosApp todosService = {new TodosService()}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,7 +1,7 @@
 import { ReactWrapper } from 'enzyme';
 import { wrapperGenerator } from '../../styles/utils';
-import { AppDriver } from './App.test.driver';
-import { s } from './App';
+import { TodoAppDriver } from './TodoApp.test.driver';
+import { s } from './TodoApp';
 import { Chance } from 'chance';
 import { ITodoMap } from 'fed-todo-journey_todo-common';
 
@@ -13,7 +13,7 @@ describe('app main components should be rendered', () => {
     let app: ReactWrapper;
 
     beforeEach(async () => {
-        const todosDriver = new AppDriver();
+        const todosDriver = new TodoAppDriver();
         await todosDriver.waitForAppToUpdate();
         app = todosDriver.getAppComponent();
     });
@@ -36,10 +36,10 @@ describe('app main components should be rendered', () => {
 });
 
 describe('checks todo list - add functionality', () => {
-    let appTestDriver: AppDriver;
+    let appTestDriver: TodoAppDriver;
 
     beforeEach(() => {
-        appTestDriver = new AppDriver();
+        appTestDriver = new TodoAppDriver();
     });
 
     it('should not add todo item with empty content', async () => {
@@ -61,14 +61,14 @@ describe('app should render fetched todos properly', () => {
     let _id: string;
     let content: string;
     let isDone: boolean;
-    let appTestDriver: AppDriver;
+    let appTestDriver: TodoAppDriver;
 
     beforeAll(async () => {
         _id = chance.guid();
         content = chance.word();
         isDone = chance.bool();
         const todos: ITodoMap = { [_id]: { content, _id, userId: chance.guid(), isDone } };
-        appTestDriver = new AppDriver(todos);
+        appTestDriver = new TodoAppDriver(todos);
         await appTestDriver.waitForAppToUpdate();
     })
 
