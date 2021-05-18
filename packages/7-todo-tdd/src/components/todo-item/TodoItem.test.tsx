@@ -17,6 +17,7 @@ describe('checks todo list item - done functionality', () => {
     it.only('todo item should be marked as done after clicking on done btn', async () => {
         todoItemDriver.clickOnTodoDoneBtn();
         await todoItemDriver.waitForAppToUpdate();
+        console.log(todoItemDriver.todoItem.debug())
         expect(todoItemDriver.getTodoItem().isDone).toBe(true);
     })
 })

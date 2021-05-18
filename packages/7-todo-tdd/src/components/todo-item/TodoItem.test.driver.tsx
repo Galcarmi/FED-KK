@@ -11,15 +11,14 @@ import withTodos from '../HOC/withTodos';
 const c = wrapperGenerator('.');
 
 export class TodoItemDriver {
-    private todoItem: ReactWrapper;
+    public todoItem: ReactWrapper;
 
     constructor(todo: ITodoDTO) {
-        // const wrapperTodoItem = withTodos(TodoItem);
-        this.todoItem = mount(<TodoItem todo={todo} />)
+        const WrappedTodoItem = withTodos(TodoItem);
+        this.todoItem = mount(<WrappedTodoItem todo={todo} />)
     }
 
     public clickOnTodoDoneBtn() {
-        console.log(this.todoItem.debug())
         this.todoItem.find(c(s.todo__list__item__actions__done)).simulate('click');
     }
 

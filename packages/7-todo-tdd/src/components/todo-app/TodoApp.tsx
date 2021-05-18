@@ -7,8 +7,7 @@ import withTodos from '../HOC/withTodos';
 
 const TodoApp: FC<{}> = (): ReactElement => {
   const [todoInputValue, setTodoInputValue] = useState<string>('');
-  const { todosService } = useContext<ITodoContext>(TodoContext);
-  const [todos, setTodos] = useState<ITodoMap>({});
+  const { todosService, todos, setTodos } = useContext<ITodoContext>(TodoContext);
 
   const onAddClick = async (): Promise<void> => {
     if (todoInputValue) {
