@@ -28,7 +28,10 @@ export class TodosService implements ITodosService {
 
   async editTodo(todo: Partial<ITodoDTO>): Promise<ITodoDTO> {
     const foundTodo:ITodoDTO = this.todos[todo._id as string];
-    return {...foundTodo, ...todo}
+    const updatedTodo = {...foundTodo, ...todo};
+    this.todos[todo._id as string] = updatedTodo;
+    
+    return updatedTodo;
   }
 
   async getAllTodos(): Promise<ITodoMap> {
