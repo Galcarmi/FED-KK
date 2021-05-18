@@ -23,16 +23,16 @@ const TodoApp: FC<{}> = (): ReactElement => {
   }, [])
 
   return (
-      <div className={s.todo}>
-        <div className={s.todo__list}>
-          {Object.values(todos).map(todo => <TodoItem key={todo._id} todo={todo} />)}
-        </div>
-        <input type='text'
-          className={s.todo__input}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => { setTodoInputValue(e.target.value) }}
-          value={todoInputValue} />
-        <button className={s.todo__addBtn} onClick={onAddClick}>Add</button>
+    <div className={s.todo}>
+      <div className={s.todo__list}>
+        {Object.values(todos).map(todo => <TodoItem key={todo._id} todo={todo} />)}
       </div>
+      <input type='text'
+        className={s.todo__input}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => { setTodoInputValue(e.target.value) }}
+        value={todoInputValue} />
+      <button className={s.todo__addBtn} onClick={onAddClick}>Add</button>
+    </div>
   );
 }
 

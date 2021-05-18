@@ -8,16 +8,17 @@ describe('checks todo list item - done functionality', () => {
     let todoItemDriver: TodoItemDriver;
     let _id: string;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         _id = chance.guid();
         const todo: ITodoDTO = { content: chance.word(), _id, userId: chance.guid(), isDone: false };
         todoItemDriver = new TodoItemDriver(todo);
+        await todoItemDriver.waitForAppToUpdate();
     });
 
     it.only('todo item should be marked as done after clicking on done btn', async () => {
         todoItemDriver.clickOnTodoDoneBtn();
         await todoItemDriver.waitForAppToUpdate();
-        // console.log(todoItemDriver.todoItem.debug())
+        // console.log('contexttt',todoItemDriver.todoItem.)
         expect(todoItemDriver.getTodoItem().isDone).toBe(true);
     })
 })

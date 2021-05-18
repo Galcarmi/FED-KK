@@ -3,7 +3,7 @@ import { ITodosService } from '../services/ITodoService';
 import { Chance } from 'chance';
 
 const chance = new Chance();
-export class TodosService implements ITodosService {
+class TodosService implements ITodosService {
   private todos: ITodoMap;
 
   constructor(todos?: ITodoMap) {
@@ -38,3 +38,5 @@ export class TodosService implements ITodosService {
     return this.todos;
   }
 }
+
+export const todosService = new TodosService();

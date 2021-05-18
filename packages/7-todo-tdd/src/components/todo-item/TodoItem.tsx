@@ -14,14 +14,8 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
     const onDoneClick = async (): Promise<void> => {
         const updatedTodo = await todosService.editTodo({ ...props.todo, isDone: !props.todo.isDone });
         todos[updatedTodo._id] = updatedTodo;
-        setTodos({...todos});
+        setTodos({ ...todos });
     }
-
-    // const onDeleteClick = async ():Promise<void> =>{
-    //     await todosService.deleteTodo(props.todo._id);
-    //     delete todos[props.todo._id];
-    //     setTodos({...todos});
-    // }
 
     return (<div id={props.todo._id}
         className={s.todo__list__item}

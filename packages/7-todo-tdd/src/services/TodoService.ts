@@ -2,12 +2,11 @@ import axios, { AxiosResponse } from 'axios';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { ITodosService } from './ITodoService';
 
-export class TodosService implements ITodosService {
+class TodosService implements ITodosService {
   async addTodo(content: string): Promise<ITodoDTO> {
-    const res: AxiosResponse<ITodoDTO> = await axios.post<ITodoDTO>(
-      `/todo`,
-      {content}
-    );
+    const res: AxiosResponse<ITodoDTO> = await axios.post<ITodoDTO>(`/todo`, {
+      content,
+    });
     return res.data;
   }
 
@@ -33,3 +32,5 @@ export class TodosService implements ITodosService {
     return res.data;
   }
 }
+
+export const todosService = new TodosService();

@@ -28,6 +28,7 @@ export class TodoItemDriver {
         const contentElement = todoElement.find(c(s.todo__list__item__content));
         const content: string = contentElement.getDOMNode().innerHTML;
         const isDone: boolean = contentElement.getDOMNode().classList.contains(commonStyles.crossedContent);
+
         return { _id, content, isDone, userId: '' }
     }
 
