@@ -8,8 +8,7 @@ interface TodoItemProps {
     todo: ITodoDTO;
 }
 export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemProps>): ReactElement => {
-    const { todosService } = useContext<ITodoContext>(TodoContext);
-    const [todos, setTodos] = useState<ITodoMap>({});
+    const { todosService, todos, setTodos } = useContext<ITodoContext>(TodoContext);
 
     const onDoneClick = async (): Promise<void> => {
         const updatedTodo = await todosService.editTodo({ ...props.todo, isDone: !props.todo.isDone });
