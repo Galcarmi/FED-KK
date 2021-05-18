@@ -4,8 +4,6 @@ import { TodoAppDriver } from './TodoApp.test.driver';
 import { s } from './TodoApp';
 import { Chance } from 'chance';
 
-jest.mock('../../services/TodoService.ts', () => require('../../__mocks__/TodoService'));
-
 const chance = new Chance();
 const h = wrapperGenerator('.');
 

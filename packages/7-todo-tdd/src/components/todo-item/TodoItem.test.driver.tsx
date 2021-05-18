@@ -1,5 +1,5 @@
 import { ReactWrapper } from 'enzyme';
-import { mount } from '../../test/config';
+import { mount } from 'enzyme';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { act } from 'react-dom/test-utils';
 import { TodoItem } from './TodoItem';
