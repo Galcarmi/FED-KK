@@ -12,9 +12,10 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
     const [todos, setTodos] = useState<ITodoMap>({});
 
     const onDoneClick = async (): Promise<void> => {
-        const updatedTodo = await todosService.editTodo({ ...props.todo, isDone: true });
+        const updatedTodo = await todosService.editTodo({ ...props.todo, isDone: !props.todo.isDone });
         todos[updatedTodo._id] = updatedTodo;
         setTodos({...todos});
+        console.log(todos)
     }
 
     return (<div id={props.todo._id}

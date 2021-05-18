@@ -5,7 +5,7 @@ import TodoApp from '../todo-app/TodoApp';
 
 ReactDOM.render(
   <React.StrictMode>
-    <TodoApp todosService = {new TodosService()}/>
+    <TodoApp/>
   </React.StrictMode>,
   document.getElementById('root')
 );

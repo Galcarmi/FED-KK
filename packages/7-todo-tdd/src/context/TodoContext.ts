@@ -7,7 +7,6 @@ import { TodosServiceMock } from '../test/TodosServiceMock';
 export interface ITodoContext {
   todos: ITodoMap;
   todosService: ITodosService;
-  setTodosService(todosService: ITodosService): void;
   setTodos: React.Dispatch<React.SetStateAction<ITodoMap>>;
 }
 
@@ -18,13 +17,13 @@ export class TodosState implements ITodoContext {
     public todos: ITodoMap,
     public setTodos: React.Dispatch<React.SetStateAction<ITodoMap>>
   ) {
-    this.todosService = process.env.TEST
-      ? new TodosServiceMock()
-      : new TodosService();
-  }
-
-  public setTodosService(todosService: ITodosService): void {
-    this.todosService = todosService;
+    try {
+      this.todosService = process.env.TEST
+        ? new TodosServiceMock()
+        : new TodosService();
+    } catch (e) {
+      this.todosService = new TodosService();
+    }
   }
 }
 
