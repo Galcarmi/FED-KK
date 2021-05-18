@@ -3,7 +3,7 @@ import { ITodosService } from '../services/ITodoService';
 import { Chance } from 'chance';
 
 const chance = new Chance();
-export class TodosServiceMock implements ITodosService {
+export class TodosService implements ITodosService {
   private todos: ITodoMap;
 
   constructor(todos?: ITodoMap) {

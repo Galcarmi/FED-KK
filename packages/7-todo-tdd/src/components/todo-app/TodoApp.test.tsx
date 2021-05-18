@@ -3,7 +3,8 @@ import { wrapperGenerator } from '../../styles/utils';
 import { TodoAppDriver } from './TodoApp.test.driver';
 import { s } from './TodoApp';
 import { Chance } from 'chance';
-import { ITodoMap } from 'fed-todo-journey_todo-common';
+
+jest.mock('../../services/TodoService.ts', () => require('../../__mocks__/TodoService'));
 
 const chance = new Chance();
 const h = wrapperGenerator('.');

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "start": "webpack serve",
-    "test": "TEST=true jest"
+    "test": "jest"
   },
   "dependencies": {
     "@babel/preset-react": "^7.13.13",

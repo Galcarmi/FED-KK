@@ -7,6 +7,7 @@ import { ITodoContext, TodoContext } from '../../context/TodoContext';
 interface TodoItemProps {
     todo: ITodoDTO;
 }
+
 export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemProps>): ReactElement => {
     const { todosService, todos, setTodos } = useContext<ITodoContext>(TodoContext);
 
@@ -16,6 +17,12 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
         setTodos({...todos});
         console.log(todos)
     }
+
+    // const onDeleteClick = async ():Promise<void> =>{
+    //     await todosService.deleteTodo(props.todo._id);
+    //     delete todos[props.todo._id];
+    //     setTodos({...todos});
+    // }
 
     return (<div id={props.todo._id}
         className={s.todo__list__item}

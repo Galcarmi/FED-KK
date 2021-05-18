@@ -8,5 +8,6 @@ const config: Config.InitialOptions = {
   },
   testRegex: '(\\.|/)(test|spec)\\.tsx?$',
   moduleFileExtensions: ['ts', 'tsx', 'js'],
+  setupFilesAfterEnv: ['./src/test/config.ts'],
 };
 export default config;

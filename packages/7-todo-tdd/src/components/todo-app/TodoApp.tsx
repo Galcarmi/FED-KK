@@ -1,9 +1,9 @@
 import { ITodoMap } from 'fed-todo-journey_todo-common';
 import React, { ChangeEvent, FC, ReactElement, useContext, useEffect, useState } from 'react';
-import { ITodosService } from '../../services/ITodoService';
 import { jss } from '../../styles/config';
 import { TodoItem } from '../todo-item/TodoItem';
-import { ITodoContext, TodoContext, TodosState } from '../../context/TodoContext';
+import { ITodoContext, TodoContext } from '../../context/TodoContext';
+import withTodos from '../HOC/withTodos';
 
 const TodoApp: FC<{}> = (): ReactElement => {
   const [todoInputValue, setTodoInputValue] = useState<string>('');
@@ -24,7 +24,6 @@ const TodoApp: FC<{}> = (): ReactElement => {
   }, [])
 
   return (
-    <TodoContext.Provider value={new TodosState(todos, setTodos)} >
       <div className={s.todo}>
         <div className={s.todo__list}>
           {Object.values(todos).map(todo => <TodoItem key={todo._id} todo={todo} />)}
@@ -35,7 +34,6 @@ const TodoApp: FC<{}> = (): ReactElement => {
           value={todoInputValue} />
         <button className={s.todo__addBtn} onClick={onAddClick}>Add</button>
       </div>
-    </TodoContext.Provider>
   );
 }
 
@@ -57,4 +55,4 @@ export const s = jss
   .attach().classes;
 
 
-export default TodoApp;
+export default withTodos(TodoApp);

@@ -3,11 +3,9 @@ import TodoApp, { s as appStyles } from './TodoApp';
 import { s as todoItemStyles } from '../todo-item/TodoItem';
 import { wrapperGenerator } from '../../styles/utils';
 import { mount } from '../../test/config';
-import { TodosServiceMock } from '../../test/TodosServiceMock';
 import { act } from 'react-dom/test-utils';
 import { ITodoMap } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
-import { TodosState } from '../../context/TodoContext';
 
 const c = wrapperGenerator('.');
 
