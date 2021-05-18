@@ -1,4 +1,4 @@
-import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
+import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { TodoItemDriver } from './TodoItem.test.driver'
 import { Chance } from 'chance';
 

@@ -1,6 +1,6 @@
 import { jss } from '../../styles/config';
-import React, { FC, ReactElement, PropsWithChildren, useContext, useState } from 'react';
-import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
+import React, { FC, ReactElement, PropsWithChildren, useContext } from 'react';
+import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
 import { ITodoContext, TodoContext } from '../../context/TodoContext';
 

@@ -6,6 +6,7 @@ import { TodoItem } from './TodoItem';
 import { s } from './TodoItem';
 import { wrapperGenerator } from '../../styles/utils';
 import { s as commonStyles } from '../../styles/commonClasses';
+import withTodos from '../HOC/withTodos';
 
 const c = wrapperGenerator('.');
 
@@ -13,6 +14,7 @@ export class TodoItemDriver {
     private todoItem: ReactWrapper;
 
     constructor(todo: ITodoDTO) {
+        // const wrapperTodoItem = withTodos(TodoItem);
         this.todoItem = mount(<TodoItem todo={todo} />)
     }
 
