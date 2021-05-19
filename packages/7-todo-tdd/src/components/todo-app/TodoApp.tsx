@@ -39,7 +39,7 @@ const TodoApp: FC<{}> = (): ReactElement => {
         <div className={s.todo__list}>
           {Object.values(todos).map(todo => <TodoItem key={todo._id} todo={todo} />)}
         </div>
-        <div>
+        <div className={s.todo__inputContainer}>
           <input type='text'
             className={s.todo__inputContainer__input}
             onChange={(e: ChangeEvent<HTMLInputElement>) => { setTodoInputValue(e.target.value) }}
