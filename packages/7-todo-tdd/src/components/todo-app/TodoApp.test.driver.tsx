@@ -20,16 +20,16 @@ export class TodoAppDriver {
 
   public todoInputInsertContent(content: string): void {
     this.mountedTodoApp
-      .find(c(appStyles.todo__input))
+      .find(c(appStyles.todo__inputContainer__input))
       .simulate('change', { target: { value: content } });
   }
 
   public clickOnAddBtn(): void {
-    this.mountedTodoApp.find(c(appStyles.todo__addBtn)).simulate('click');
+    this.mountedTodoApp.find(c(appStyles.todo__inputContainer__addBtn)).simulate('click');
   }
 
   public pressEnterOnTodoInput(): void {
-    this.mountedTodoApp.find(c(appStyles.todo__input)).simulate('keypress', { key: 'Enter' })
+    this.mountedTodoApp.find(c(appStyles.todo__inputContainer__input)).simulate('keypress', { key: 'Enter' })
   }
 
   public getTodosCount(): number {

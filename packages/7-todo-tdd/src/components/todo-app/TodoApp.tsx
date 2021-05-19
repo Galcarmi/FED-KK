@@ -39,12 +39,14 @@ const TodoApp: FC<{}> = (): ReactElement => {
         <div className={s.todo__list}>
           {Object.values(todos).map(todo => <TodoItem key={todo._id} todo={todo} />)}
         </div>
-        <input type='text'
-          className={s.todo__input}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => { setTodoInputValue(e.target.value) }}
-          value={todoInputValue}
-          onKeyPress={onTodoInputEnter} />
-        <button className={s.todo__addBtn} onClick={onAddClick}>Add</button>
+        <div>
+          <input type='text'
+            className={s.todo__inputContainer__input}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => { setTodoInputValue(e.target.value) }}
+            value={todoInputValue}
+            onKeyPress={onTodoInputEnter} />
+          <button className={s.todo__inputContainer__addBtn} onClick={onAddClick}>Add</button>
+        </div>
       </div>
     </div>
   );
@@ -60,10 +62,18 @@ export const s = jss
       container: {
         ...commonStyles.RLMarginMPercent,
       },
+      todoApp__inputContainer: {
+        width: `${100 - +commonStyles.RLMarginMPercent.marginLeft.split('%')[0] * 2
+          }%`,
+      },
     },
     '@media only screen and (max-width: 400px)': {
       container: {
         ...commonStyles.RLMarginSPercent,
+      },
+      todoApp__inputContainer: {
+        width: `${100 - +commonStyles.RLMarginSPercent.marginLeft.split('%')[0] * 2
+          }%`,
       },
     },
     todo: {
@@ -78,11 +88,57 @@ export const s = jss
       paddingBottom: `${commonStyles.minTodoItemHeight.minHeight.split('px')[0]
         }px`,
     },
-    todo__input: {
-
+    todo__inputContainer: {
+      ...commonStyles.TPpaddingS,
+      ...commonStyles.TGreyBorder,
+      display: 'flex',
+      position: 'fixed',
+      width: `${100 - +commonStyles.RLMarginLPercent.marginLeft.split('%')[0] * 2
+        }%`,
+      bottom: 0,
+      zIndex: 1000,
+      backgroundColor: colors.white,
     },
-    todo__addBtn: {
-
+    todo__inputContainer__input: {
+      flex: 1,
+      ...commonStyles.roundedBorderS,
+      ...commonStyles.RLPaddingS,
+      ...commonStyles.blackBorder,
+      ...commonStyles.fontS,
+      ...commonStyles.RLMarginS,
+      overflow: 'visible',
+      '&:focus': {
+        flex: 1,
+        ...commonStyles.roundedBorderS,
+        ...commonStyles.RLPaddingS,
+        ...commonStyles.focusedBlueBorder,
+        ...commonStyles.fontS,
+        ...commonStyles.RLMarginS,
+        overflow: 'visible',
+        outline: 'none',
+      },
+    },
+    todo__inputContainer__addBtn: {
+      ...commonStyles.RLMarginS,
+      ...commonStyles.roundedBorderS,
+      ...commonStyles.fontS,
+      width: '80px',
+      height: '30px',
+      backgroundColor: colors.softBlue,
+      color: colors.white,
+      cursor: 'pointer',
+      transition: 'all 0.2s',
+      outline: 'none',
+      border: 'none',
+      '&:active': {
+        ...commonStyles.RMarginS,
+        ...commonStyles.roundedBorderS,
+        ...commonStyles.fontS,
+        backgroundColor: colors.blue,
+        color: colors.white,
+        width: '80px',
+        cursor: 'pointer',
+      },
     },
   })
   .attach().classes;

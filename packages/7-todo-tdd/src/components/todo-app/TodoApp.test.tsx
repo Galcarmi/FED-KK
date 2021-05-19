@@ -25,7 +25,7 @@ describe('app main components should be rendered', () => {
     });
 
     it('todo input should be rendered', () => {
-        expect(mountedTodoApp.find(h(s.todo__input)).exists()).toBe(true);
+        expect(mountedTodoApp.find(h(s.todo__inputContainer__input)).exists()).toBe(true);
     });
 
     it('todo list should be rendered', () => {
@@ -33,7 +33,7 @@ describe('app main components should be rendered', () => {
     });
 
     it('add btn should be rendered', () => {
-        expect(mountedTodoApp.find(h(s.todo__addBtn)).exists()).toBe(true);
+        expect(mountedTodoApp.find(h(s.todo__inputContainer__addBtn)).exists()).toBe(true);
     });
 });
 
