@@ -36,7 +36,6 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
     }, [todoInputVisibility])
 
     const hideEditInput = ()=>{
-        console.log('blurrrr')
         setTodoInputVisibility(false);
     }
 
