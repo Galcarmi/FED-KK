@@ -1,5 +1,5 @@
 import { ReactWrapper } from 'enzyme';
-import { mount } from 'enzyme';
+import { enzymeContainerMount } from '../../test/utils';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { act } from 'react-dom/test-utils';
 import { TodoItem } from './TodoItem';
@@ -13,7 +13,7 @@ export class TodoItemDriver {
     public todoItem: ReactWrapper;
 
     constructor(todo: ITodoDTO) {
-        this.todoItem = mount(<TodoItem todo={todo} />)
+        this.todoItem = enzymeContainerMount(<TodoItem todo={todo} />)
     }
 
     public getTodoItem(): ITodoDTO {
@@ -26,19 +26,19 @@ export class TodoItemDriver {
         return { _id, content, isDone, userId: '' }
     }
 
-    public clickOnEditBtn():void {
+    public clickOnEditBtn(): void {
         this.todoItem.find(c(s.todo__list__item__actions__edit)).simulate('click');
     }
 
     public isEditInputVisible() {
         return this.todoItem.find(c(s.todo__list__item__editInput)).exists();
     }
-    
-    public isEditInputFocused():boolean{
+
+    public isEditInputFocused(): boolean {
         const editInput = this.todoItem.find(c(s.todo__list__item__editInput));
         const activeElement = document.activeElement;
 
-        return editInput.matchesElement((activeElement) as any);
+        return editInput.getDOMNode() === activeElement;
     }
 
     public async waitForAppToUpdate(): Promise<void> {
@@ -48,7 +48,7 @@ export class TodoItemDriver {
         });
     };
 
-    public clickOnItemContent():void{
+    public clickOnItemContent(): void {
         this.todoItem.find(c(s.todo__list__item__content)).simulate('click');
     }
 }

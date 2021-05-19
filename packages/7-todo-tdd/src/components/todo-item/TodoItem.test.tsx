@@ -1,6 +1,7 @@
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { TodoItemDriver } from './TodoItem.test.driver'
 import { Chance } from 'chance';
+import { enzymeContainerSetupAndTeardown } from '../../test/utils';
 
 const chance = new Chance();
 
@@ -40,6 +41,8 @@ describe.only('checks todo state for action interactions', () => {
     let todo: ITodoDTO;
     let todoItemDriver: TodoItemDriver;
 
+    enzymeContainerSetupAndTeardown();
+
     beforeEach(() => {
         todo = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: true };
         todoItemDriver = new TodoItemDriver(todo);
@@ -64,7 +67,7 @@ describe.only('checks todo state for action interactions', () => {
         expect(todoItemDriver.isEditInputVisible()).toBe(false);
     })
 
-    it('edit input should be hidden while we leave the edit input focus',async ()=>{
+    it('edit input should be hidden while we leave the edit input focus', async () => {
         todoItemDriver.clickOnEditBtn();
         await todoItemDriver.waitForAppToUpdate();
         todoItemDriver.clickOnItemContent();

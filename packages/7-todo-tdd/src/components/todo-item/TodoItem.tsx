@@ -1,5 +1,5 @@
 import { jss } from '../../styles/config';
-import React, { FC, ReactElement, PropsWithChildren, useContext, useState } from 'react';
+import React, { FC, ReactElement, PropsWithChildren, useContext, useState, useRef, useEffect } from 'react';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
 import { ITodoContext, TodoContext } from '../../context/TodoContext';
@@ -11,6 +11,7 @@ interface TodoItemProps {
 export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemProps>): ReactElement => {
     const { todosService, todos, setTodos } = useContext<ITodoContext>(TodoContext);
     const [todoInputVisibility, setTodoInputVisibility] = useState<boolean>(false);
+    const editInputRef = useRef<HTMLInputElement>(null);
 
     const onDoneClick = async (): Promise<void> => {
         const updatedTodo = await todosService.editTodo({ ...props.todo, isDone: !props.todo.isDone });
@@ -24,9 +25,15 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
         setTodos({ ...todos });
     }
 
-    const onEditClick = ()=>{
+    const onEditClick = () => {
         setTodoInputVisibility(!todoInputVisibility);
     }
+
+    useEffect(() => {
+        if (todoInputVisibility) {
+            editInputRef.current?.focus();
+        }
+    }, [todoInputVisibility])
 
     // const hideEditInput = ()=>{
     //     console.log('blurrrr')
@@ -34,17 +41,17 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
     // }
 
     return (
-    <div id={props.todo._id}
-        className={s.todo__list__item}
-        key={props.todo._id}>
-        { todoInputVisibility && <input type='text' className={s.todo__list__item__editInput}/>}
-        <div className={`${s.todo__list__item__content} ${props.todo.isDone && commonStyles.crossedContent}`}>{props.todo.content}</div>
-        <div className={s.todo__list__item__actions}>
-            <button className={s.todo__list__item__actions__edit} onClick={onEditClick}>edit</button>
-            <button className={s.todo__list__item__actions__delete} onClick={onDeleteClick}>delete</button>
-            <button className={s.todo__list__item__actions__done} onClick={onDoneClick}>done</button>
-        </div>
-    </div>);
+        <div id={props.todo._id}
+            className={s.todo__list__item}
+            key={props.todo._id}>
+            { todoInputVisibility && <input type='text' className={s.todo__list__item__editInput} ref={editInputRef} />}
+            <div className={`${s.todo__list__item__content} ${props.todo.isDone && commonStyles.crossedContent}`}>{props.todo.content}</div>
+            <div className={s.todo__list__item__actions}>
+                <button className={s.todo__list__item__actions__edit} onClick={onEditClick}>edit</button>
+                <button className={s.todo__list__item__actions__delete} onClick={onDeleteClick}>delete</button>
+                <button className={s.todo__list__item__actions__done} onClick={onDoneClick}>done</button>
+            </div>
+        </div>);
 };
 
 export const s = jss
