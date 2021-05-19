@@ -37,7 +37,7 @@ describe('todo item should be rendered properly with all of "isDone" states', ()
     })
 })
 
-describe.only('checks todo state for action interactions', () => {
+describe('checks todo state for action interactions', () => {
     let todo: ITodoDTO;
     let todoItemDriver: TodoItemDriver;
 
@@ -70,7 +70,7 @@ describe.only('checks todo state for action interactions', () => {
     it('edit input should be hidden while we leave the edit input focus', async () => {
         todoItemDriver.clickOnEditBtn();
         await todoItemDriver.waitForAppToUpdate();
-        todoItemDriver.clickOnItemContent();
+        todoItemDriver.blurEditInput();
         await todoItemDriver.waitForAppToUpdate();
         expect(todoItemDriver.isEditInputVisible()).toBe(false);
     })

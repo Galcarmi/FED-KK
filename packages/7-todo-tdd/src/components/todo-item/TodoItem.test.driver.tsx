@@ -48,7 +48,7 @@ export class TodoItemDriver {
         });
     };
 
-    public clickOnItemContent(): void {
-        this.todoItem.find(c(s.todo__list__item__content)).simulate('click');
+    public blurEditInput(): void {
+        this.todoItem.find(c(s.todo__list__item__editInput)).simulate('blur');
     }
 }
