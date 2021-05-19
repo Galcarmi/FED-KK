@@ -10,6 +10,16 @@ const TodoApp: FC<{}> = (): ReactElement => {
   const { todosService, todos, setTodos } = useContext<ITodoContext>(TodoContext);
 
   const onAddClick = async (): Promise<void> => {
+    addTodo();
+  }
+
+  const onTodoInputEnter = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') {
+      addTodo();
+    }
+  }
+
+  const addTodo = async (): Promise<void> => {
     if (todoInputValue) {
       const addedTodo: ITodoDTO = await todosService.addTodo(todoInputValue);
       todos[addedTodo._id] = addedTodo;
@@ -30,7 +40,8 @@ const TodoApp: FC<{}> = (): ReactElement => {
       <input type='text'
         className={s.todo__input}
         onChange={(e: ChangeEvent<HTMLInputElement>) => { setTodoInputValue(e.target.value) }}
-        value={todoInputValue} />
+        value={todoInputValue}
+        onKeyPress={onTodoInputEnter} />
       <button className={s.todo__addBtn} onClick={onAddClick}>Add</button>
     </div>
   );

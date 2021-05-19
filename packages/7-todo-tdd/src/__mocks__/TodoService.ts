@@ -3,7 +3,7 @@ import { ITodosService } from '../services/ITodoService';
 import { Chance } from 'chance';
 
 const chance = new Chance();
-class TodosService implements ITodosService {
+export class TodosService implements ITodosService {
   private todos: ITodoMap;
 
   constructor(todos?: ITodoMap) {
@@ -36,6 +36,10 @@ class TodosService implements ITodosService {
 
   async getAllTodos(): Promise<ITodoMap> {
     return this.todos;
+  }
+
+  public removeTodos():void{
+    this.todos = {};
   }
 }
 

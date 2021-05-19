@@ -44,6 +44,10 @@ describe.only('checks todo list - add functionality', () => {
         appTestDriver = new TodoAppDriver();
     });
 
+    afterEach(async ()=>{
+        appTestDriver.removeTodosFromFakeTodosService();
+    })
+
     it('should not add todo item with empty content', async () => {
         appTestDriver.todoInputInsertContent('');
         appTestDriver.clickOnAddBtn();
@@ -55,7 +59,6 @@ describe.only('checks todo list - add functionality', () => {
         appTestDriver.todoInputInsertContent('example');
         appTestDriver.pressEnterOnTodoInput();
         await appTestDriver.waitForAppToUpdate()
-        console.log(appTestDriver.mountedTodoApp.debug())
         expect(appTestDriver.getTodosCount()).toBe(1);
     })
 

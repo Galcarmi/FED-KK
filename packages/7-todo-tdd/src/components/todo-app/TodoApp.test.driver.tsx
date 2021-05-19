@@ -6,6 +6,8 @@ import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import { ITodoMap } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
+import { todosService } from '../../services/TodoService';
+import {TodosService } from '../../__mocks__/TodoService'
 
 const c = wrapperGenerator('.');
 
@@ -26,8 +28,8 @@ export class TodoAppDriver {
     this.mountedTodoApp.find(c(appStyles.todo__addBtn)).simulate('click');
   }
 
-  public pressEnterOnTodoInput():void{
-    this.mountedTodoApp.find(c(appStyles.todo__input)).simulate('keypress', {key: 'Enter'})
+  public pressEnterOnTodoInput(): void {
+    this.mountedTodoApp.find(c(appStyles.todo__input)).simulate('keypress', { key: 'Enter' })
   }
 
   public getTodosCount(): number {
@@ -62,4 +64,7 @@ export class TodoAppDriver {
     return this.mountedTodoApp.find(c(todoItemStyles.todo__list__item)).first()
   }
 
+  public removeTodosFromFakeTodosService(): void {
+    (todosService as TodosService).removeTodos();
+  }
 }
