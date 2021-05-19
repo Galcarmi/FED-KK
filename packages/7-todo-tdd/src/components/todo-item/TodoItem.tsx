@@ -45,6 +45,7 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
 
     useEffect(() => {
         if (editInputVisibility) {
+            setEditInputValue(props.todo.content);
             editInputRef.current?.focus();
         }
         else {
