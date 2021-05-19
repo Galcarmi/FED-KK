@@ -4,6 +4,7 @@ import { TodoAppDriver } from './TodoApp.test.driver';
 import { s } from './TodoApp';
 import { Chance } from 'chance';
 import { TodoItemDriver } from '../todo-item/TodoItem.test.driver';
+import { todosService } from '../../services/TodoService';
 
 const chance = new Chance();
 const h = wrapperGenerator('.');
@@ -13,7 +14,7 @@ describe('app main components should be rendered', () => {
     let mountedTodoApp: ReactWrapper;
 
     beforeEach(async () => {
-        const todosDriver : TodoAppDriver = new TodoAppDriver();
+        const todosDriver: TodoAppDriver = new TodoAppDriver();
         await todosDriver.waitForAppToUpdate();
         mountedTodoApp = todosDriver.getAppComponent();
     });
@@ -84,7 +85,7 @@ describe('app should render fetched todos properly', () => {
 
 describe.only('todo item actions should change the todos state properly', () => {
     let appTestDriver: TodoAppDriver;
-    let todoItemTestDriver : TodoItemDriver;
+    let todoItemTestDriver: TodoItemDriver;
 
     beforeEach(async () => {
         appTestDriver = new TodoAppDriver();
@@ -99,14 +100,14 @@ describe.only('todo item actions should change the todos state properly', () => 
         await appTestDriver.waitForAppToUpdate();
         expect(Object.values(appTestDriver.getTodos())[0].isDone).toBe(true);
     })
-    
+
     it('todo item should be deleted after clicking on delete btn', async () => {
         todoItemTestDriver.clickOnDeleteBtn();
         await appTestDriver.waitForAppToUpdate();
         expect(appTestDriver.getTodosCount()).toBe(0);
     })
 
-    it('todo item should be edited on edit input blur',async ()=>{
+    it('todo item should be edited on edit input blur', async () => {
         todoItemTestDriver.clickOnEditBtn();
         todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
         todoItemTestDriver.insertContentToEditInput('edited');
@@ -115,7 +116,7 @@ describe.only('todo item actions should change the todos state properly', () => 
         expect(Object.values(appTestDriver.getTodos())[0].content).toBe('edited');
     })
 
-    it('todo item should not be edited on edit input blur when edit input is empty',async ()=>{
+    it('todo item should not be edited on edit input blur when edit input is empty', async () => {
         todoItemTestDriver.clickOnEditBtn();
         todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
         todoItemTestDriver.insertContentToEditInput('');
@@ -123,5 +124,15 @@ describe.only('todo item actions should change the todos state properly', () => 
         await appTestDriver.waitForAppToUpdate();
         expect(Object.values(appTestDriver.getTodos())[0].content).toBe('hakuna matata');
     })
-    
+
+    it('todos service edit method should not be called when edit input content is the same as todo content', async () => {
+        const spy = jest.spyOn(todosService, 'editTodo');
+        todoItemTestDriver.clickOnEditBtn();
+        todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
+        todoItemTestDriver.insertContentToEditInput('hakuna matata');
+        todoItemTestDriver.blurEditInput();
+        await appTestDriver.waitForAppToUpdate();
+        expect(spy).toHaveBeenCalledTimes(0);
+    })
+
 })
