@@ -6,7 +6,6 @@ import { TodoItem } from './TodoItem';
 import { s } from './TodoItem';
 import { wrapperGenerator } from '../../styles/utils';
 import { s as commonStyles } from '../../styles/commonClasses';
-import withTodosContex from '../HOC/withTodos';
 
 const c = wrapperGenerator('.');
 
@@ -15,10 +14,6 @@ export class TodoItemDriver {
 
     constructor(todo: ITodoDTO) {
         this.todoItem = mount(<TodoItem todo={todo} />)
-    }
-
-    public clickOnTodoDoneBtn() {
-        this.todoItem.find(c(s.todo__list__item__actions__done)).simulate('click');
     }
 
     public getTodoItem(): ITodoDTO {
@@ -30,11 +25,4 @@ export class TodoItemDriver {
 
         return { _id, content, isDone, userId: '' }
     }
-
-    public async waitForAppToUpdate(): Promise<void> {
-        await act(async () => {
-            await new Promise(resolve => setTimeout(resolve));
-            this.todoItem.update();
-        });
-    };
 }

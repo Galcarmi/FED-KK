@@ -53,4 +53,12 @@ export class TodoAppDriver {
 
     return todos;
   }
+
+  public getFirstTodoItem(){
+    return this.mountedTodoApp.find(c(todoItemStyles.todo__list__item)).first()
+  }
+
+  public clickOnTodoDoneBtn(todoItem:ReactWrapper) {
+    todoItem.find(c(todoItemStyles.todo__list__item__actions__done)).simulate('click');
+  }
 }

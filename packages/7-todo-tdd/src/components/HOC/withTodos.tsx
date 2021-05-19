@@ -6,8 +6,7 @@ import { todosService } from '../../services/TodoService';
 const withTodosContex = <Props extends Object>(WrappedComponent:FC<Props>) => (props:Props) =>{
 
   const [todos, setTodos] = useState<ITodoMap>({});
-  console.log('render', todos)
-
+  
   return (
     <TodoContext.Provider value={new TodosState(todos, setTodos, todosService)} >
       <WrappedComponent {...props}/>
