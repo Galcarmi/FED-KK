@@ -105,15 +105,14 @@ describe('todo item actions should change the todos state properly', () => {
         expect(appTestDriver.getTodosCount()).toBe(0);
     })
 
-    it.only('todo item should be edited on edit input blue',async ()=>{
+    it.only('todo item should be edited on edit input blur',async ()=>{
         let todoItem:ReactWrapper;
         todoItem = appTestDriver.getFirstTodoItemWrapper();
         appTestDriver.clickOnTodoEditBtn(todoItem);
-        await appTestDriver.waitForAppToUpdate();
         todoItem = appTestDriver.getFirstTodoItemWrapper();
         appTestDriver.insertContentToEditInput(todoItem, 'edited');
-        await appTestDriver.waitForAppToUpdate();
         appTestDriver.blurTodoEditInput(todoItem);
+        await appTestDriver.waitForAppToUpdate();
         expect(Object.values(appTestDriver.getTodos())[0].content).toBe('edited');
     })
     

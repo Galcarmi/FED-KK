@@ -10,8 +10,10 @@ interface TodoItemProps {
 
 export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemProps>): ReactElement => {
     const { todosService, todos, setTodos } = useContext<ITodoContext>(TodoContext);
-    const [todoInputVisibility, setTodoInputVisibility] = useState<boolean>(false);
+    const [editInputVisibility, setEditInputVisibility] = useState<boolean>(false);
+    const [editInputValue, setEditInputValue] = useState<string>('')
     const editInputRef = useRef<HTMLInputElement>(null);
+
 
     const onDoneClick = async (): Promise<void> => {
         const updatedTodo = await todosService.editTodo({ ...props.todo, isDone: !props.todo.isDone });
@@ -26,24 +28,42 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
     }
 
     const onEditClick = () => {
-        setTodoInputVisibility(!todoInputVisibility);
+        setEditInputVisibility(!editInputVisibility);
+    }
+
+    const editTodo = async () => {
+        if (props.todo.content !== editInputValue && editInputValue !== '') {// can add test for that one
+            const updatedTodo = await todosService.editTodo({ ...props.todo, content: editInputValue });
+            todos[updatedTodo._id] = updatedTodo;
+            setTodos({ ...todos });
+        }
+    }
+
+    const hideEditInput = () => {
+        setEditInputVisibility(false);
     }
 
     useEffect(() => {
-        if (todoInputVisibility) {
+        if (editInputVisibility) {
             editInputRef.current?.focus();
         }
-    }, [todoInputVisibility])
+        else{
+            editTodo();
+        }
+    }, [editInputVisibility])
 
-    const hideEditInput = ()=>{
-        setTodoInputVisibility(false);
-    }
 
     return (
         <div id={props.todo._id}
             className={s.todo__list__item}
             key={props.todo._id}>
-            { todoInputVisibility && <input type='text' className={s.todo__list__item__editInput} ref={editInputRef} onBlur={hideEditInput} />}
+            { editInputVisibility &&
+                <input type='text'
+                    className={s.todo__list__item__editInput}
+                    ref={editInputRef}
+                    onBlur={hideEditInput}
+                    value={editInputValue}
+                    onChange={(e) => setEditInputValue(e.target.value)} />}
             <div className={`${s.todo__list__item__content} ${props.todo.isDone && commonStyles.crossedContent}`}>{props.todo.content}</div>
             <div className={s.todo__list__item__actions}>
                 <button className={s.todo__list__item__actions__edit} onClick={onEditClick}>edit</button>

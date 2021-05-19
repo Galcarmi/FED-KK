@@ -61,7 +61,6 @@ describe('checks todo state for action interactions', () => {
 
     it('edit input should be hidden after clicking twice on edit btn', async () => {
         todoItemDriver.clickOnEditBtn();
-        await todoItemDriver.waitForAppToUpdate();
         todoItemDriver.clickOnEditBtn();
         await todoItemDriver.waitForAppToUpdate();
         expect(todoItemDriver.isEditInputVisible()).toBe(false);
@@ -69,7 +68,6 @@ describe('checks todo state for action interactions', () => {
 
     it('edit input should be hidden while we leave the edit input focus', async () => {
         todoItemDriver.clickOnEditBtn();
-        await todoItemDriver.waitForAppToUpdate();
         todoItemDriver.blurEditInput();
         await todoItemDriver.waitForAppToUpdate();
         expect(todoItemDriver.isEditInputVisible()).toBe(false);
