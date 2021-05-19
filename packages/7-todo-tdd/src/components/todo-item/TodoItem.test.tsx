@@ -36,7 +36,7 @@ describe('todo item should be rendered properly with all of "isDone" states', ()
     })
 })
 
-describe('checks todo state for action interactions', () => {
+describe.only('checks todo state for action interactions', () => {
     let todo: ITodoDTO;
     let todoItemDriver: TodoItemDriver;
 
@@ -45,7 +45,7 @@ describe('checks todo state for action interactions', () => {
         todoItemDriver = new TodoItemDriver(todo);
     })
 
-    it.only('todo edit input should not be rendered if edit btn wasnt clicked', () => {
+    it('todo edit input should not be rendered if edit btn wasnt clicked', () => {
         expect(todoItemDriver.isEditInputVisible()).toBe(false);
     })
 
@@ -53,5 +53,13 @@ describe('checks todo state for action interactions', () => {
         todoItemDriver.clickOnEditBtn();
         await todoItemDriver.waitForAppToUpdate()
         expect(todoItemDriver.isEditInputVisible()).toBe(true);
+    })
+
+    it('edit input should be hidden after clicking twice on edit btn', async () => {
+        todoItemDriver.clickOnEditBtn();
+        await todoItemDriver.waitForAppToUpdate();
+        todoItemDriver.clickOnEditBtn();
+        await todoItemDriver.waitForAppToUpdate();
+        expect(todoItemDriver.isEditInputVisible()).toBe(false);
     })
 })
