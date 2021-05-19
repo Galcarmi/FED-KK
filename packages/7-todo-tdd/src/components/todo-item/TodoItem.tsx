@@ -3,7 +3,9 @@ import React, { FC, ReactElement, PropsWithChildren, useContext, useState, useRe
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { s as commonClasses } from '../../styles/commonClasses';
 import { ITodoContext, TodoContext } from '../../context/TodoContext';
-import { commonStyles } from '../../styles/commonStyles';
+import { colors, commonStyles } from '../../styles/commonStyles';
+import { ActionBtn } from '../action-btn/ActionBtn';
+import { btnIcons } from '../action-btn/BtnIcons';
 
 interface TodoItemProps {
     todo: ITodoDTO;
@@ -76,9 +78,9 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
                     onKeyPress={onEditInputEnter} />}
             <div className={`${s.todo__list__item__content} ${props.todo.isDone && commonClasses.crossedContent}`}>{props.todo.content}</div>
             <div className={s.todo__list__item__actions}>
-                <button className={s.todo__list__item__actions__edit} onClick={onEditClick}>edit</button>
-                <button className={s.todo__list__item__actions__delete} onClick={onDeleteClick}>delete</button>
-                <button className={s.todo__list__item__actions__done} onClick={onDoneClick}>done</button>
+                <ActionBtn onClick={onEditClick} svgIconPath={btnIcons.EditBtn} color={colors.softYellow} />
+                <ActionBtn onClick={onDeleteClick} svgIconPath={btnIcons.DeleteBtn} color={colors.red} />
+                <ActionBtn onClick={onDoneClick} svgIconPath={btnIcons.DoneBtn} color={colors.green} />
             </div>
         </div>);
 };
@@ -133,15 +135,6 @@ export const s = jss
             right: 0,
             opacity: 0,
             transition: 'all 0.5s ease',
-        },
-        todo__list__item__actions__done: {
-
-        },
-        todo__list__item__actions__delete: {
-
-        },
-        todo__list__item__actions__edit: {
-
         },
     })
     .attach().classes;
