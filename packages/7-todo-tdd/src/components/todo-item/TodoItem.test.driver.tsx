@@ -40,4 +40,8 @@ export class TodoItemDriver {
             this.todoItem.update();
         });
     };
+
+    public clickOnItemContent(){
+        this.todoItem.find(c(s.todo__list__item__content)).simulate('click');
+    }
 }
