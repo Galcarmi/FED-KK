@@ -3,6 +3,7 @@ import { wrapperGenerator } from '../../styles/utils';
 import { TodoAppDriver } from './TodoApp.test.driver';
 import { s } from './TodoApp';
 import { Chance } from 'chance';
+import { TodoItemDriver } from '../todo-item/TodoItem.test.driver';
 
 const chance = new Chance();
 const h = wrapperGenerator('.');
@@ -81,37 +82,35 @@ describe('app should render fetched todos properly', () => {
     })
 })
 
-describe('todo item actions should change the todos state properly', () => {
+describe.only('todo item actions should change the todos state properly', () => {
     let appTestDriver: TodoAppDriver;
+    let todoItemTestDriver : TodoItemDriver;
 
     beforeEach(async () => {
         appTestDriver = new TodoAppDriver();
         appTestDriver.todoInputInsertContent('hakuna matata');
         appTestDriver.clickOnAddBtn();
         await appTestDriver.waitForAppToUpdate();
+        todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
     });
 
     it('todo item should be marked as done after clicking on done btn', async () => {
-        const todoItem: ReactWrapper = appTestDriver.getFirstTodoItemWrapper();
-        appTestDriver.clickOnTodoDoneBtn(todoItem);
+        todoItemTestDriver.clickOnDoneBtn();
         await appTestDriver.waitForAppToUpdate();
         expect(Object.values(appTestDriver.getTodos())[0].isDone).toBe(true);
     })
     
     it('todo item should be deleted after clicking on delete btn', async () => {
-        const todoItem: ReactWrapper = appTestDriver.getFirstTodoItemWrapper();
-        appTestDriver.clickOnTodoDeleteBtn(todoItem);
+        todoItemTestDriver.clickOnDeleteBtn();
         await appTestDriver.waitForAppToUpdate();
         expect(appTestDriver.getTodosCount()).toBe(0);
     })
 
-    it.only('todo item should be edited on edit input blur',async ()=>{
-        let todoItem:ReactWrapper;
-        todoItem = appTestDriver.getFirstTodoItemWrapper();
-        appTestDriver.clickOnTodoEditBtn(todoItem);
-        todoItem = appTestDriver.getFirstTodoItemWrapper();
-        appTestDriver.insertContentToEditInput(todoItem, 'edited');
-        appTestDriver.blurTodoEditInput(todoItem);
+    it('todo item should be edited on edit input blur',async ()=>{
+        todoItemTestDriver.clickOnEditBtn();
+        todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
+        todoItemTestDriver.insertContentToEditInput('edited');
+        todoItemTestDriver.blurEditInput();
         await appTestDriver.waitForAppToUpdate();
         expect(Object.values(appTestDriver.getTodos())[0].content).toBe('edited');
     })

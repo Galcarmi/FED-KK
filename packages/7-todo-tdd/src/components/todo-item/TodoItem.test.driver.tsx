@@ -12,8 +12,13 @@ const c = wrapperGenerator('.');
 export class TodoItemDriver {
     public todoItem: ReactWrapper;
 
-    constructor(todo: ITodoDTO) {
-        this.todoItem = enzymeContainerMount(<TodoItem todo={todo} />)
+    constructor(todo: ITodoDTO | ReactWrapper) {
+        if ((todo as ITodoDTO)._id) {
+            this.todoItem = enzymeContainerMount(<TodoItem todo={(todo as ITodoDTO)} />)
+        }
+        else {
+            this.todoItem = (todo as ReactWrapper);
+        }
     }
 
     public getTodoItem(): ITodoDTO {
@@ -50,5 +55,17 @@ export class TodoItemDriver {
 
     public blurEditInput(): void {
         this.todoItem.find(c(s.todo__list__item__editInput)).simulate('blur');
+    }
+
+    public clickOnDoneBtn() {
+        this.todoItem.find(c(s.todo__list__item__actions__done)).simulate('click');
+    }
+
+    public clickOnDeleteBtn() {
+        this.todoItem.find(c(s.todo__list__item__actions__delete)).simulate('click');
+    }
+
+    public insertContentToEditInput(content: string) {
+        this.todoItem.find(c(s.todo__list__item__editInput)).simulate('change', { target: { value: content } });
     }
 }
