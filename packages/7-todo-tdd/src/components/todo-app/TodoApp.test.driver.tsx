@@ -10,7 +10,7 @@ import { s as commonStyles } from '../../styles/commonClasses';
 const c = wrapperGenerator('.');
 
 export class TodoAppDriver {
-  private mountedTodoApp: ReactWrapper;
+  public mountedTodoApp: ReactWrapper;
 
   constructor() {
     this.mountedTodoApp = mount(<TodoApp />);

@@ -17,13 +17,19 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
         setTodos({ ...todos });
     }
 
+    const onDeleteClick = async ():Promise<void> =>{
+        await todosService.deleteTodo(props.todo._id);
+        delete todos[props.todo._id];
+        setTodos({...todos});
+    }
+
     return (<div id={props.todo._id}
         className={s.todo__list__item}
         key={props.todo._id}>
         <div className={`${s.todo__list__item__content} ${props.todo.isDone && commonStyles.crossedContent}`}>{props.todo.content}</div>
         <div className={s.todo__list__item__actions}>
             <button className={s.todo__list__item__actions__edit}>edit</button>
-            <button className={s.todo__list__item__actions__delete}>delete</button>
+            <button className={s.todo__list__item__actions__delete} onClick={onDeleteClick}>delete</button>
             <button className={s.todo__list__item__actions__done} onClick={onDoneClick}>done</button>
         </div>
     </div>);

@@ -86,7 +86,7 @@ describe('todo item actions should change the todos state properly', () => {
 
     beforeEach(async () => {
         appTestDriver = new TodoAppDriver();
-        appTestDriver.todoInputInsertContent('');
+        appTestDriver.todoInputInsertContent('bla');
         appTestDriver.clickOnAddBtn();
         await appTestDriver.waitForAppToUpdate();
     });
@@ -97,8 +97,8 @@ describe('todo item actions should change the todos state properly', () => {
         await appTestDriver.waitForAppToUpdate();
         expect(Object.values(appTestDriver.getTodos())[0].isDone).toBe(true);
     })
-
-    it('todo item should be deleted after clicking on delete btn',async()=>{
+    
+    it('todo item should be deleted after clicking on delete btn', async () => {
         const todoItem: ReactWrapper = appTestDriver.getFirstTodoItemWrapper();
         appTestDriver.clickOnTodoDeleteBtn(todoItem);
         await appTestDriver.waitForAppToUpdate();
