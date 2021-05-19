@@ -116,7 +116,6 @@ export const s = jss
             zIndex: '400',
             border: 'none',
             textAlign: 'center',
-            display: 'none'
         },
         todo__list__item__content: {
             ...commonStyles.fontS,
