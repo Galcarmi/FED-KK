@@ -22,24 +22,34 @@ describe('todo item content should be rendered properly', () => {
     })
 })
 
-describe('todo item should be rendered properly with all of "isDone" states',()=>{
-    it('todo content should contain crossed-content class if "isDone" is true',()=>{
-        const todo:ITodoDTO = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: true };
-        const todoItemDriver:TodoItemDriver = new TodoItemDriver(todo);
+describe('todo item should be rendered properly with all of "isDone" states', () => {
+    it('todo content should contain crossed-content class if "isDone" is true', () => {
+        const todo: ITodoDTO = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: true };
+        const todoItemDriver: TodoItemDriver = new TodoItemDriver(todo);
         expect(todoItemDriver.getTodoItem().isDone).toBe(true);
     })
 
-    it('todo content should not contain crossed-content class if "isDone" is false',()=>{
-        const todo:ITodoDTO = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: false };
-        const todoItemDriver:TodoItemDriver = new TodoItemDriver(todo);
+    it('todo content should not contain crossed-content class if "isDone" is false', () => {
+        const todo: ITodoDTO = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: false };
+        const todoItemDriver: TodoItemDriver = new TodoItemDriver(todo);
         expect(todoItemDriver.getTodoItem().isDone).toBe(false);
     })
 })
 
-describe('checks todo state for action interactions',()=>{
-    it('edit input should be rendered after clicking on edit btn',async()=>{
-        const todo:ITodoDTO = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: true };
-        const todoItemDriver:TodoItemDriver = new TodoItemDriver(todo);
+describe('checks todo state for action interactions', () => {
+    let todo: ITodoDTO;
+    let todoItemDriver: TodoItemDriver;
+
+    beforeEach(() => {
+        todo = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: true };
+        todoItemDriver = new TodoItemDriver(todo);
+    })
+
+    it.only('todo edit input should not be rendered if edit btn wasnt clicked', () => {
+        expect(todoItemDriver.isEditInputVisible()).toBe(false);
+    })
+
+    it('edit input should be rendered after clicking on edit btn', async () => {
         todoItemDriver.clickOnEditBtn();
         await todoItemDriver.waitForAppToUpdate()
         expect(todoItemDriver.isEditInputVisible()).toBe(true);

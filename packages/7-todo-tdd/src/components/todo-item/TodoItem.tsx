@@ -24,6 +24,10 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
         setTodos({ ...todos });
     }
 
+    const onEditClick = ()=>{
+        setTodoInputVisibility(true);
+    }
+
     return (
     <div id={props.todo._id}
         className={s.todo__list__item}
@@ -31,7 +35,7 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
         <input type='text' className={s.todo__list__item__editInput}/>
         <div className={`${s.todo__list__item__content} ${props.todo.isDone && commonStyles.crossedContent}`}>{props.todo.content}</div>
         <div className={s.todo__list__item__actions}>
-            <button className={s.todo__list__item__actions__edit}>edit</button>
+            <button className={s.todo__list__item__actions__edit} onClick={onEditClick}>edit</button>
             <button className={s.todo__list__item__actions__delete} onClick={onDeleteClick}>delete</button>
             <button className={s.todo__list__item__actions__done} onClick={onDoneClick}>done</button>
         </div>

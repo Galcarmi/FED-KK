@@ -31,7 +31,7 @@ export class TodoItemDriver {
     }
 
     public isEditInputVisible() {
-        return this.todoItem.find(s.todo__list__item__editInput).exists();
+        return this.todoItem.find(c(s.todo__list__item__editInput)).exists();
     }
 
     public async waitForAppToUpdate(): Promise<void> {
