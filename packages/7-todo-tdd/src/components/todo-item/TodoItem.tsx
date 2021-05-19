@@ -1,8 +1,9 @@
 import { jss } from '../../styles/config';
 import React, { FC, ReactElement, PropsWithChildren, useContext, useState, useRef, useEffect } from 'react';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
-import { s as commonStyles } from '../../styles/commonClasses';
+import { s as commonClasses } from '../../styles/commonClasses';
 import { ITodoContext, TodoContext } from '../../context/TodoContext';
+import { commonStyles } from '../../styles/commonStyles';
 
 interface TodoItemProps {
     todo: ITodoDTO;
@@ -73,7 +74,7 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
                     value={editInputValue}
                     onChange={(e) => setEditInputValue(e.target.value)}
                     onKeyPress={onEditInputEnter} />}
-            <div className={`${s.todo__list__item__content} ${props.todo.isDone && commonStyles.crossedContent}`}>{props.todo.content}</div>
+            <div className={`${s.todo__list__item__content} ${props.todo.isDone && commonClasses.crossedContent}`}>{props.todo.content}</div>
             <div className={s.todo__list__item__actions}>
                 <button className={s.todo__list__item__actions__edit} onClick={onEditClick}>edit</button>
                 <button className={s.todo__list__item__actions__delete} onClick={onDeleteClick}>delete</button>
@@ -85,16 +86,53 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
 export const s = jss
     .createStyleSheet({
         todo__list__item: {
-
+            ...commonStyles.minTodoItemHeight,
+            ...commonStyles.RLMarginS,
+            ...commonStyles.roundedBorderS,
+            ...commonStyles.blackBorder,
+            ...commonStyles.TPmarginM,
+            textAlign: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            '&:hover $todo-item__actions': {
+                opacity: 1,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                position: 'absolute',
+                right: 0,
+            },
         },
         todo__list__item__editInput: {
-
+            ...commonStyles.fontS,
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: '400',
+            border: 'none',
+            textAlign: 'center',
+            display: 'none'
         },
         todo__list__item__content: {
-
+            ...commonStyles.fontS,
+            width: '55%',
+            overflowWrap: 'break-word',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
         },
         todo__list__item__actions: {
-
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            right: 0,
+            opacity: 0,
+            transition: 'all 0.5s ease',
         },
         todo__list__item__actions__done: {
 
