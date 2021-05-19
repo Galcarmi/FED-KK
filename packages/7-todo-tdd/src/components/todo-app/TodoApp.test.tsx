@@ -102,7 +102,7 @@ describe('app should render fetched todos properly', () => {
     })
 })
 
-describe('todo item actions should change the todos state properly', () => {
+describe('todo item actions should change todos state properly', () => {
     let appTestDriver: TodoAppDriver;
     let todoItemTestDriver: TodoItemDriver;
 

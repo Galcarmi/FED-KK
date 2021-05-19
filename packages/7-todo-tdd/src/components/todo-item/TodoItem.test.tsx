@@ -23,7 +23,7 @@ describe('todo item content should be rendered properly', () => {
     })
 })
 
-describe('todo item should be rendered properly with all of "isDone" states', () => {
+describe('todo item should be rendered properly according to "isDone" state', () => {
     it('todo content should contain crossed-content class if "isDone" is true', () => {
         const todo: ITodoDTO = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: true };
         const todoItemDriver: TodoItemDriver = new TodoItemDriver(todo);
@@ -37,7 +37,7 @@ describe('todo item should be rendered properly with all of "isDone" states', ()
     })
 })
 
-describe('checks todo state for action interactions', () => {
+describe('todo action interactions testing', () => {
     let todo: ITodoDTO;
     let todoItemDriver: TodoItemDriver;
 
@@ -72,7 +72,7 @@ describe('checks todo state for action interactions', () => {
         expect(todoItemDriver.isEditInputVisible()).toBe(false);
     })
 
-    it('edit input should be hidden while we leave the edit input focus', async () => {
+    it('edit input should be hidden on edit input blur', async () => {
         todoItemDriver.clickOnEditBtn();
         todoItemDriver.blurEditInput();
         await todoItemDriver.waitForAppToUpdate();
