@@ -27,8 +27,15 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
         setTodos({ ...todos });
     }
 
-    const onEditClick = () => {
+    const onEditClick = (): void => {
         setEditInputVisibility(!editInputVisibility);
+    }
+
+    const onEditInputEnter = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+        if (e.key === 'Enter') {
+            setEditInputVisibility(false);
+        }
+
     }
 
     const editTodo = async () => {
@@ -64,7 +71,8 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
                     ref={editInputRef}
                     onBlur={hideEditInput}
                     value={editInputValue}
-                    onChange={(e) => setEditInputValue(e.target.value)} />}
+                    onChange={(e) => setEditInputValue(e.target.value)}
+                    onKeyPress={onEditInputEnter} />}
             <div className={`${s.todo__list__item__content} ${props.todo.isDone && commonStyles.crossedContent}`}>{props.todo.content}</div>
             <div className={s.todo__list__item__actions}>
                 <button className={s.todo__list__item__actions__edit} onClick={onEditClick}>edit</button>
