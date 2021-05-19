@@ -25,7 +25,7 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
     }
 
     const onEditClick = ()=>{
-        setTodoInputVisibility(true);
+        setTodoInputVisibility(!todoInputVisibility);
     }
 
     return (
