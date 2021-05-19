@@ -1,9 +1,8 @@
-import { ITodoMap } from 'fed-todo-journey_todo-common';
 import React, { ChangeEvent, FC, ReactElement, useContext, useEffect, useState } from 'react';
 import { jss } from '../../styles/config';
 import { TodoItem } from '../todo-item/TodoItem';
 import { ITodoContext, TodoContext } from '../../context/TodoContext';
-import withTodos from '../HOC/withTodos';
+import withTodosContex from '../HOC/withTodos';
 
 const TodoApp: FC<{}> = (): ReactElement => {
   const [todoInputValue, setTodoInputValue] = useState<string>('');
@@ -54,4 +53,4 @@ export const s = jss
   .attach().classes;
 
 
-export default withTodos(TodoApp);
+export default withTodosContex(TodoApp);

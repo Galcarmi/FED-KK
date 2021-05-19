@@ -4,21 +4,34 @@ import { Chance } from 'chance';
 
 const chance = new Chance();
 
-describe('checks todo list item - done functionality', () => {
+describe('todo item content should be rendered properly', () => {
     let todoItemDriver: TodoItemDriver;
-    let _id: string;
+    let todo: ITodoDTO;
 
     beforeEach(async () => {
-        _id = chance.guid();
-        const todo: ITodoDTO = { content: chance.word(), _id, userId: chance.guid(), isDone: false };
+        todo = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: false };
         todoItemDriver = new TodoItemDriver(todo);
-        await todoItemDriver.waitForAppToUpdate();
     });
 
-    it.only('todo item should be marked as done after clicking on done btn', async () => {
-        todoItemDriver.clickOnTodoDoneBtn();
-        await todoItemDriver.waitForAppToUpdate();
-        // console.log('contexttt',todoItemDriver.todoItem.)
+    it('content should be rendered properly', () => {
+        expect(todoItemDriver.getTodoItem().content).toBe(todo.content);
+    })
+
+    it('todo item id-proprety should be the correct _id', () => {
+        expect(todoItemDriver.getTodoItem()._id).toBe(todo._id);
+    })
+})
+
+describe('todo item should be rendered properly with all of "isDone" states',()=>{
+    it('todo content should contain crossed-content class if "isDone" is true',()=>{
+        const todo:ITodoDTO = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: true };
+        const todoItemDriver:TodoItemDriver = new TodoItemDriver(todo);
         expect(todoItemDriver.getTodoItem().isDone).toBe(true);
+    })
+
+    it('todo content should not contain crossed-content class if "isDone" is false',()=>{
+        const todo:ITodoDTO = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: false };
+        const todoItemDriver:TodoItemDriver = new TodoItemDriver(todo);
+        expect(todoItemDriver.getTodoItem().isDone).toBe(false);
     })
 })

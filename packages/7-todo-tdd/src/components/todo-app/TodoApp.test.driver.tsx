@@ -10,40 +10,40 @@ import { s as commonStyles } from '../../styles/commonClasses';
 const c = wrapperGenerator('.');
 
 export class TodoAppDriver {
-  private app: ReactWrapper;
+  private mountedTodoApp: ReactWrapper;
 
   constructor() {
-    this.app = mount(<TodoApp />);
+    this.mountedTodoApp = mount(<TodoApp />);
   }
 
   public todoInputInsertContent(content: string): void {
-    this.app
+    this.mountedTodoApp
       .find(c(appStyles.todo__input))
       .simulate('change', { target: { value: content } });
   }
 
   public clickOnAddBtn(): void {
-    this.app.find(c(appStyles.todo__addBtn)).simulate('click');
+    this.mountedTodoApp.find(c(appStyles.todo__addBtn)).simulate('click');
   }
 
   public getTodosCount(): number {
-    return this.app.find(c(todoItemStyles.todo__list__item)).length;
+    return this.mountedTodoApp.find(c(todoItemStyles.todo__list__item)).length;
   }
 
   public getAppComponent(): ReactWrapper {
-    return this.app;
+    return this.mountedTodoApp;
   }
 
   public async waitForAppToUpdate(): Promise<void> {
     await act(async () => {
       await new Promise(resolve => setTimeout(resolve));
-      this.app.update();
+      this.mountedTodoApp.update();
     });
   };
 
   public getTodos(): ITodoMap {
     const todos: ITodoMap = {};
-    this.app.find(c(todoItemStyles.todo__list__item)).forEach(todoElement => {
+    this.mountedTodoApp.find(c(todoItemStyles.todo__list__item)).forEach(todoElement => {
       const _id: string = (todoElement.getDOMNode().getAttribute('id')) as string;
       const contentElement = todoElement.find(c(todoItemStyles.todo__list__item__content));
       const content: string = contentElement.getDOMNode().innerHTML;

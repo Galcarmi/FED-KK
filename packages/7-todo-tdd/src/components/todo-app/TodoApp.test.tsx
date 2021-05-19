@@ -80,3 +80,13 @@ describe('app should render fetched todos properly', () => {
         expect(Object.values(appTestDriver.getTodos())[0].isDone).toBe(false)
     })
 })
+
+// describe('todo item actions should change the todos state properly',()=>{
+
+//     it.only('todo item should be marked as done after clicking on done btn', async () => {
+//         todoItemDriver.clickOnTodoDoneBtn();
+//         await todoItemDriver.waitForAppToUpdate();
+//         // console.log('contexttt',todoItemDriver.todoItem.)
+//         expect(todoItemDriver.getTodoItem().isDone).toBe(true);
+//     })
+// })
