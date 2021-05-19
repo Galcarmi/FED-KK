@@ -65,4 +65,5 @@ export class TodoAppDriver {
   public clickOnTodoDeleteBtn(todoItem:ReactWrapper) {
     todoItem.find(c(todoItemStyles.todo__list__item__actions__delete)).simulate('click');
   }
+
 }

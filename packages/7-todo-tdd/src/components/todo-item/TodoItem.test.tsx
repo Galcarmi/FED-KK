@@ -35,3 +35,13 @@ describe('todo item should be rendered properly with all of "isDone" states',()=
         expect(todoItemDriver.getTodoItem().isDone).toBe(false);
     })
 })
+
+describe('checks todo state for action interactions',()=>{
+    it('edit input should be rendered after clicking on edit btn',async()=>{
+        const todo:ITodoDTO = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: true };
+        const todoItemDriver:TodoItemDriver = new TodoItemDriver(todo);
+        todoItemDriver.clickOnEditBtn();
+        await todoItemDriver.waitForAppToUpdate()
+        expect(todoItemDriver.isEditInputVisible()).toBe(true);
+    })
+})

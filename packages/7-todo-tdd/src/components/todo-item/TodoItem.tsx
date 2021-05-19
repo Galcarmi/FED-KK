@@ -1,5 +1,5 @@
 import { jss } from '../../styles/config';
-import React, { FC, ReactElement, PropsWithChildren, useContext } from 'react';
+import React, { FC, ReactElement, PropsWithChildren, useContext, useState } from 'react';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
 import { ITodoContext, TodoContext } from '../../context/TodoContext';
@@ -10,6 +10,7 @@ interface TodoItemProps {
 
 export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemProps>): ReactElement => {
     const { todosService, todos, setTodos } = useContext<ITodoContext>(TodoContext);
+    const [todoInputVisibility, setTodoInputVisibility] = useState<boolean>(false);
 
     const onDoneClick = async (): Promise<void> => {
         const updatedTodo = await todosService.editTodo({ ...props.todo, isDone: !props.todo.isDone });
@@ -17,15 +18,17 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
         setTodos({ ...todos });
     }
 
-    const onDeleteClick = async ():Promise<void> =>{
+    const onDeleteClick = async (): Promise<void> => {
         await todosService.deleteTodo(props.todo._id);
         delete todos[props.todo._id];
-        setTodos({...todos});
+        setTodos({ ...todos });
     }
 
-    return (<div id={props.todo._id}
+    return (
+    <div id={props.todo._id}
         className={s.todo__list__item}
         key={props.todo._id}>
+        <input type='text' className={s.todo__list__item__editInput}/>
         <div className={`${s.todo__list__item__content} ${props.todo.isDone && commonStyles.crossedContent}`}>{props.todo.content}</div>
         <div className={s.todo__list__item__actions}>
             <button className={s.todo__list__item__actions__edit}>edit</button>
@@ -38,6 +41,9 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
 export const s = jss
     .createStyleSheet({
         todo__list__item: {
+
+        },
+        todo__list__item__editInput: {
 
         },
         todo__list__item__content: {

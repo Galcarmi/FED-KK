@@ -25,4 +25,19 @@ export class TodoItemDriver {
 
         return { _id, content, isDone, userId: '' }
     }
+
+    public clickOnEditBtn() {
+        this.todoItem.find(c(s.todo__list__item__actions__edit)).simulate('click');
+    }
+
+    public isEditInputVisible() {
+        return this.todoItem.find(s.todo__list__item__editInput).exists();
+    }
+
+    public async waitForAppToUpdate(): Promise<void> {
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve));
+            this.todoItem.update();
+        });
+    };
 }
