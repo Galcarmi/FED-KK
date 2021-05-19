@@ -92,9 +92,16 @@ describe('todo item actions should change the todos state properly', () => {
     });
 
     it('todo item should be marked as done after clicking on done btn', async () => {
-        const todoItem: ReactWrapper = appTestDriver.getFirstTodoItem();
+        const todoItem: ReactWrapper = appTestDriver.getFirstTodoItemWrapper();
         appTestDriver.clickOnTodoDoneBtn(todoItem);
         await appTestDriver.waitForAppToUpdate();
         expect(Object.values(appTestDriver.getTodos())[0].isDone).toBe(true);
+    })
+
+    it('todo item should be deleted after clicking on delete btn',async()=>{
+        const todoItem: ReactWrapper = appTestDriver.getFirstTodoItemWrapper();
+        appTestDriver.clickOnTodoDeleteBtn(todoItem);
+        await appTestDriver.waitForAppToUpdate();
+        expect(appTestDriver.getTodosCount()).toBe(0);
     })
 })
