@@ -1,0 +1,44 @@
+{
+  "name": "fed-todo-journey_todo-tdd",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "webpack serve",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.13.13",
+    "axios": "^0.21.1",
+    "css-loader": "^5.2.4",
+    "fed-todo-journey_todo-common": "^2.0.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.1",
+    "jss": "^10.6.0",
+    "jss-plugin-camel-case": "^10.6.0",
+    "jss-plugin-nested": "^10.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-jss": "^10.6.0",
+    "source-map-loader": "^2.0.1",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^9.1.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "devDependencies": {
+    "@types/chance": "^1.1.1",
+    "@types/enzyme": "^3.10.8",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^12.20.12",
+    "@types/react": "^16.0.0",
+    "@types/react-dom": "^16.0.0",
+    "chance": "^1.1.7",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6"
+  }
+}
