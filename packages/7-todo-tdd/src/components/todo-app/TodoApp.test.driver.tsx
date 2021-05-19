@@ -26,6 +26,10 @@ export class TodoAppDriver {
     this.mountedTodoApp.find(c(appStyles.todo__addBtn)).simulate('click');
   }
 
+  public pressEnterOnTodoInput():void{
+    this.mountedTodoApp.find(c(appStyles.todo__input)).simulate('keypress', {key: 'Enter'})
+  }
+
   public getTodosCount(): number {
     return this.mountedTodoApp.find(c(todoItemStyles.todo__list__item)).length;
   }

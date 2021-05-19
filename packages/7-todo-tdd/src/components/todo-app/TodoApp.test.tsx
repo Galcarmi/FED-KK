@@ -37,7 +37,7 @@ describe('app main components should be rendered', () => {
     });
 });
 
-describe('checks todo list - add functionality', () => {
+describe.only('checks todo list - add functionality', () => {
     let appTestDriver: TodoAppDriver;
 
     beforeEach(() => {
@@ -51,7 +51,15 @@ describe('checks todo list - add functionality', () => {
         expect(appTestDriver.getTodosCount()).toBe(0);
     });
 
-    it('should add todo item with content', async () => {
+    it('should add todo item with content when pressing enter', async () => {
+        appTestDriver.todoInputInsertContent('example');
+        appTestDriver.pressEnterOnTodoInput();
+        await appTestDriver.waitForAppToUpdate()
+        console.log(appTestDriver.mountedTodoApp.debug())
+        expect(appTestDriver.getTodosCount()).toBe(1);
+    })
+
+    it('should add todo item with content when clicking on add btn', async () => {
         appTestDriver.todoInputInsertContent('example');
         appTestDriver.clickOnAddBtn();
         await appTestDriver.waitForAppToUpdate()
@@ -84,7 +92,7 @@ describe('app should render fetched todos properly', () => {
     })
 })
 
-describe.only('todo item actions should change the todos state properly', () => {
+describe('todo item actions should change the todos state properly', () => {
     let appTestDriver: TodoAppDriver;
     let todoItemTestDriver: TodoItemDriver;
 

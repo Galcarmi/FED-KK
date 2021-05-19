@@ -54,13 +54,14 @@ describe('checks todo state for action interactions', () => {
 
     it('edit input should be rendered & focused after clicking on edit btn', async () => {
         todoItemDriver.clickOnEditBtn();
-        await todoItemDriver.waitForAppToUpdate()
+        await todoItemDriver.waitForAppToUpdate();
         expect(todoItemDriver.isEditInputVisible()).toBe(true);
         expect(todoItemDriver.isEditInputFocused()).toBe(true);
     })
 
-    it.only('edit input content should be the same as todo content while clicking on edit btn', ()=>{
+    it('edit input content should be the same as todo content while clicking on edit btn', async ()=>{
         todoItemDriver.clickOnEditBtn();
+        await todoItemDriver.waitForAppToUpdate();
         expect(todoItemDriver.getEditInputContent()).toBe(todo.content);
     })
 
