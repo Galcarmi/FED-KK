@@ -49,10 +49,11 @@ describe.only('checks todo state for action interactions', () => {
         expect(todoItemDriver.isEditInputVisible()).toBe(false);
     })
 
-    it('edit input should be rendered after clicking on edit btn', async () => {
+    it('edit input should be rendered & focused after clicking on edit btn', async () => {
         todoItemDriver.clickOnEditBtn();
         await todoItemDriver.waitForAppToUpdate()
         expect(todoItemDriver.isEditInputVisible()).toBe(true);
+        expect(todoItemDriver.isEditInputFocused()).toBe(true);
     })
 
     it('edit input should be hidden after clicking twice on edit btn', async () => {

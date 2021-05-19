@@ -26,12 +26,19 @@ export class TodoItemDriver {
         return { _id, content, isDone, userId: '' }
     }
 
-    public clickOnEditBtn() {
+    public clickOnEditBtn():void {
         this.todoItem.find(c(s.todo__list__item__actions__edit)).simulate('click');
     }
 
     public isEditInputVisible() {
         return this.todoItem.find(c(s.todo__list__item__editInput)).exists();
+    }
+    
+    public isEditInputFocused():boolean{
+        const editInput = this.todoItem.find(c(s.todo__list__item__editInput));
+        const activeElement = document.activeElement;
+
+        return editInput.matchesElement((activeElement) as any);
     }
 
     public async waitForAppToUpdate(): Promise<void> {
@@ -41,7 +48,7 @@ export class TodoItemDriver {
         });
     };
 
-    public clickOnItemContent(){
+    public clickOnItemContent():void{
         this.todoItem.find(c(s.todo__list__item__content)).simulate('click');
     }
 }

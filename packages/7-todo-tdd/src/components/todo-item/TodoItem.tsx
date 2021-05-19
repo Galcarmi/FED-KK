@@ -28,6 +28,11 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
         setTodoInputVisibility(!todoInputVisibility);
     }
 
+    // const hideEditInput = ()=>{
+    //     console.log('blurrrr')
+    //     setTodoInputVisibility(false);
+    // }
+
     return (
     <div id={props.todo._id}
         className={s.todo__list__item}
