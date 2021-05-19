@@ -20,17 +20,17 @@ class TodosService implements ITodosService {
   }
 
   async deleteTodo(_id: string): Promise<ITodoDTO> {
-    const foundTodo:ITodoDTO = this.todos[_id];
+    const foundTodo: ITodoDTO = this.todos[_id];
     delete this.todos[_id];
 
     return foundTodo;
   }
 
   async editTodo(todo: Partial<ITodoDTO>): Promise<ITodoDTO> {
-    const foundTodo:ITodoDTO = this.todos[todo._id as string];
-    const updatedTodo = {...foundTodo, ...todo};
+    const foundTodo: ITodoDTO = this.todos[todo._id as string];
+    const updatedTodo = { ...foundTodo, ...todo };
     this.todos[todo._id as string] = updatedTodo;
-    
+
     return updatedTodo;
   }
 

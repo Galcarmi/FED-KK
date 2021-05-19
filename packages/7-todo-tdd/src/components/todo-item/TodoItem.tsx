@@ -16,7 +16,7 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
 
 
     const onDoneClick = async (): Promise<void> => {
-        const updatedTodo = await todosService.editTodo({ ...props.todo, isDone: !props.todo.isDone });
+        const updatedTodo: ITodoDTO = await todosService.editTodo({ ...props.todo, isDone: !props.todo.isDone });
         todos[updatedTodo._id] = updatedTodo;
         setTodos({ ...todos });
     }
@@ -33,7 +33,7 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
 
     const editTodo = async () => {
         if (props.todo.content !== editInputValue && editInputValue !== '') {// can add test for that one
-            const updatedTodo = await todosService.editTodo({ ...props.todo, content: editInputValue });
+            const updatedTodo: ITodoDTO = await todosService.editTodo({ ...props.todo, content: editInputValue });
             todos[updatedTodo._id] = updatedTodo;
             setTodos({ ...todos });
         }
@@ -47,7 +47,7 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
         if (editInputVisibility) {
             editInputRef.current?.focus();
         }
-        else{
+        else {
             editTodo();
         }
     }, [editInputVisibility])

@@ -3,6 +3,7 @@ import { jss } from '../../styles/config';
 import { TodoItem } from '../todo-item/TodoItem';
 import { ITodoContext, TodoContext } from '../../context/TodoContext';
 import withTodosContex from '../HOC/withTodos';
+import { ITodoDTO } from 'fed-todo-journey_todo-common';
 
 const TodoApp: FC<{}> = (): ReactElement => {
   const [todoInputValue, setTodoInputValue] = useState<string>('');
@@ -10,7 +11,7 @@ const TodoApp: FC<{}> = (): ReactElement => {
 
   const onAddClick = async (): Promise<void> => {
     if (todoInputValue) {
-      const addedTodo = await todosService.addTodo(todoInputValue);
+      const addedTodo: ITodoDTO = await todosService.addTodo(todoInputValue);
       todos[addedTodo._id] = addedTodo;
       setTodos({ ...todos });
     }

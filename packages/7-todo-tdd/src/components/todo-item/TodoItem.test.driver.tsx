@@ -22,7 +22,7 @@ export class TodoItemDriver {
     }
 
     public getTodoItem(): ITodoDTO {
-        const todoElement = this.todoItem.find(c(s.todo__list__item))
+        const todoElement: ReactWrapper = this.todoItem.find(c(s.todo__list__item))
         const _id: string = (todoElement.getDOMNode().getAttribute('id')) as string;
         const contentElement = todoElement.find(c(s.todo__list__item__content));
         const content: string = contentElement.getDOMNode().innerHTML;
@@ -35,13 +35,13 @@ export class TodoItemDriver {
         this.todoItem.find(c(s.todo__list__item__actions__edit)).simulate('click');
     }
 
-    public isEditInputVisible() {
+    public isEditInputVisible(): boolean {
         return this.todoItem.find(c(s.todo__list__item__editInput)).exists();
     }
 
     public isEditInputFocused(): boolean {
-        const editInput = this.todoItem.find(c(s.todo__list__item__editInput));
-        const activeElement = document.activeElement;
+        const editInput: ReactWrapper = this.todoItem.find(c(s.todo__list__item__editInput));
+        const activeElement: Element | null = document.activeElement;
 
         return editInput.getDOMNode() === activeElement;
     }
@@ -57,15 +57,15 @@ export class TodoItemDriver {
         this.todoItem.find(c(s.todo__list__item__editInput)).simulate('blur');
     }
 
-    public clickOnDoneBtn() {
+    public clickOnDoneBtn(): void {
         this.todoItem.find(c(s.todo__list__item__actions__done)).simulate('click');
     }
 
-    public clickOnDeleteBtn() {
+    public clickOnDeleteBtn(): void {
         this.todoItem.find(c(s.todo__list__item__actions__delete)).simulate('click');
     }
 
-    public insertContentToEditInput(content: string) {
+    public insertContentToEditInput(content: string): void {
         this.todoItem.find(c(s.todo__list__item__editInput)).simulate('change', { target: { value: content } });
     }
 }

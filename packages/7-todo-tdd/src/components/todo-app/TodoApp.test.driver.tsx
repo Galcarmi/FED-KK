@@ -54,7 +54,7 @@ export class TodoAppDriver {
     return todos;
   }
 
-  public getFirstTodoItemWrapper() {
+  public getFirstTodoItemWrapper(): ReactWrapper {
     return this.mountedTodoApp.find(c(todoItemStyles.todo__list__item)).first()
   }
 

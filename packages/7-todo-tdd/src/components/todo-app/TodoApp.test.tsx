@@ -13,7 +13,7 @@ describe('app main components should be rendered', () => {
     let mountedTodoApp: ReactWrapper;
 
     beforeEach(async () => {
-        const todosDriver = new TodoAppDriver();
+        const todosDriver : TodoAppDriver = new TodoAppDriver();
         await todosDriver.waitForAppToUpdate();
         mountedTodoApp = todosDriver.getAppComponent();
     });
