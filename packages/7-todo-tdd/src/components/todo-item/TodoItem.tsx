@@ -98,7 +98,7 @@ export const s = jss
             alignItems: 'center',
             justifyContent: 'center',
             position: 'relative',
-            '&:hover $todo-item__actions': {
+            '&:hover $todo__list__item__actions': {
                 opacity: 1,
                 display: 'flex',
                 justifyContent: 'center',
