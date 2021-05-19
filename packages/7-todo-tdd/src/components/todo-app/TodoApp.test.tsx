@@ -68,6 +68,13 @@ describe('checks todo list - add functionality', () => {
         await appTestDriver.waitForAppToUpdate()
         expect(appTestDriver.getTodosCount()).toBe(1);
     })
+
+    it('todo input should be empty after adding todo', async ()=>{
+        appTestDriver.todoInputInsertContent('example');
+        appTestDriver.clickOnAddBtn();
+        await appTestDriver.waitForAppToUpdate()
+        expect(appTestDriver.getTodoInputContent()).toBe(''); 
+    })
 })
 
 describe('app should render fetched todos properly', () => {

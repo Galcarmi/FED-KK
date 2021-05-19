@@ -25,6 +25,7 @@ const TodoApp: FC<{}> = (): ReactElement => {
       const addedTodo: ITodoDTO = await todosService.addTodo(todoInputValue);
       todos[addedTodo._id] = addedTodo;
       setTodos({ ...todos });
+      setTodoInputValue('');
     }
   }
 

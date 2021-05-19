@@ -67,4 +67,8 @@ export class TodoAppDriver {
   public removeTodosFromFakeTodosService(): void {
     (todosService as TodosService).removeTodos();
   }
+
+  public getTodoInputContent():string{
+    return (this.mountedTodoApp.find(c(appStyles.todo__inputContainer__input)).getDOMNode() as HTMLInputElement).value;
+  }
 }
