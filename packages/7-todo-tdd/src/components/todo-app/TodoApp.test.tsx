@@ -37,7 +37,7 @@ describe('app main components should be rendered', () => {
     });
 });
 
-describe.only('checks todo list - add functionality', () => {
+describe('checks todo list - add functionality', () => {
     let appTestDriver: TodoAppDriver;
 
     beforeEach(() => {

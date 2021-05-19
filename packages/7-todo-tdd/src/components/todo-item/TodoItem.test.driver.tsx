@@ -72,4 +72,8 @@ export class TodoItemDriver {
     public getEditInputContent(): string {
         return (this.todoItem.find(c(s.todo__list__item__editInput)).getDOMNode() as HTMLInputElement).value;
     }
+
+    public simulateEditInputEnterClick():void{
+        this.todoItem.find(c(s.todo__list__item__editInput)).simulate('keypress', { key: 'Enter' });
+    }
 }

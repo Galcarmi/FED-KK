@@ -78,4 +78,11 @@ describe('checks todo state for action interactions', () => {
         await todoItemDriver.waitForAppToUpdate();
         expect(todoItemDriver.isEditInputVisible()).toBe(false);
     })
+
+    it.only('edit input should be hidden after clicking enter', async () => {
+        todoItemDriver.clickOnEditBtn();
+        todoItemDriver.simulateEditInputEnterClick();
+        await todoItemDriver.waitForAppToUpdate();
+        expect(todoItemDriver.isEditInputVisible()).toBe(false);
+    })
 })
