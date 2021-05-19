@@ -68,4 +68,8 @@ export class TodoItemDriver {
     public insertContentToEditInput(content: string): void {
         this.todoItem.find(c(s.todo__list__item__editInput)).simulate('change', { target: { value: content } });
     }
+
+    public getEditInputContent(): string {
+        return (this.todoItem.find(c(s.todo__list__item__editInput)).getDOMNode() as HTMLInputElement).value;
+    }
 }

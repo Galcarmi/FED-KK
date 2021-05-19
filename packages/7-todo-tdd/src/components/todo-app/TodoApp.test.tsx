@@ -5,6 +5,7 @@ import { s } from './TodoApp';
 import { Chance } from 'chance';
 import { TodoItemDriver } from '../todo-item/TodoItem.test.driver';
 import { todosService } from '../../services/TodoService';
+import { ITodoDTO } from 'fed-todo-journey_todo-common';
 
 const chance = new Chance();
 const h = wrapperGenerator('.');
@@ -126,7 +127,7 @@ describe.only('todo item actions should change the todos state properly', () => 
     })
 
     it('todos service edit method should not be called when edit input content is the same as todo content', async () => {
-        const spy = jest.spyOn(todosService, 'editTodo');
+        const spy: jest.SpyInstance<Promise<ITodoDTO>> = jest.spyOn(todosService, 'editTodo');
         todoItemTestDriver.clickOnEditBtn();
         todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
         todoItemTestDriver.insertContentToEditInput('hakuna matata');
