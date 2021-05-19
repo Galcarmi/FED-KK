@@ -114,5 +114,14 @@ describe.only('todo item actions should change the todos state properly', () => 
         await appTestDriver.waitForAppToUpdate();
         expect(Object.values(appTestDriver.getTodos())[0].content).toBe('edited');
     })
+
+    it('todo item should not be edited on edit input blur when edit input is empty',async ()=>{
+        todoItemTestDriver.clickOnEditBtn();
+        todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
+        todoItemTestDriver.insertContentToEditInput('');
+        todoItemTestDriver.blurEditInput();
+        await appTestDriver.waitForAppToUpdate();
+        expect(Object.values(appTestDriver.getTodos())[0].content).toBe('hakuna matata');
+    })
     
 })

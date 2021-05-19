@@ -32,7 +32,7 @@ export const TodoItem: FC<TodoItemProps> = (props: PropsWithChildren<TodoItemPro
     }
 
     const editTodo = async () => {
-        if (props.todo.content !== editInputValue && editInputValue !== '') {// can add test for that one
+        if (props.todo.content !== editInputValue && editInputValue !== '') {
             const updatedTodo: ITodoDTO = await todosService.editTodo({ ...props.todo, content: editInputValue });
             todos[updatedTodo._id] = updatedTodo;
             setTodos({ ...todos });
