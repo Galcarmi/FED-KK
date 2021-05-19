@@ -86,7 +86,7 @@ describe('todo item actions should change the todos state properly', () => {
 
     beforeEach(async () => {
         appTestDriver = new TodoAppDriver();
-        appTestDriver.todoInputInsertContent('bla');
+        appTestDriver.todoInputInsertContent('hakuna matata');
         appTestDriver.clickOnAddBtn();
         await appTestDriver.waitForAppToUpdate();
     });
@@ -104,4 +104,17 @@ describe('todo item actions should change the todos state properly', () => {
         await appTestDriver.waitForAppToUpdate();
         expect(appTestDriver.getTodosCount()).toBe(0);
     })
+
+    it.only('todo item should be edited on edit input blue',async ()=>{
+        let todoItem:ReactWrapper;
+        todoItem = appTestDriver.getFirstTodoItemWrapper();
+        appTestDriver.clickOnTodoEditBtn(todoItem);
+        await appTestDriver.waitForAppToUpdate();
+        todoItem = appTestDriver.getFirstTodoItemWrapper();
+        appTestDriver.insertContentToEditInput(todoItem, 'edited');
+        await appTestDriver.waitForAppToUpdate();
+        appTestDriver.blurTodoEditInput(todoItem);
+        expect(Object.values(appTestDriver.getTodos())[0].content).toBe('edited');
+    })
+    
 })

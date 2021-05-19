@@ -54,16 +54,27 @@ export class TodoAppDriver {
     return todos;
   }
 
-  public getFirstTodoItemWrapper(){
+  public getFirstTodoItemWrapper() {
     return this.mountedTodoApp.find(c(todoItemStyles.todo__list__item)).first()
   }
 
-  public clickOnTodoDoneBtn(todoItem:ReactWrapper) {
+  public clickOnTodoDoneBtn(todoItem: ReactWrapper) {
     todoItem.find(c(todoItemStyles.todo__list__item__actions__done)).simulate('click');
   }
 
-  public clickOnTodoDeleteBtn(todoItem:ReactWrapper) {
+  public clickOnTodoDeleteBtn(todoItem: ReactWrapper) {
     todoItem.find(c(todoItemStyles.todo__list__item__actions__delete)).simulate('click');
   }
 
+  public clickOnTodoEditBtn(todoItem: ReactWrapper): void {
+    todoItem.find(c(todoItemStyles.todo__list__item__actions__edit)).simulate('click');
+  }
+
+  public insertContentToEditInput(todoItem: ReactWrapper, content:string){
+    todoItem.find(c(todoItemStyles.todo__list__item__editInput)).simulate('change', { target: { value: content } });
+  }
+
+  public blurTodoEditInput(todoItem: ReactWrapper): void {
+    todoItem.find(c(todoItemStyles.todo__list__item__editInput)).simulate('blur');
+}
 }
