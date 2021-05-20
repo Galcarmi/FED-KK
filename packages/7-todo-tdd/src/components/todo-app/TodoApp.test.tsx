@@ -30,27 +30,30 @@ describe('checks todo list - add functionality', () => {
     it('should add todo item with content when pressing enter', async () => {
         expect(appTestDriver.getTodosCount()).toBe(0);
 
-        appTestDriver.todoInputInsertContent('example');
+        const content = chance.word();
+        appTestDriver.todoInputInsertContent(content);
         appTestDriver.pressEnterOnTodoInput();
         await appTestDriver.waitForAppToUpdate();
 
-        expect(appTestDriver.getTodosCount()).toBe(1);
+        expect(appTestDriver.getFirstTodo().content).toBe(content);
     })
 
     it('should add todo item with content when clicking on add btn', async () => {
         expect(appTestDriver.getTodosCount()).toBe(0);
 
-        appTestDriver.todoInputInsertContent('example');
+        const content = chance.word();
+        appTestDriver.todoInputInsertContent(content);
         appTestDriver.clickOnAddBtn();
         await appTestDriver.waitForAppToUpdate()
 
-        expect(appTestDriver.getTodosCount()).toBe(1);
+        expect(appTestDriver.getFirstTodo().content).toBe(content);
     })
 
     it('todo input should be empty after adding todo', async () => {
         expect(appTestDriver.getTodoInputContent()).toBe('');
 
-        appTestDriver.todoInputInsertContent('example');
+        const content = chance.word();
+        appTestDriver.todoInputInsertContent(content);
         appTestDriver.clickOnAddBtn();
         await appTestDriver.waitForAppToUpdate()
 
@@ -64,19 +67,19 @@ describe('app should render fetched todos properly', () => {
 
         const UUIDPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-        expect(Object.values(appTestDriver.getTodos())[0]._id).toMatch(UUIDPattern)
+        expect(appTestDriver.getFirstTodo()._id).toMatch(UUIDPattern)
     })
 
     it('should render the correct content', async () => {
         const { content, appTestDriver } = await initDriverWithTodo()
 
-        expect(Object.values(appTestDriver.getTodos())[0].content).toBe(content)
+        expect(appTestDriver.getFirstTodo().content).toBe(content)
     })
 
     it('should render the correct state of isDone', async () => {
         const { appTestDriver } = await initDriverWithTodo()
 
-        expect(Object.values(appTestDriver.getTodos())[0].isDone).toBe(false)
+        expect(appTestDriver.getFirstTodo().isDone).toBe(false)
     })
 
     const initDriverWithTodo = async (): Promise<{ appTestDriver: TodoAppDriver, content: string }> => {
@@ -95,12 +98,12 @@ describe('todo item actions should change todos state properly', () => {
     it('todo item should be marked as done after clicking on done btn', async () => {
         const { todoItemTestDriver, appTestDriver } = await initDriversWithTodo();
 
-        expect(Object.values(appTestDriver.getTodos())[0].isDone).toBe(false);
+        expect(appTestDriver.getFirstTodo().isDone).toBe(false);
 
         todoItemTestDriver.clickOnDoneBtn();
         await appTestDriver.waitForAppToUpdate();
 
-        expect(Object.values(appTestDriver.getTodos())[0].isDone).toBe(true);
+        expect(appTestDriver.getFirstTodo().isDone).toBe(true);
     })
 
     it('todo item should be deleted after clicking on delete btn', async () => {
@@ -117,7 +120,7 @@ describe('todo item actions should change todos state properly', () => {
     it('todo item should be edited on edit input blur', async () => {
         let { todoItemTestDriver, appTestDriver, content } = await initDriversWithTodo();
 
-        expect(Object.values(appTestDriver.getTodos())[0].content).toBe(content);
+        expect(appTestDriver.getFirstTodo().content).toBe(content);
 
         todoItemTestDriver.clickOnEditBtn();
         todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
@@ -126,13 +129,13 @@ describe('todo item actions should change todos state properly', () => {
         todoItemTestDriver.blurEditInput();
         await appTestDriver.waitForAppToUpdate();
 
-        expect(Object.values(appTestDriver.getTodos())[0].content).toBe(editedContent);
+        expect(appTestDriver.getFirstTodo().content).toBe(editedContent);
     })
 
     it('todo item should not be edited on edit input blur when edit input is empty', async () => {
         let { todoItemTestDriver, appTestDriver, content } = await initDriversWithTodo();
 
-        expect(Object.values(appTestDriver.getTodos())[0].content).toBe(content);
+        expect(appTestDriver.getFirstTodo().content).toBe(content);
 
         todoItemTestDriver.clickOnEditBtn();
         todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
@@ -140,7 +143,7 @@ describe('todo item actions should change todos state properly', () => {
         todoItemTestDriver.blurEditInput();
         await appTestDriver.waitForAppToUpdate();
 
-        expect(Object.values(appTestDriver.getTodos())[0].content).toBe(content);
+        expect(appTestDriver.getFirstTodo().content).toBe(content);
     })
 
     it('todos service edit method should not be called when edit input content is the same as todo content', async () => {

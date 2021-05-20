@@ -4,7 +4,7 @@ import { s as todoItemStyles } from '../todo-item/TodoItem';
 import { wrapperGenerator } from '../../styles/utils';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { ITodoMap } from 'fed-todo-journey_todo-common';
+import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
 import { todosService } from '../../services/TodoService';
 import {TodosService } from '../../__mocks__/TodoService'
@@ -70,5 +70,9 @@ export class TodoAppDriver {
 
   public getTodoInputContent():string{
     return (this.mountedTodoApp.find(c(appStyles.todo__inputContainer__input)).getDOMNode() as HTMLInputElement).value;
+  }
+
+  public getFirstTodo():ITodoDTO{
+    return Object.values(this.getTodos())[0];
   }
 }
