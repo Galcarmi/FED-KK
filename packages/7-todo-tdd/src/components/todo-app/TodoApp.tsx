@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, ReactElement, useContext, useEffect, useState }
 import { jss } from '../../styles/config';
 import { TodoItem } from '../todo-item/TodoItem';
 import { ITodoContext, TodoContext } from '../../context/TodoContext';
-import withTodosContex from '../HOC/withTodos';
+import withTodosContext from '../HOC/withTodos';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { commonStyles, colors } from '../../styles/commonStyles';
 
@@ -145,4 +145,4 @@ export const s = jss
   .attach().classes;
 
 
-export default withTodosContex(TodoApp);
+export default withTodosContext(TodoApp);

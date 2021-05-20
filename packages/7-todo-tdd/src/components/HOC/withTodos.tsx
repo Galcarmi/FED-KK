@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react';
 import { TodoContext, TodosState } from '../../context/TodoContext';
 import { todosService } from '../../services/TodoService';
 
-const withTodosContex = <Props extends Object>(WrappedComponent: FC<Props>) => (props: Props) => {
+const withTodosContext = <Props extends Object>(WrappedComponent: FC<Props>) => (props: Props) => {
 
   const [todos, setTodos] = useState<ITodoMap>({});
 
@@ -14,4 +14,4 @@ const withTodosContex = <Props extends Object>(WrappedComponent: FC<Props>) => (
   );
 }
 
-export default withTodosContex;
+export default withTodosContext;
