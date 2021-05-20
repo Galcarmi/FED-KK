@@ -44,7 +44,7 @@ export class TodoItemDriver {
         const editInput: ReactWrapper = this.todoItem.find(c(s.todo__list__item__editInput));
         const activeElement: Element | null = document.activeElement;
 
-        return editInput.getDOMNode() === activeElement;
+        return editInput.exists() ? editInput.getDOMNode() === activeElement : false;
     }
 
     public async waitForAppToUpdate(): Promise<void> {
