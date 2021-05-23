@@ -6,14 +6,17 @@ import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
-import { initTodosServiceMocks } from '../../test/utils';
 import { Chance } from 'chance';
 
 const chance = new Chance();
 const c = wrapperGenerator('.');
 
 export class TodoAppDriver {
-  public mountedTodoApp!: ReactWrapper;
+  public mountedTodoApp: ReactWrapper;
+
+  constructor(){
+    this.mountedTodoApp = mount(<TodoApp />);
+  }
 
   public todoInputInsertContent(content: string): void {
     this.mountedTodoApp
@@ -83,34 +86,6 @@ export class TodoAppDriver {
 
   public getFirstTodo(): ITodoDTO {
     return this.extractFirstTodoFromMap(this.getTodos());
-  }
-
-  public static async givenTodos(todos: ITodoMap = {}): Promise<TodoAppDriver> {
-    initTodosServiceMocks(todos);
-
-    const todoAppDriver: TodoAppDriver = new TodoAppDriver();
-    todoAppDriver.mountTodoApp();
-    await todoAppDriver.waitForAppToUpdate();
-
-    return todoAppDriver;
-  }
-
-
-  public mountTodoApp() {
-    this.mountedTodoApp = mount(<TodoApp />);
-  }
-
-  public static generateTodosMapWithSingleTodo(todo?: ITodoDTO): ITodoMap {
-    const todos: ITodoMap = {};
-    todo = todo || {
-      _id: chance.guid(),
-      content: chance.word(),
-      isDone: chance.bool(),
-      userId: chance.guid(),
-    };
-    todos[todo._id] = todo;
-
-    return todos;
   }
 
   public extractFirstTodoFromMap(todos: ITodoMap): ITodoDTO {
