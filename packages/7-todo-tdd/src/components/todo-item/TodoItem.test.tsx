@@ -1,8 +1,7 @@
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { TodoItemDriver } from './TodoItem.test.driver';
 import { Chance } from 'chance';
-import { enzymeContainerSetupAndTeardown } from '../../test/utils';
-import { TodoAppDriver } from '../todo-app/TodoApp.test.driver';
+import { enzymeContainerSetupAndTeardown, initTodosServiceMocks } from '../../test/utils';
 
 const chance = new Chance();
 
@@ -120,7 +119,8 @@ const initDriverWithTodo = (): {
   todo: ITodoDTO;
   todoItemDriver: TodoItemDriver;
 } => {
-  TodoAppDriver.givenTodos({});
+  initTodosServiceMocks({});
+
   const todo: ITodoDTO = {
     content: chance.word(),
     _id: chance.guid(),

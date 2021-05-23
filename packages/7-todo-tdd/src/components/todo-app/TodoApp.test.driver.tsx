@@ -6,7 +6,7 @@ import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
-import { todosService } from '../../services/TodoService';
+import { initTodosServiceMocks } from '../../test/utils';
 import { Chance } from 'chance';
 
 const chance = new Chance();
@@ -86,8 +86,7 @@ export class TodoAppDriver {
   }
 
   public static async givenTodos(todos: ITodoMap = {}): Promise<TodoAppDriver> {
-    const mockedGetAllTodos = (todosService.getAllTodos = jest.fn());
-    mockedGetAllTodos.mockResolvedValue(todos);
+    initTodosServiceMocks(todos);
 
     const todoAppDriver: TodoAppDriver = new TodoAppDriver();
     todoAppDriver.mountTodoApp();
@@ -95,6 +94,7 @@ export class TodoAppDriver {
 
     return todoAppDriver;
   }
+
 
   public mountTodoApp() {
     this.mountedTodoApp = mount(<TodoApp />);

@@ -130,12 +130,14 @@ describe('todo item actions should change todos state properly', () => {
     todoItemTestDriver = new TodoItemDriver(
       appTestDriver.getFirstTodoItemWrapper()
     );
+
     const editedContent = chance.word();
     todoItemTestDriver.insertContentToEditInput(editedContent);
     todoItemTestDriver.blurEditInput();
     await appTestDriver.waitForAppToUpdate();
     todo.content = editedContent;
 
+    expect(editTodoSpy).toBeCalledTimes(1);
     expect(editTodoSpy).toBeCalledWith(todo);
   });
 
