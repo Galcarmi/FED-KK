@@ -2,6 +2,7 @@ import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { TodoItemDriver } from './TodoItem.test.driver'
 import { Chance } from 'chance';
 import { enzymeContainerSetupAndTeardown } from '../../test/utils';
+import { TodoAppDriver } from '../todo-app/TodoApp.test.driver';
 
 const chance = new Chance();
 
@@ -100,13 +101,14 @@ describe('todo action interactions testing', () => {
         todoItemDriver.clickOnEditBtn();
         todoItemDriver.simulateEditInputEnterClick();
         await todoItemDriver.waitForAppToUpdate();
-        
+
         expect(todoItemDriver.isEditInputVisible()).toBe(false);
     })
 })
 
 
 const initDriverWithTodo = (): { todo: ITodoDTO, todoItemDriver: TodoItemDriver } => {
+    TodoAppDriver.givenTodos({});
     const todo: ITodoDTO = { content: chance.word(), _id: chance.guid(), userId: chance.guid(), isDone: chance.bool() };
     const todoItemDriver: TodoItemDriver = new TodoItemDriver(todo);
 

@@ -148,7 +148,7 @@ describe('todo item actions should change todos state properly', () => {
 
 const initDriverWithDefaultTodo = async (todo?: ITodoDTO): Promise<{ todo: ITodoDTO, appTestDriver: TodoAppDriver, todoItemTestDriver: TodoItemDriver }> => {
     const todos: ITodoMap = TodoAppDriver.generateTodosMapWithSingleTodo(todo);
-    const appTestDriver: TodoAppDriver = await TodoAppDriver.givenTodos(todos)
+    const appTestDriver: TodoAppDriver = await TodoAppDriver.givenTodos(todos);
     const todoItemTestDriver: TodoItemDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
 
     return { todo: appTestDriver.extractFirstTodoFromMap(todos), appTestDriver, todoItemTestDriver };
