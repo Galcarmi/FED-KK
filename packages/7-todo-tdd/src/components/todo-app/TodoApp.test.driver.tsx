@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import { ReactWrapper } from 'enzyme';
 import TodoApp, { s as appStyles } from './TodoApp';
 import { s as todoItemStyles } from '../todo-item/TodoItem';
@@ -7,16 +8,15 @@ import { act } from 'react-dom/test-utils';
 import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
 import { s as commonStyles } from '../../styles/commonClasses';
 import { todosService } from '../../services/TodoService';
-import {TodosService } from '../../__mocks__/TodoService'
+import { Chance } from 'chance'
+import { TodoItemDriver } from '../todo-item/TodoItem.test.driver';
 
+const chance = new Chance();
 const c = wrapperGenerator('.');
 
 export class TodoAppDriver {
-  public mountedTodoApp: ReactWrapper;
+  public mountedTodoApp!: ReactWrapper;
 
-  constructor() {
-    this.mountedTodoApp = mount(<TodoApp />);
-  }
 
   public todoInputInsertContent(content: string): void {
     this.mountedTodoApp
@@ -64,15 +64,47 @@ export class TodoAppDriver {
     return this.mountedTodoApp.find(c(todoItemStyles.todo__list__item)).first()
   }
 
-  public removeTodosFromFakeTodosService(): void {
-    (todosService as TodosService).removeTodos();
-  }
-
-  public getTodoInputContent():string{
+  public getTodoInputContent(): string {
     return (this.mountedTodoApp.find(c(appStyles.todo__inputContainer__input)).getDOMNode() as HTMLInputElement).value;
   }
 
-  public getFirstTodo():ITodoDTO{
-    return Object.values(this.getTodos())[0];
+  public getFirstTodo(): ITodoDTO {
+    return this.extractFirstTodoFromMap(this.getTodos());
+  }
+
+  public static async givenTodos(todos: ITodoMap = {}): Promise<TodoAppDriver> {
+    const mockedGetAllTodos = todosService.getAllTodos = jest.fn();
+    mockedGetAllTodos.mockResolvedValue(todos);
+
+    const mockedAddTodo = todosService.addTodo = jest.fn();
+    mockedAddTodo.mockResolvedValue({ _id: v4(), content: 'doesnt matter', isDone: false });
+
+    const mockedEditTodo = todosService.editTodo = jest.fn();
+    mockedEditTodo.mockResolvedValue({ _id: v4(), content: 'doesnt matter', isDone: false });
+
+    const mockedDeleteTodo = todosService.deleteTodo = jest.fn();
+    mockedDeleteTodo.mockResolvedValue({ _id: v4(), content: 'doesnt matter', isDone: false });
+
+    const todoAppDriver: TodoAppDriver = new TodoAppDriver();
+    todoAppDriver.mountTodoApp();
+    await todoAppDriver.waitForAppToUpdate()
+
+    return todoAppDriver;
+  }
+
+  public mountTodoApp() {
+    this.mountedTodoApp = mount(<TodoApp />);
+  }
+
+  public static generateTodosMapWithSingleTodo(todo?:ITodoDTO): ITodoMap {
+    const todos: ITodoMap = {};
+    todo = todo || { _id: chance.guid(), content: chance.word(), isDone: chance.bool(), userId: chance.guid() };
+    todos[todo._id] = todo;
+
+    return todos;
+  }
+
+  public extractFirstTodoFromMap(todos: ITodoMap): ITodoDTO {
+    return Object.values(todos)[0];
   }
 }

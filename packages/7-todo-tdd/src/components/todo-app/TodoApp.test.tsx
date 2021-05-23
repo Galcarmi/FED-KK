@@ -2,54 +2,49 @@ import { TodoAppDriver } from './TodoApp.test.driver';
 import { Chance } from 'chance';
 import { TodoItemDriver } from '../todo-item/TodoItem.test.driver';
 import { todosService } from '../../services/TodoService';
-import { ITodoDTO } from 'fed-todo-journey_todo-common';
+import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
 
 const chance = new Chance();
 
 describe('checks todo list - add functionality', () => {
-    let appTestDriver: TodoAppDriver;
-
-    beforeEach(() => {
-        appTestDriver = new TodoAppDriver();
-    });
-
-    afterEach(async () => {
-        appTestDriver.removeTodosFromFakeTodosService();
-    })
-
     it('should not add todo item with empty content', async () => {
-        expect(appTestDriver.getTodosCount()).toBe(0);
+        const appTestDriver: TodoAppDriver = await TodoAppDriver.givenTodos({});
+        const spy: jest.SpyInstance<Promise<ITodoDTO>> = jest.spyOn(todosService, 'addTodo');
 
         appTestDriver.todoInputInsertContent('');
         appTestDriver.clickOnAddBtn();
         await appTestDriver.waitForAppToUpdate();
 
-        expect(appTestDriver.getTodosCount()).toBe(0);
+        expect(spy).toHaveBeenCalledTimes(0);
     });
 
     it('should add todo item with content when pressing enter', async () => {
-        expect(appTestDriver.getTodosCount()).toBe(0);
+        const appTestDriver: TodoAppDriver = await TodoAppDriver.givenTodos({});
+        const spy: jest.SpyInstance<Promise<ITodoDTO>> = jest.spyOn(todosService, 'addTodo');
 
         const content = chance.word();
         appTestDriver.todoInputInsertContent(content);
         appTestDriver.pressEnterOnTodoInput();
         await appTestDriver.waitForAppToUpdate();
 
-        expect(appTestDriver.getFirstTodo().content).toBe(content);
+        expect(spy).toHaveBeenCalledWith(content);
     })
 
     it('should add todo item with content when clicking on add btn', async () => {
-        expect(appTestDriver.getTodosCount()).toBe(0);
+        const appTestDriver: TodoAppDriver = await TodoAppDriver.givenTodos({});
+        const spy: jest.SpyInstance<Promise<ITodoDTO>> = jest.spyOn(todosService, 'addTodo');
 
         const content = chance.word();
         appTestDriver.todoInputInsertContent(content);
         appTestDriver.clickOnAddBtn();
         await appTestDriver.waitForAppToUpdate()
 
-        expect(appTestDriver.getFirstTodo().content).toBe(content);
+        expect(spy).toHaveBeenCalledWith(content);
     })
 
     it('todo input should be empty after adding todo', async () => {
+        const appTestDriver: TodoAppDriver = await TodoAppDriver.givenTodos({});
+
         expect(appTestDriver.getTodoInputContent()).toBe('');
 
         const content = chance.word();
@@ -62,8 +57,9 @@ describe('checks todo list - add functionality', () => {
 })
 
 describe('app should render fetched todos properly', () => {
+
     it('should render a valid UUID', async () => {
-        const { appTestDriver } = await initDriverWithTodo()
+        const { appTestDriver } = await initDriverWithDefaultTodo();
 
         const UUIDPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -71,56 +67,45 @@ describe('app should render fetched todos properly', () => {
     })
 
     it('should render the correct content', async () => {
-        const { content, appTestDriver } = await initDriverWithTodo()
+        const { appTestDriver, todo } = await initDriverWithDefaultTodo();
 
-        expect(appTestDriver.getFirstTodo().content).toBe(content)
+        expect(appTestDriver.getFirstTodo().content).toBe(todo.content);
     })
 
     it('should render the correct state of isDone', async () => {
-        const { appTestDriver } = await initDriverWithTodo()
+        const { appTestDriver, todo } = await initDriverWithDefaultTodo();
 
-        expect(appTestDriver.getFirstTodo().isDone).toBe(false)
+        expect(appTestDriver.getFirstTodo().isDone).toBe(todo.isDone)
     })
 
-    const initDriverWithTodo = async (): Promise<{ appTestDriver: TodoAppDriver, content: string }> => {
-        const content: string = chance.word();
-        const appTestDriver: TodoAppDriver = new TodoAppDriver();
-        appTestDriver.todoInputInsertContent(content);
-        appTestDriver.clickOnAddBtn();
-        await appTestDriver.waitForAppToUpdate();
 
-        return { content, appTestDriver }
-    }
 })
 
 describe('todo item actions should change todos state properly', () => {
-
     it('todo item should be marked as done after clicking on done btn', async () => {
-        const { todoItemTestDriver, appTestDriver } = await initDriversWithTodo();
-
-        expect(appTestDriver.getFirstTodo().isDone).toBe(false);
+        const { appTestDriver, todoItemTestDriver, todo } = await initDriverWithDefaultTodo();
+        const editTodoSpy: jest.SpyInstance<Promise<ITodoDTO>> = jest.spyOn(todosService, 'editTodo');
 
         todoItemTestDriver.clickOnDoneBtn();
         await appTestDriver.waitForAppToUpdate();
 
-        expect(appTestDriver.getFirstTodo().isDone).toBe(true);
+        todo.isDone = !todo.isDone;
+        expect(editTodoSpy).toBeCalledWith(todo);
     })
 
     it('todo item should be deleted after clicking on delete btn', async () => {
-        const { todoItemTestDriver, appTestDriver } = await initDriversWithTodo();
-
-        expect(appTestDriver.getTodosCount()).toBe(1);
+        const { appTestDriver, todoItemTestDriver, todo } = await initDriverWithDefaultTodo();
+        const deleteTodoSpy: jest.SpyInstance<Promise<ITodoDTO>> = jest.spyOn(todosService, 'deleteTodo');
 
         todoItemTestDriver.clickOnDeleteBtn();
         await appTestDriver.waitForAppToUpdate();
 
-        expect(appTestDriver.getTodosCount()).toBe(0);
+        expect(deleteTodoSpy).toBeCalledWith(todo._id);
     })
 
     it('todo item should be edited on edit input blur', async () => {
-        let { todoItemTestDriver, appTestDriver, content } = await initDriversWithTodo();
-
-        expect(appTestDriver.getFirstTodo().content).toBe(content);
+        let { appTestDriver, todoItemTestDriver, todo } = await initDriverWithDefaultTodo();
+        const editTodoSpy: jest.SpyInstance<Promise<ITodoDTO>> = jest.spyOn(todosService, 'editTodo');
 
         todoItemTestDriver.clickOnEditBtn();
         todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
@@ -128,14 +113,14 @@ describe('todo item actions should change todos state properly', () => {
         todoItemTestDriver.insertContentToEditInput(editedContent);
         todoItemTestDriver.blurEditInput();
         await appTestDriver.waitForAppToUpdate();
+        todo.content = editedContent;
 
-        expect(appTestDriver.getFirstTodo().content).toBe(editedContent);
+        expect(editTodoSpy).toBeCalledWith(todo);
     })
 
     it('todo item should not be edited on edit input blur when edit input is empty', async () => {
-        let { todoItemTestDriver, appTestDriver, content } = await initDriversWithTodo();
-
-        expect(appTestDriver.getFirstTodo().content).toBe(content);
+        let { appTestDriver, todoItemTestDriver } = await initDriverWithDefaultTodo();
+        const editTodoSpy: jest.SpyInstance<Promise<ITodoDTO>> = jest.spyOn(todosService, 'editTodo');
 
         todoItemTestDriver.clickOnEditBtn();
         todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
@@ -143,33 +128,28 @@ describe('todo item actions should change todos state properly', () => {
         todoItemTestDriver.blurEditInput();
         await appTestDriver.waitForAppToUpdate();
 
-        expect(appTestDriver.getFirstTodo().content).toBe(content);
+        expect(editTodoSpy).toHaveBeenCalledTimes(0);
     })
 
     it('todos service edit method should not be called when edit input content is the same as todo content', async () => {
-        let { todoItemTestDriver, appTestDriver, content } = await initDriversWithTodo();
-        const spy: jest.SpyInstance<Promise<ITodoDTO>> = jest.spyOn(todosService, 'editTodo');
-
-        expect(spy).toHaveBeenCalledTimes(0);
+        let { appTestDriver, todoItemTestDriver, todo } = await initDriverWithDefaultTodo();
+        const editTodoSpy: jest.SpyInstance<Promise<ITodoDTO>> = jest.spyOn(todosService, 'editTodo');
 
         todoItemTestDriver.clickOnEditBtn();
         todoItemTestDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
-        todoItemTestDriver.insertContentToEditInput(content);
+        todoItemTestDriver.insertContentToEditInput(todo.content);
         todoItemTestDriver.blurEditInput();
         await appTestDriver.waitForAppToUpdate();
 
-        expect(spy).toHaveBeenCalledTimes(0);
+        expect(editTodoSpy).toHaveBeenCalledTimes(0);
     })
 
-    const initDriversWithTodo = async (): Promise<{ appTestDriver: TodoAppDriver, content: string, todoItemTestDriver: TodoItemDriver }> => {
-        const content: string = chance.word();
-        const appTestDriver: TodoAppDriver = new TodoAppDriver();
-        appTestDriver.todoInputInsertContent(content);
-        appTestDriver.clickOnAddBtn();
-        await appTestDriver.waitForAppToUpdate();
-        const todoItemTestDriver: TodoItemDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
-
-        return { content, appTestDriver, todoItemTestDriver }
-    }
-
 })
+
+const initDriverWithDefaultTodo = async (todo?: ITodoDTO): Promise<{ todo: ITodoDTO, appTestDriver: TodoAppDriver, todoItemTestDriver: TodoItemDriver }> => {
+    const todos: ITodoMap = TodoAppDriver.generateTodosMapWithSingleTodo(todo);
+    const appTestDriver: TodoAppDriver = await TodoAppDriver.givenTodos(todos)
+    const todoItemTestDriver: TodoItemDriver = new TodoItemDriver(appTestDriver.getFirstTodoItemWrapper());
+
+    return { todo: appTestDriver.extractFirstTodoFromMap(todos), appTestDriver, todoItemTestDriver };
+}
