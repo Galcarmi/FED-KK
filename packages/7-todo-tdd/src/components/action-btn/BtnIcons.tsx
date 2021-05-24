@@ -1,4 +1,4 @@
-import { dataHooks } from '../dataHooks';
+import { dataHooks } from '../utils/dataHooks';
 
 export const btnClasses = {
   todo__list__item__actions__done: 'todo__list__item__actions__done',

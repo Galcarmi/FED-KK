@@ -12,7 +12,7 @@ import { ITodoContext, TodoContext } from '../../context/TodoContext';
 import withTodosContext from '../HOC/withTodos';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { commonStyles, colors } from '../../styles/commonStyles';
-import { dataHooks } from '../dataHooks';
+import { dataHooks } from '../utils/dataHooks';
 
 const TodoApp: FC<{}> = (): ReactElement => {
   const [todoInputValue, setTodoInputValue] = useState<string>('');
@@ -20,6 +20,8 @@ const TodoApp: FC<{}> = (): ReactElement => {
     useContext<ITodoContext>(TodoContext);
 
   const onAddClick = async (): Promise<void> => {
+    console.log('click');
+    console.log(todoInputValue,'value');
     addTodo();
   };
 

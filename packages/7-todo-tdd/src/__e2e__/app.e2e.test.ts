@@ -1,36 +1,37 @@
 import puppeteer from 'puppeteer';
+import { dataHooks } from '../components/utils/dataHooks';
+import { AppDriver } from './app.e2e.driver';
 
 jest.setTimeout(30000);
+// dataHooks.
 
 describe('first test', () => {
-  let browser: puppeteer.Browser;
+  let appDriver:AppDriver;
+
+  beforeEach(()=>{
+    appDriver = new AppDriver();
+  })
 
   it('should render the todos page', async () => {
-    browser = await puppeteer.launch({ headless: true });
-    const page: puppeteer.Page = await browser.newPage();
+   await appDriver.launchBrowser();
+   await appDriver.navigateToTodoPage();
+   
+   await appDriver.sleep(1000);
+   await appDriver.insertContentTodoInput('lalal');
+   await appDriver.clickOnAddTodo();
 
-    await page.goto('http://localhost:3000/');
+   await appDriver.sleep(1000);
+   await appDriver.insertContentTodoInput('asdas');
+   await appDriver.clickOnAddTodo();
+   await appDriver.sleep(1000);
 
-    await page.$eval(
-      "[class^='todo__inputContainer__input']",
-      (el) => ((el as HTMLInputElement).value = 'asdasd')
-    );
-    console.log('asdasd')
+    const todoItems = await appDriver.page.$$('[data-hook="TODO_ITEM"]');
 
-    page.click("[class^='todo__inputContainer__addBtn']");
-
-    // await page.evaluate(() =>{
-    //   const nodes = document.querySelector("[class^='todo__list__item']")
-    //   console.log(nodes);
-    // });
-
-    const as = await page.waitForSelector('.todo__list__item');
-
-    console.log('itemss', as)
+    console.log('itemss', todoItems.length);
     expect(1).toBe(1);
   });
 
   afterEach(async () => {
-    await browser.close();
+    await appDriver.closeBrowser();
   });
 });

@@ -14,7 +14,7 @@ import { ITodoContext, TodoContext } from '../../context/TodoContext';
 import { colors, commonStyles } from '../../styles/commonStyles';
 import { ActionBtn } from '../action-btn/ActionBtn';
 import { btnIcons } from '../action-btn/BtnIcons';
-import { dataHooks } from '../dataHooks';
+import { dataHooks } from '../utils/dataHooks';
 
 interface TodoItemProps {
   todo: ITodoDTO;

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "start": "webpack serve",
+    "build": "production=true webpack --mode production",
     "test": "jest"
   },
   "dependencies": {
