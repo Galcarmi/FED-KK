@@ -95,12 +95,14 @@ export const TodoItem: FC<TodoItemProps> = (
           value={editInputValue}
           onChange={(e) => setEditInputValue(e.target.value)}
           onKeyPress={onEditInputEnter}
+          data-hook={dataHooks.TODO_ITEM_EDIT_INPUT}
         />
       )}
       <div
         className={`${s.todo__list__item__content} ${
           props.todo.isDone && commonClasses.crossedContent
         }`}
+        data-hook={dataHooks.TODO_ITEM_CONTENT}
       >
         {props.todo.content}
       </div>

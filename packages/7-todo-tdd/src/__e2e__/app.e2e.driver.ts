@@ -19,7 +19,7 @@ export class AppDriver {
 
   public async insertContentTodoInput(content: string) {
     await this.page.focus('[data-hook="TODO_INPUT"]');
-    await this.page.keyboard.type('China');
+    await this.page.keyboard.type(content);
   }
 
   public async clickOnAddTodo(){
