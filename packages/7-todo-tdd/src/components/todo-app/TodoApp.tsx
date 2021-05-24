@@ -12,6 +12,7 @@ import { ITodoContext, TodoContext } from '../../context/TodoContext';
 import withTodosContext from '../HOC/withTodos';
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
 import { commonStyles, colors } from '../../styles/commonStyles';
+import { dataHooks } from '../dataHooks';
 
 const TodoApp: FC<{}> = (): ReactElement => {
   const [todoInputValue, setTodoInputValue] = useState<string>('');
@@ -58,10 +59,12 @@ const TodoApp: FC<{}> = (): ReactElement => {
             }}
             value={todoInputValue}
             onKeyPress={onTodoInputEnter}
+            data-hook={dataHooks.TODO_INPUT}
           />
           <button
             className={s.todo__inputContainer__addBtn}
             onClick={onAddClick}
+            data-hook={dataHooks.ADD_BTN}
           >
             Add
           </button>

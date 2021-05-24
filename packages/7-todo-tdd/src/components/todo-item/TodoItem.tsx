@@ -14,6 +14,7 @@ import { ITodoContext, TodoContext } from '../../context/TodoContext';
 import { colors, commonStyles } from '../../styles/commonStyles';
 import { ActionBtn } from '../action-btn/ActionBtn';
 import { btnIcons } from '../action-btn/BtnIcons';
+import { dataHooks } from '../dataHooks';
 
 interface TodoItemProps {
   todo: ITodoDTO;
@@ -83,6 +84,7 @@ export const TodoItem: FC<TodoItemProps> = (
       id={props.todo._id}
       className={s.todo__list__item}
       key={props.todo._id}
+      data-hook={dataHooks.TODO_ITEM}
     >
       {editInputVisibility && (
         <input
