@@ -34,8 +34,6 @@ describe('add todos test', () => {
   });
 });
 
-
-
 describe('todo item action tests', () => {
   let appDriver: AppDriver;
 
