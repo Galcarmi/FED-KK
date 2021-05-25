@@ -60,7 +60,7 @@ describe('checks todo list - add functionality', () => {
 });
 
 describe('app should render fetched todos properly', () => {
-  it('should render the correct _id', async () => {
+  it('should render a valid UUID', async () => {
     const todos: ITodoMap = {};
     const todo = aTodo();
     todos[todo._id] = todo;
