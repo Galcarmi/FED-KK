@@ -1,15 +1,23 @@
-import { Browser, ElementHandle, HTTPResponse, launch, Page } from 'puppeteer';
+import {
+  Browser,
+  ElementHandle,
+  HTTPResponse,
+  launch,
+  Page,
+  Protocol,
+} from 'puppeteer';
 import { HTTPMethods } from '../test/constants';
 
 export class AppDriver {
-  public page!: Page;
+  private page!: Page;
   private browser!: Browser;
 
   public given = {
     createTodo: async (todoContent: string): Promise<void> => {
       await this.insertContentTodoInput(todoContent);
       await this.clickOnAddTodo();
-    },
+      await this.waitForRequestToResolve(HTTPMethods.POST, 'todo');
+    }
   };
 
   public when = {
@@ -46,6 +54,13 @@ export class AppDriver {
       });
       await this.waitForRequestToResolve(HTTPMethods.PUT, 'todo');
     },
+    reloadingTheBrowser: async (): Promise<void> => {
+      const cookies : Protocol.Network.Cookie[] = await this.getPageCookies();
+      await this.closeBrowser();
+      await this.launchBrowser();
+      await this.setPageCookies(cookies);
+      await this.navigateToTodoPage();
+    }
   };
 
   public then = {
@@ -124,13 +139,29 @@ export class AppDriver {
     return this.page.keyboard.type(content);
   }
 
-  private waitForRequestToResolve(HTTPMethod: string, URLPath:string):Promise<void> {
+  private waitForRequestToResolve(
+    HTTPMethod: string,
+    URLPath: string
+  ): Promise<void> {
     return new Promise((res) => {
       this.page.on('response', (response: HTTPResponse) => {
-        if (response.request().method() === HTTPMethod && response.url().includes(URLPath)) {
+        if (
+          response.request().method() === HTTPMethod &&
+          response.url().includes(URLPath)
+        ) {
           res();
         }
       });
-    })
+    });
+  }
+
+  private getPageCookies(): Promise<Protocol.Network.Cookie[]> {
+    return this.page.cookies();
+  }
+
+  private async setPageCookies(
+    cookies: Protocol.Network.Cookie[]
+  ): Promise<void> {
+    await this.page.setCookie(...cookies);
   }
 }

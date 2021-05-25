@@ -1,7 +1,33 @@
 import { Chance } from 'chance';
 import { AppDriver } from './app.e2e.driver';
+import axios from 'axios';
 
 const chance = new Chance();
+
+describe('fetch todos test', () => {
+  let appDriver: AppDriver;
+
+  beforeEach(async () => {
+    appDriver = new AppDriver();
+    await appDriver.launchBrowser();
+    await appDriver.navigateToTodoPage();
+  });
+
+  it('should fetch todos', async () => {
+    const testContent = chance.word();
+    await appDriver.given.createTodo(testContent);
+
+    await appDriver.when.reloadingTheBrowser();
+
+    const todoContent = await appDriver.then.getFirstTodoContent();
+
+    expect(testContent).toBe(todoContent);
+  })
+
+  afterEach(async () => {
+    await appDriver.closeBrowser();
+  });
+})
 
 describe('add todos test', () => {
   let appDriver: AppDriver;
