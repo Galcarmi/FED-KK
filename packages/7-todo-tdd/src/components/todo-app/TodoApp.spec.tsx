@@ -1,6 +1,6 @@
-import { TodoAppDriver } from './TodoApp.test.driver';
+import { TodoAppDriver } from './TodoApp.driver';
 import { Chance } from 'chance';
-import { TodoItemDriver } from '../todo-item/TodoItem.test.driver';
+import { TodoItemDriver } from '../todo-item/TodoItem.driver';
 import { todosService } from '../../services/TodoService';
 import { ITodoDTO, ITodoMap } from 'fed-todo-journey_todo-common';
 import { aTodo, initTodosServiceMocks } from '../../test/utils';

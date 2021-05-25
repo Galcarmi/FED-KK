@@ -6,9 +6,8 @@
     "build": "production=true webpack --mode production",
     "test": "npm run test:unit && npm run test:e2e",
     "test-server-start": "cd test-server/ && ts-node index.ts",
-    "test:unit": "jest",
-    "test:e2e": "E2E=true npm run build && concurrently \"npm run test-server-start\" \"npm run test:e2e:runtests\"",
-    "test:e2e:runtests":"jest e2e"
+    "test:unit": "jest spec",
+    "test:e2e": "E2E=true npm run build && concurrently \"npm run test-server-start\" \"jest e2e\""
   },
   "dependencies": {
     "@babel/preset-react": "^7.13.13",

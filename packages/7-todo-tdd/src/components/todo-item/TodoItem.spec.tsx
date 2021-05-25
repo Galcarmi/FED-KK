@@ -1,5 +1,5 @@
 import { ITodoDTO } from 'fed-todo-journey_todo-common';
-import { TodoItemDriver } from './TodoItem.test.driver';
+import { TodoItemDriver } from './TodoItem.driver';
 import { Chance } from 'chance';
 import { enzymeContainerSetupAndTeardown, initTodosServiceMocks } from '../../test/utils';
 

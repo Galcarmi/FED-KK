@@ -85,10 +85,6 @@ export class TodoAppDriver {
   }
 
   public getFirstTodo(): ITodoDTO {
-    return this.extractFirstTodoFromMap(this.getTodos());
-  }
-
-  public extractFirstTodoFromMap(todos: ITodoMap): ITodoDTO {
-    return Object.values(todos)[0];
+    return Object.values(this.getTodos())[0];
   }
 }
